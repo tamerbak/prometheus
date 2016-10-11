@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+	<ui:define name="contenu">
+		<p:poll interval="600" id="mypoll" widgetVar="mypoll" immediate="true"
+			listener="#{frontController.pollWorkflows}" update="growl" />
+		<p:growl id="growl" showDetail="true"  sticky="true" />
+
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">
+				<h:outputText value="#{sqlViewControl.windowTitle}"></h:outputText>
+			</h1>
+			</hgroup>
+		</div>
+
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false" >
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">#{msg['application.loading']}...</label>
+
+		</p:dialog>
+		<div class="with-padding">
+			<center>
+
+				
+				<p:panelGrid columns="4" style="width:100%">
+					<f:facet name="header">#{msg['listview.researchfilters']}</f:facet>
+					<c:forEach items="#{sqlViewControl.titles}" var="cl" varStatus="stat" >
+						<h:outputText value="#{cl}" />
+						<p:inputText value="#{sqlViewControl.filters[stat.index]}" />
+					</c:forEach>
+					<f:facet name="footer">
+						<p:commandButton value="#{msg['application.submit']}" actionListener="#{sqlViewControl.search}" ajax="false" />
+					</f:facet>
+				</p:panelGrid>
+				<p:spacer width="20" height="20" />
+				<!-- DATA TABLE -->
+				<h:panelGrid columnClasses="#{sqlViewControl.styleAffichage}" columns="2" styleClass="list-view-table" >
+					<p:dataTable id="listViewTable" var="tableLine" widgetVar="listViewTable"
+						value="#{sqlViewControl.filteredValues}"
+						emptyMessage="Aucune donnée disponible"
+						scrollable="true" 
+						rows="10" paginator="true"
+						 >
+						<c:forEach items="#{sqlViewControl.titles}" var="cl" varStatus="stat" >
+							<p:column headerText="#{cl}" filterBy="#{tableLine[stat.index]}" filterMatchMode="contains">
+								<h:outputText title="#{tableLine[stat.index]}"
+									value="#{fn:substring(tableLine[stat.index],0,70)}">
+		    					</h:outputText>
+								<h:outputText
+									rendered="#{fn:length(tableLine[stat.index]) gt 69}"
+									value="..." />
+							</p:column>
+						</c:forEach>
+						<f:facet name="header">
+				            <h:commandLink>
+				                <p:graphicImage value="/images/excel.png" width="24"/>
+				                <p:dataExporter type="xls" target="listViewTable" fileName="export" />
+				            </h:commandLink>
+				 
+				            
+				        </f:facet>
+						
+					</p:dataTable>
+					<h:panelGrid columns="3" style="width:100%" rendered="#{sqlViewControl.showDirections}">
+						
+					</h:panelGrid>
+				</h:panelGrid>
+				
+				
+			</center>
+			<br />
+		</div>
+	</ui:define>
+
+	<ui:define name="aide">
+		
+
+	</ui:define>
+</ui:composition>
+</html>

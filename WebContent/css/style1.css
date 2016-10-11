@@ -1,0 +1,2824 @@
+ /* @Abdoulaye BA.
+    Fichier : Style1.css
+    Fichier CSS contenant le premier type de design de l'applicatiion  Gestion salariÃ¯Â¿Â½.
+ */
+ 
+ 
+ /* --------------------------------------  GÃ¯Â¿Â½nÃ¯Â¿Â½ral   ----------------------------*/
+html {
+    overflow:  -moz-scrollbars-vertical;
+    width: 100%;
+}
+*{
+ 	font-family: Arial, tahoma, Helvetica, sans-serif;
+	font-size: 1em;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	min-width:1024px;
+	margin:auto;
+}
+ /* -------------------------------------- Fin  GÃ¯Â¿Â½nÃ¯Â¿Â½ral   ----------------------------*/
+
+ /* --------------------------------------  Content   ----------------------------*/
+ 
+#content{
+	position:absolute;
+	width: 680px;
+	height: 650px;
+	/*border-bottom: solid 5px #eae9e9;
+	padding-bottom: 20px;
+	left: 50%; 
+	top: 5%;
+	margin-left: -490px;
+	margin-top: -32px;
+	background-color: #F6F6F6;*/
+	
+}
+#contentAbsence{
+	
+	width: 1024px;
+	
+	margin-left: auto ;
+  margin-right: auto ;
+
+}
+
+#contentLarge{
+	position:absolute;
+	width: 80%;
+	border-bottom: solid 5px #eae9e9;
+	padding-bottom: 80px; 
+	/*top: 5%;*/
+	/*margin-top: -45px;*/
+	background-color: #F6F6F6;
+}
+
+
+
+h3 {
+	padding-left: 3px;
+	font-variant: normal;
+	border: none;
+	margin-bottom: 0px;
+	padding-bottom: 3px;
+	margin-top : 4px;
+	color: white;
+	background-color: #8A1F55;
+	
+}
+/* @Abdoulaye BA, 
+    Pour modifier certain partie de la balise h1 avec un span.
+   */
+h1 .crud{
+    color:green;
+}/*Fin*/
+h1 .crud_sup{
+    color:red;
+}
+h1 .label{
+   background-color: #4C4433;
+}/*Fin*/
+
+h4{
+	padding-left: 10px;
+	font-variant: small-caps;
+	margin-bottom: 2px;
+	padding-bottom: 2px;
+	margin-top : 4px;
+	color: red;
+}
+
+/*
+@Author Jakjoud Abdeslam
+Messages d'erreur ou de succes pour les processus et les calculs
+*/
+.goodMsg{
+	padding-left: 10px;
+	font-variant: small-caps;
+	margin-bottom: 2px;
+	padding-bottom: 2px;
+	margin-top : 2px;
+	color: green;
+	vertical-align: middle;
+	font-size: medium;
+}
+
+.badMsg{
+	padding-left: 10px;
+	font-variant: small-caps;
+	margin-bottom: 2px;
+	padding-bottom: 2px;
+	margin-top : 2px;
+	vertical-align: middle;
+	color: red;
+	font-size: medium;
+}
+
+/*@AUthor Abdeslam Jakjoud, Tables de formulaire */
+.formTable{
+	background-color: transparent;
+	border: 0px;
+}
+
+.formTDLabel{
+	text-align: right;
+	vertical-align:middle;
+	color: #2E6E9E;
+}
+
+.formTDValue{
+	vertical-align:middle;
+	text-align: left;
+}
+
+.formTDSep{
+	vertical-align:middle;
+	text-align: right;
+	width: 15px;
+}
+
+.formLSep{
+	vertical-align:middle;
+	height: 20px;
+	background-color: transparent;
+	
+}
+/*@Author Abdeslam Jakjoud, Table des MTM  */
+.mtmTable{
+	width: 100%;
+	border: 1px;
+	border-color: black;
+}
+
+.mtmTDLabel{
+	text-align: left;
+	text-decoration:underline;
+	color: #2E6E9E;
+}
+.mtmTDHeader{
+	text-align: center;
+	border-color: black;
+	color: black;
+	font-weight: bold;
+}
+.mtmTDValue{
+	text-align: left;
+}
+
+/*@Author Badr DRAIFI, exploitation pour la date debut et fin pour les justificatifs*/
+.dateJustificatifs{
+	
+	color:red;
+    font-variant: small-caps;
+    font-size: 11px;
+    letter-spacing:3px;
+    background:none;
+    text-align: left;
+    
+	}
+	
+/*Class utilisÃ¯Â¿Â½ dans la dataTable Grille pour la rendre blanc*/	
+.footerWhiteDataTable{
+	
+	background-color: white;
+	color: white;
+	
+	}	
+
+.lib_text{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #8B2156;
+    font-weight: normal;
+}
+
+
+.lib_text_synthese{
+	display : block;
+	font-size: 16px;
+	width: 100%;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	
+	padding:5px;
+	color: #D2BB9A;
+    font-weight: bold;
+    
+}
+
+.lib_text_fonce{
+	display : block;
+	font-size: 18px;
+	width: 100%;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #2E6E9E;
+    font-weight: normal;
+}
+
+.lib_textSiren{
+	display : block;
+	font-size: 14px;
+	width: 60px;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #8B2156;
+    font-weight: normal;
+}
+
+.lib_textSiret{
+	display : block;
+	font-size: 14px;
+	width: 50px;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #8B2156;
+    font-weight: normal;
+}
+
+.ash2{
+text-align:center;
+    color:white;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+    background:none;
+	
+}
+
+.lib_textAbsence{
+	
+	display : block;
+	font-size: 14px;
+	height: 25x;
+	text-align: left;
+	color: #004B74;
+    font-weight: normal;
+	}
+
+.lib_textRbrut{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25px;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 0px;
+	padding-right: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.lib_textMPanelsUser{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25x;
+	text-align: center;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.lib_textFM{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	padding-bottom: 10px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.lib_textFMPhone{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25x;
+	text-align: left;
+	vertical-align: middle;
+	padding-bottom: 10px;
+	color: #004B74;
+    font-weight: normal;
+    margin-top: 05px;
+}
+
+.lib_textBank{
+	display : block;
+	font-size: 14px;
+	width: 150px;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	padding-bottom: 10px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.lib_textRole{
+	display : block;
+	font-size: 14px;
+	width: 130px;
+	height: 25x;
+	text-align: left;
+	vertical-align: middle;
+	padding-bottom:10px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.lib_textProfil{
+	display : block;
+	font-size: 14px;
+	width: 80px;
+	height: 25x;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.lib_textFunct{
+	display : block;
+	font-size: 14px;
+	width: auto;
+	height: 25x;
+	text-align: right;
+	/*vertical-align: middle;*/
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+/*@Author : Badr DRAIFI : class pour input utilisÃ¯Â¿Â½ dans Remuneration creation */
+.lib_text_minmax{
+	display : block;
+	font-size: 14px;
+	width: 50%;
+	height: 25px;
+	text-align: right;
+	vertical-align: baseline;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+ /*
+   @Author : Abdoualaye BA,
+   avec l'introduction certain classe ont Ã¯Â¿Â½tÃ¯Â¿Â½ changÃ¯Â¿Â½.
+   ceci a Ã¯Â¿Â½tÃ¯Â¿Â½ appliquÃ¯Â¿Â½ dans numÃ¯Â¿Â½ros, crÃ¯Â¿Â½ation de contrat, clause spÃ¯Â¿Â½cifique.
+ */
+.lib_text_cl_spe{
+	font-size: 14px;
+	margin-left:10px;
+	height: 25px;
+	vertical-align: middle;
+	color: #004B74;
+    font-weight: normal;
+}
+.lib_text_tab
+{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25x;
+	text-align: center;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+/* Fin*/
+
+.lib_text_long{
+	display : block;
+	font-size: 14px;
+	height: 25px;
+	width : 100%;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #fff;
+    font-weight: normal;
+    padding-top:  5px;
+}
+
+.lib_text_longFonction{
+	display : block;
+	font-size: 14px;
+	height: 25px;
+	/*width : 100%;*/
+	text-align:center;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.lib_text_longS{
+	display : block;
+	font-size: 16px;
+	height: 15px;
+	width : 100%;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #2E6E9E;
+    font-weight: normal;
+}
+
+.lib_text_longS_synthese{
+	display : block;
+	font-size: 16px;
+	height: 15px;
+	width : 100%;
+	text-align: left;
+	vertical-align: middle;
+	padding: 5px;
+	color: #2E6E9E;
+    font-weight: normal;
+}
+
+.lib_text_longS_clear{
+	/*display : block;*/
+	font-size: 14px;
+	height: 15px;
+	width : 100%;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: black;
+    font-weight: normal;
+}
+
+.lib_text_long_Panels{
+	display : block;
+	font-size: 11px;
+	height: 10px;
+	width : 100%;
+	text-align: right;
+	vertical-align: baseline;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.lib_text_long_Rubriques{
+	display : block;
+	font-size: 14px;
+	height: 25px;
+	width : 100%;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.input_text {
+
+	font-size: 0.8em;
+	height: 100%;
+	width: 250px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+  /*Classe utlisÃ¯Â¿Â½e dans les parties de recherche dans le cas ou un resultat est trouvÃ¯Â¿Â½*/
+.input_text_result{
+	background: url(../images/input_text_result.gif) no-repeat;
+	
+	font-size: 0.8em;
+	height: 100%;
+	width: 150px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left : 2px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	color: #2E6E9E;
+	font-weight: bold;
+}
+
+.input_textSiret{
+	
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 25px;
+	width: 190px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	width: 50px;
+}
+
+.input_textSiren{
+	
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 25px;
+	width: 190px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	width: 60px;
+	
+}
+
+
+
+.input_text_resultDirigeant{
+	background: url(../images/input_text_result.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 25px;
+	width: 190px;
+	padding-top: 5px;
+	/*margin-left: 5px;	*/
+	margin-bottom: 10px;
+	color: #2E6E9E;
+	font-weight: bold;
+}
+
+
+.input_text_nbr{
+  	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 100px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+.text_brute{
+	height: 40px;
+
+}
+
+.text_brute td{
+	
+	vertical-align: middle;
+}
+
+
+.input_text_moyen
+{
+	/*background: url(../images/input_text.gif) no-repeat;
+	
+	font-size: 0.8em;
+	height: 25px;
+	width: 190px;
+	margin-left: 5px;
+	*/	
+	background-color: #CFD1D9;
+	width: 190px;
+	color : black;
+	font-size: 14px;
+	height: 20px;
+	width: 190px;
+	border:none;
+	padding-top: 2px;
+		
+}
+
+.input_text_login
+{
+	background-color: white;
+	width: 190px;
+	color : black;
+	font-size: 14px;
+	height: 18px;
+	width: 190px;
+	border: 1px solid #ccc;
+	margin-bottom: 4px;
+}
+
+.input_text_moyenForEmail
+{
+	font-size: 0.8em;
+	height: 20px;
+	width: 220px;
+	padding-top: 5px;
+	margin-left: 5px;
+	margin-top: -2px;
+	margin-bottom: -1px;
+	border: 1px solid #ccc;	
+}
+
+.input_text_moyenForEmailForPass
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 25px;
+	width: 220px;
+	padding-top: 5px;
+	/*margin-left: 5px;	*/
+	margin-right : 20px;
+	margin-bottom: 10px;
+}
+
+.input_text_moyenUnderEmail
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 25px;
+	width: 220px;
+	padding-top: 5px;
+	/*margin-left: 5px;	*/
+	margin-right : 20px;
+	margin-bottom: 10px;
+	margin-top: 09px;
+}
+
+.input_text_moyenEmail
+{
+	font-size: 0.8em;
+	height: 20px;
+	width: 102px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 1px;
+	margin-top: -2px;
+	margin-bottom: -1px;
+	border: 1px solid #ccc;
+}
+
+.input_text_moyenEmail2
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 25px;
+	width: 95px;
+	padding-top: 5px;
+	/*margin-left: 5px;	*/
+	margin-bottom: 01px;
+}
+
+.input_text_moyenEntiteApVille
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 25px;
+	width: 140px;
+}
+
+.input_text_moyenEntiteAp
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 25px;
+	width: 100px;
+}
+
+.input_text_moyen_result
+{
+	border:none;
+	background: url(../images/input_text_result.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 100%;
+	width: 190px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left : 2px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	color: #2E6E9E;
+	font-weight: bold;
+}
+
+
+.input_text_Funct {
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 100%;
+	width: 150px;
+	padding-top: 5px;
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+.txtArea{
+	
+	
+	border-color : gray;
+	border-spacing : 10px;
+	font-size: 0.8em;
+	height: 90px;
+	width: 235px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	}
+
+.input_text_moyen_Panels
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 16px;
+	width: 110px;
+	padding-top: 2px;
+	margin-left: 2px;	
+	margin-bottom: 5px;
+}
+  /*Mise en forme intÃ¯Â¿Â½grÃ¯Â¿Â½e dans la partie Autres RÃ¯Â¿Â½munÃ¯Â¿Â½rations*/
+.input_text_AutrRem_result
+{
+	background: url(../images/input_text_result.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 100%;
+	width: 210px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left : 2px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	color: #2E6E9E;
+	font-weight: bold;
+}
+.input_text_AutrRem
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 210px;
+	padding-top: 5px;
+	margin-left: 8px;	
+	margin-right: 0px;	
+	margin-bottom: 10px;
+}
+
+.input_select_AutrRem{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 8px;
+  width: 215px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+.input_text_120{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	height: 100%;
+	width: 120px;
+	margin: 0px;
+}
+.input_text_130{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	height: 100%;
+	width: 130px;
+	margin: 0px;
+}
+.input_select_165{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 165px;
+  margin: 0px;
+}
+.input_select_130{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 130px;
+  margin: 0px;
+}
+  /*Fin*/
+
+/*@Author : Badr DRAIFI : class pour input utilisÃ¯Â¿Â½ dans Remuneration creation */
+.input_text_moyen_minmax
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 190px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+
+.input_text_jma{
+	
+	background-color: #CFD1D9;
+	width: 61px;
+	color : black;
+	font-size: 14px;
+	height: 20px;
+	border:none;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+  	
+  	/*background-color: #CFD1D9;
+    width: 61px;
+    color: black;
+    font-size: 14px;
+    height: 20px;
+   
+    border: none;
+    padding-top: 2px;*/
+}
+
+.input_txt_hidden{
+    background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 150px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+
+.input_txt_GA{
+    background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+  /*
+    @Author : Abdoulaye BA.
+    Deign d'input adaptÃ¯Â¿Â½ au date de format :jj/MM/aaaa
+  */
+.input_text_date{
+	
+	background-color: #CFD1D9;
+	width: 75px;
+	color : black;
+	font-size: 14px;
+	height: 20px;
+	border:none;
+	padding-top: 2px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	
+	/*
+  	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 75px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;*/
+} /*Fin*/
+
+/*IL EST IMPERATIVEMENT DE GARDER LE MEME NOM DE CETTE CLASS, IL EST UTILISER DANS LE CODE*/
+.error_txt{
+    color: #2E6E9E;
+    font: bold;
+    font-size: 12px;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    padding-left: 40px;
+    background: url(../images/icone_erreur.fw.png) no-repeat;
+    height: 34px;
+    padding-top: 2px;
+}
+
+.error_txt_old{
+    color: red;
+    font: bold;
+    font-size: 12px;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    padding-left: 40px;
+    height: 34px;
+    padding-top: 2px;
+}
+.error_txt_clear{
+    color: black;
+    font: bold;
+    font-size: 11px;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    padding-left: 40px;
+    background: url(../images/icone_erreur.fw.png) no-repeat;
+    height: 34px;
+    padding-top: 2px;
+    font-style:italic;
+}
+
+
+.error_txtUser{
+    color: red;
+    font: bold;
+    font-size: 10px;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+   
+}
+
+.error_txtProfil{
+    color: red;
+    font: bold;
+    font-size: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    float: none;
+}
+
+.input_select{
+  background-color: #CFD1D9;
+	width: 190px;
+	color : black;
+	font-size: 14px;
+	height: 20px;
+	width: 190px;
+	border:none;
+	padding-top: 2px;
+	padding-left :5px;
+		
+	
+	background: url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-dropdown.fw.png) no-repeat right #ddd;
+  
+}
+/*
+  @Author : Abdoulaye BA.
+  changement de design cotÃ¯Â¿Â½ gestion absence, AprÃ¯Â¿Â½s introduction des templates.
+*/
+.input_select_GA{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-bottom: 9px;
+} /* Fin */
+
+.input_select_moyen{
+ /* color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 190px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  */
+  background-color: #CFD1D9;
+	width: 190px;
+	color : black;
+	font-size: 14px;
+	height: 24px;
+	width: 190px;
+	border:none;
+	padding-top: 2px;
+		
+	
+	background: url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-dropdown.fw.png) no-repeat right #ddd;
+  
+}
+
+.input_select_moyenPhone{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  /*margin-left: 5px;*/
+  margin-right:10px;
+  width: 230px;
+  margin-bottom: 10px;
+  margin-top: 06px;
+}
+
+.input_select_moyenForEmail{
+  color:black; 
+  background-color:white; 
+  width: 223px;
+  border: 1px solid #ccc;
+  height: 25px;
+  margin-left: 5px;
+  margin-bottom: 1px;
+  margin-top: -2px;
+  margin-bottom: -1px;
+}
+
+.input_select_moyenEntiteApVille{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  /*margin-left: 5px;*/
+  width: 190px;
+  /*margin-bottom: 10px;*/
+}
+
+.input_select_moyenEntiteApCp{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 70px;
+  /*margin-bottom: 10px;*/
+}
+
+.input_select_moyenRbrut{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+.input_select_moyenRole{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  padding-left: 0px;
+  width: 130px;
+  margin-bottom: 10px;
+  text-align: left;
+  vertical-align: middle;
+  
+}
+
+.input_select_Module{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 310px;
+  margin-bottom: 10px;
+}
+
+.input_select_moyen_Panels{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 3px;
+  width: 110px;
+  margin-bottom: 5px;
+}
+
+.input_select_jma{
+     background-color: #CFD1D9;
+	width: 190px;
+	color : black;
+	font-size: 14px;
+	height: 20px;
+	width: 100%;
+	border:none;
+	padding-top: 1px;
+	padding-left: 5px;
+}
+
+.input_select_search{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 215px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.input_select_Align{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 190px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.select_prime{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 350px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.select_nomPrenom{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 320px;
+  font-size: 0.8em;
+  margin-bottom: 05px;
+}
+
+ /* mise en forme des texarea */
+.text_area{
+   /* background: url(../images/input_text.gif) no-repeat;*/
+	border:none;
+	font-size: 0.8em;
+	height: 50px;
+	width: 250px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+.panel_marg{
+ margin-bottom: 15px; 
+ margin-top: 10px;
+}
+552A7A
+.wizardButton{
+	float: right;
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+
+
+    /*Classe pour donner une couleur de fond vert au bouton valide*/
+.wizardButtonValide_clear{
+    background-color: #552A7A;
+    border-style: solid;
+    color: white;
+    float: right;
+    font-size: 14px;
+    height: 30px;
+    margin: 5px 5px 0 0;
+    width: 81px;
+    padding: 2px;
+}
+.wizardButtonValide_identify{
+    background-color: #552A7A;
+    border-style: solid;
+    color: white;
+    float: right;
+    font-size: 14px;
+    height: 30px;
+    margin: 5px 5px 0 0;
+    width: 114px;
+    padding: 2px;
+}
+.wizardButtonValide{
+    background-color: #FAF8F7;
+    border-style: solid;
+    color: black;
+    float: right;
+    font-size: 14px;
+    height: 30px;
+    margin: 5px 5px 20px 0;
+    padding: 2px;
+}
+
+
+.wizardButtonValideProfil{
+	float: none;
+    background: url(../images/boutonValider.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+
+.wizardButtonProfil{
+	float: none;
+    background: url(../images/boutonValider.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+
+.wizardButtonValideRole{
+	/*float: right;*/
+    background: url(../images/boutonValider.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin-bottom: 8px;
+    /*margin: 5px 5px 0 0 ;*/
+}
+
+.wizardButtonPSEdited{
+	
+    background: url(../images/boutonPS.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+	/*Classe pour donner une couleur de fond bleu au bouton suivant et retour*/
+.wizardButtonPS{
+	float: right;
+    background: url(../images/boutonPS.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+.wizardButtonAS{
+	float: right;
+    background: url(../images/boutonSynthese.gif) no-repeat;
+    color: green;
+    width: 133px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+.wizardButtonLancerRecherche{
+	background-color: #D2BB9A;
+    border-style: solid;
+    color: black;
+    float: right;
+    font-size: 14px;
+    height: 30px;
+    margin: 5px 5px 0 0;
+    width: 147px;
+	height: 22px;
+	margin: 0px;
+	/*
+	float: right;
+    background: url(../images/boutonLR.JPG) no-repeat;
+    color: #FFFFFF;
+    width: 147px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+	*/
+}
+
+.wizardButtonLancerRechercheFine{
+	/*float: right;*/
+    background: url(../images/boutonLR.JPG) no-repeat;
+    color: #FFFFFF;
+    width: 147px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px ;
+    padding-bottom: 34px;
+}
+
+.wizardButtonFine{
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 35px;
+    border: none;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px ;
+    padding-bottom: 12px;
+    
+}
+
+.wizardButtonProfil{
+	float: none;
+    background: url(../images/boutonValider.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+
+.wizardButtonFunc{
+	float: right;
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px ;
+    padding: 0px 0px 0px 0px ;
+}
+.wizardButtonRole{
+	float: none;
+    background: url(../images/boutonRetour_yellow.gif) no-repeat;
+    color: #FFFFFF;
+    width: 210px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px ;
+    padding: 0px 0px 0px 0px ;
+    text-align: center;
+    vertical-align: middle;
+}
+/*Author Badr DRAIFI : WizardButton modifiÃ¯Â¿Â½ pour la gestion grille Salaire*/
+.wizardButtonGrille{
+	float: right;
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    /**margin: 1px 1px 0 0 ;*/
+    padding-right: 1px;
+    padding-left: 1px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+.wizardButtonRubriques{
+	float: right;
+    background: url(../images/bouton.gif) no-repeat;
+    color: green;
+    width: 30px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+}
+.spacing{
+	width: 80px;
+}
+.space{
+	
+}	
+/*FIN*/
+.wizardButtonAction{
+	/*float: right;*/
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+    text-align: center;
+}
+.wizardButtonFile{
+	/*float: right;*/
+    background: url(../images/boutonDwnload.GIF) no-repeat;
+    color: green;
+    width: 213px;
+    height: 22px;
+    border: none;
+    font-size: 15px;
+    margin: 5px 5px 0 0 ;
+    text-align: center;
+}
+.wizardButtonRetour{
+	/*float: center;*/
+    background: url(../images/boutonRetour_yellow.gif) no-repeat;
+    color: green;
+    width: 210px;
+    height: 22px;
+    border: none;
+    font-size: 15px;
+    margin: 5px 5px 0 0 ;
+    text-align: center;
+}
+.wizardButtonRetourDisable{
+	/*float: center;*/
+  background-color: #333;
+    border-style: solid;
+    color: black;
+    float: right;
+    font-size: 14px;
+    height: 30px;
+    margin: 5px 5px 0 0;
+    //width: 81px;
+}
+.wizardButtonRed{
+	 float: right;
+    font-size: 14px;
+    height: 30px;
+    margin: 5px 5px 0 0;
+    background-color: #8A1F55;
+    color:white;
+ 
+    /*border-color: #8A1F55*/;
+    border-style: solid;
+}
+.wizardButtonRedProfil{
+	float: none;
+    background: url(../images/boutonRed.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+a.data_tab_link
+{
+	color: #004B74;
+	font:bolder;
+    margin-left: 5px;
+    width: 215px;
+    font-size: 12px;
+}
+
+a.data_tab_link:HOVER
+{
+	text-decoration: underline;
+	background-color: white;
+	color: #004B74;
+}
+
+a{
+ text-decoration: none;
+ color: black;
+}
+
+.msgConfirm{
+	color: #D2BB9A;
+    font: bold;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+.msgStrenghtPassN1{
+	color: red;
+    font: bold;
+    font-size: 12px;
+    text-align: left;
+    text-decoration: none;
+
+}
+
+.msgStrenghtPassN2{
+	color: #ffcc00;
+    font: bold;
+    font-size: 12px;
+    text-align: left;
+    text-decoration: none;
+
+}
+
+.msgStrenghtPassN3{
+	color: green;
+    font: bold;
+    font-size: 12px;
+    text-align: left;
+    text-decoration: none;
+
+}
+
+/*IL EST IMPERATIVEMENT DE GARDER LE MEME NOM DE CETTE CLASS, IL EST UTILISER DANS LE CODE*/
+.msgConfirmPass{
+	color:#ffcc00;
+    font: bold;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+.msgConfirmFunc{
+	color: green;
+    font: bold;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+    width: 60px;
+
+}
+/*@author Badr DRAIFI : Class pour l'image de recherche dans Modification Grille salaire*/
+.styleSearch{
+	
+}
+.styleSearch:HOVER{
+	
+	cursor: pointer;
+}
+
+.styleMenuGauch{
+
+}
+.styleMenuGauch:ACTIVE{
+	
+	background-color: #004b74;	
+}	
+
+/*FIN*/
+
+ /*Mise en forme liÃ¯Â¿Â½ Ã¯Â¿Â½ la partie d'authentification de l'utilistateur*/
+.pgAuthentificationPresentation
+{
+	margin-top: 40px; 
+	margin-left: 290px; 
+	margin-right: 50px;
+}
+.pgAuthentification{ 
+  margin-top: 70px;
+  margin-left: 290px; 
+  margin-right: 50px;
+}
+  /*Fin*/
+  /*Modal Panel : confirmation Box */
+
+ /* -------------------------------------- Fin  Content   ----------------------------*/
+ 
+ /*-------------------------Gestion Personnel dans le Menu Principale-----------*/
+ 
+ .asMenuPrincipal
+ {
+	color: white;
+	font-family: tahoma;
+	font-weight: bold;
+	font-size: 20px;
+ }
+ .asMenuPrincipal:HOVER
+ {
+ 	background-color:  #F6F6F6;
+    border-color: #F6F6F6;
+    border-width : 2px;
+    color: #004b74;
+ }
+ 
+ /*--------------------------FIN------------------------------------------------*/
+
+/* ----------     Menu principal     -------*/
+#bar
+{
+ background-image: url();
+ background-color: #d2bb9a;
+ border: medium none;
+ 
+}
+
+#bar .rich-ddmenu-label
+{
+	color: white;
+	font-family: tahoma;
+	font-size: 20px;
+	
+
+}
+
+#bar .rich-ddmenu-label-select{
+	
+    background-color:  #F6F6F6;
+    border-color: #F6F6F6;
+    border-width : 2px;
+    color: #004b74;
+
+}
+
+#bar .rich-menu-item:HOVER
+{
+	background-image: url();
+	background-color:#004b74;
+	color: white;
+	border-color: #004b74;
+    border-width : 2px;
+}
+#bar .rich-menu-item
+{
+	background-image: url();
+	background-color:#ECECEC;
+}
+#bar .rich-menu-item-label, #bar .linkMenuPrincipal
+{
+	color : #004b74;
+	background-image: url();
+}
+
+#bar .rich-menu-item-label-selected, #bar .linkMenuPrincipal:HOVER
+{
+	background-image: url();
+	background-color:  #004b74;
+    border-color: #004b74;
+    border-width : 2px;
+    color: white;
+}
+
+/*Partie liÃ¯Â¿Â½e Ã¯Â¿Â½ la mise en forme de l'authentification*/
+#barLogin
+{
+	text-align : center;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	background-image: url();
+	background-color: #552A7A;
+	border: medium none;
+	height: 28px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding-bottom: 12px;
+	padding-top: 10px;
+	vertical-align: middle;
+}
+
+/*Fin*/
+/* ---------- Fin    Menu principal     -------*/
+
+
+/* ----------    Menu vertical (Gauche/Droite)     -------*/
+.menuVertical .rich-pmenu-group{
+	
+	background-image: url();
+    background-color: #004B74;
+    color: white;
+	font-family: tahoma;
+	height: 30px;
+	
+}
+.menuVertical .rich-pmenu-item{
+   height: 28px;
+   font-size : 11px;
+   text-align: left;
+   vertical-align: middle;
+   font-weight: normal;
+   font: bold;
+   border-width : 2px;
+}
+/*.menuVertical .rich-pmenu-hovered-element, a:HOVER {*/
+.menuVertical .rich-pmenu-hovered-element, a:HOVER {
+
+    /*  background-color: #467C9A;
+      font-size: 12px;
+      font: bold;
+      color: white;
+      */
+}
+
+.rich-pmenu-selected-element{
+  background-color: #467C9A;
+}
+
+/* ---------- Fin    Menu vertical (Gauche/Droite)   -------*/
+
+/**************************************** FOOTER ****************************/
+
+#footer{
+	margin-top: 40px;
+/* ---------- background: url(../images/footer_bg.gif) repeat-x bottom;  -------*/	
+	width: 980px;
+	height: 50px;
+	font-size: 0.7em;
+	-margin-bottom:10px;
+	/*bottom: 0px;*/
+	position: absolute;
+	color: #999999;
+	
+}
+
+#footerAbsence{
+	margin-top: 10px;
+	background: url(../images/footer_bg.gif) repeat-x bottom;
+	width: 980px;
+	height: 50px;
+	font-size: 0.7em;
+	-margin-bottom:10px;
+	bottom: 0px;
+	position: absolute;
+	color: #999999;
+	
+}
+
+.button_entreprise {
+    background: transparent url(../images/button_entreprise.png) no-repeat top;
+	border-width: 0;
+    height: 210px;
+    width: 420px;
+	cursor: pointer;
+}
+.button_salarie {
+    background: transparent url(../images/button_salarie.png) no-repeat top;
+	border-width: 0;
+    height: 210px;
+    width: 420px;
+	cursor: pointer;
+}
+.button_paie {
+    background: transparent url(../images/button_paie.png) no-repeat top;
+	border-width: 0;
+    height: 210px;
+    width: 420px;
+	cursor: pointer;
+}
+.button_parametre {
+    background: transparent url(../images/button_parametre.png) no-repeat top;
+	border-width: 0;
+    height: 210px;
+    width: 420px;
+	cursor: pointer;
+}
+
+
+
+/**************************************** Fin  FOOTER ****************************/
+
+/*Test jquery : Ce texte devra etre dÃ¯Â¿Â½placÃ¯Â¿Â½*/
+.item{
+	background: url("../images/jQueryPictures/shadow_wide.png") no-repeat center bottom;
+	padding-bottom: 6px;
+	display: inline-block;
+	margin-bottom: 30px;
+	position:relative;
+}
+
+.item .delete{
+	background:url('../images/jQueryPictures/delete_icon.png') no-repeat;
+	width:37px;
+	height:38px;
+	position:absolute;
+	cursor:pointer;
+	top:10px;
+	right:-80px
+}
+
+.item a{
+	background-color: #FAFAFA;
+	border: none;
+	display: block;
+	padding: 10px;
+	text-decoration: none;
+}
+
+.item:first-child .delete:before{
+	background:url('../images/jQueryPictures/tooltip.png') no-repeat;
+	content:'.';
+	text-indent:-9999px;
+	overflow:hidden;
+	width:145px;
+	height:90px;
+	position:absolute;
+	right:-110px;
+	top:-95px;
+}
+
+.item a img{
+	display:block;
+	border:none;
+}
+
+.texteMenuPrincipalLogin
+{
+	font-size : 28px;
+	color : white;
+	font-family: georgia, Tahoma, Arial;
+}
+
+.headerInscrition
+{
+	position:absolute ;
+	top: 0;
+	left: 0;
+	width:100% ;
+	text-align : center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.logout_button
+{
+text-align : right;
+}
+.loging_left {
+	background-image: url(../images/login_left.jpg);
+	background-repeat:no-repeat;
+	background-position:right;
+	
+	
+}
+.loging_right {
+	background-image: url(../images/login_right.jpg);
+	background-repeat:no-repeat;
+	border:1px solid #552A7A;
+	text-align:right;
+	margin-top:20px;
+	
+	vertical-align:top;
+	background-position:left;
+	
+}
+.inscription_right {
+	background-image: url(../images/inscription_right.jpg);
+	background-repeat:no-repeat;
+	border:1px solid #552A7A;
+	text-align:right;
+	margin-top:20px;
+	
+	vertical-align:top;
+	background-position:left;
+	
+}
+.zone_entree
+
+{
+	text-align:right;
+	min-width:50px;
+	float: right;
+	}
+
+.message_login
+{
+	background-color:#8A1F55;
+	text-align : left;
+	color : white;
+	border:1px solid #552A7A;
+	font-family: Arial, Tahoma, Geneva, sans-serif;
+	margin-left: -200px;
+}
+
+body,td,th {
+	font-family: Arial, Tahoma, Geneva, sans-serif;
+	font-size : 14px;
+	vertical-align: top;
+	
+	
+	
+}
+
+.inscription_table td{
+	
+	text-align: left;
+}
+	
+}
+.regulateur
+{
+   min-width:50px;
+}
+
+.zone_entree_label
+
+{
+	
+	
+text-align:right;
+	
+	}
+	
+	.input_login
+	{
+	width: 150px;
+	}
+	
+	.input_password
+	{
+	width: 150px;
+	
+	}
+	.rememberme
+	{
+	
+	color : #552A7A;
+	
+	}
+	
+	
+	
+.Area51
+{
+	min-height: 500px;
+background-image: linear-gradient(left , #FFFFFF 13%, #E8D9C4 100%);
+background-image: -o-linear-gradient(left , #FFFFFF 13%, #E8D9C4 100%);
+background-image: -moz-linear-gradient(left , #FFFFFF 13%, #E8D9C4 100%);
+background-image: -webkit-linear-gradient(left , #FFFFFF 13%, #E8D9C4 100%);
+background-image: -ms-linear-gradient(left , #FFFFFF 13%, #E8D9C4 100%);
+
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	right top,
+	color-stop(0.13, #FFFFFF),
+	color-stop(1, #E8D9C4)
+);
+padding: 10px;
+}
+
+.zone_info
+{
+	
+	
+}
+.informations
+{
+	background-color:#4C4433;
+	min-height:40px;
+	width:680px;
+	
+	
+	}
+.icon_doc
+{
+	background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-avancement_INFO.png);
+	background-repeat:no-repeat;
+	width:35px;
+	
+	
+}
+	
+.text_doc
+{
+
+		color : white;
+}	
+.zone_formulaire
+{
+font-color : white;
+margin-top:20px;	
+background-color:#4C4433;
+min-height:410px;
+padding: 15px;
+background-image: url(../images/h3back.jpg);
+	background-repeat: no-repeat;
+	background-position:0px 20px;
+	padding-bottom: 50px;
+	text-align: left;		
+}
+
+.zonerecherche
+	
+	{
+
+background-image: url(../images/zonerecherche.jpg);
+	background-repeat: no-repeat;
+	background-color:#D2BB9A;
+	padding-top: 20px;
+	background-position:0px 15px;
+	width: 200px;
+	border-top: 3px solid;
+	border-color: white;
+			
+}
+
+.zonerecherche .a
+	
+	{
+
+background-image: url(../images/zonerecherche.jpg);
+	background-repeat: no-repeat;
+	background-color:#D2BB9A;
+	padding-top: 20px;
+	background-position:0px 15px;
+	width: 200px;
+			
+}
+.input_text_moyen_rech
+{
+	
+	background-color: #CFD1D9;
+	/*background-image: url(../images/zonerecherche.jpg);*/
+    border: medium none;
+    color: black;
+    font-size: 14px;
+    height: 20px;
+    margin-left: 15px;
+    padding-top: 2px;
+    width: 135px;
+	
+	
+}
+.iconerecherche
+{
+	
+width: 16px;
+height: 16px;
+margin-left: -8px;
+margin-top: 8px;
+}	
+
+.icn_tools
+{
+	
+width: 60px;
+height: 40px;
+text-align: center;
+}
+#headerForm{
+
+}
+
+.htitle
+{
+	padding-right: 35px;
+	
+	
+	
+}
+
+.htitle .label
+{
+	background-color: #4C4433;	
+
+}
+.h1text
+{
+background-color: #4C4433;		
+}
+.login_espace
+{	
+	margin-left: 50px;
+	margin-top: 5px;
+}
+.inscription_espace
+{
+	margin-left: 50px;
+	margin-top: 5px;
+}
+.label_champs{
+	width: 200px;
+	text-align: right;
+	height: 20px;
+	padding-top: 11px;
+	padding-bottom: 0px;
+}
+.champs_obligatoire
+{
+ width: 5px;	
+ padding-bottom: 0px;
+ padding-top: 5px;
+}
+.contenu_items
+{
+	text-align: left;
+	width: 230px;
+	height: 20px;
+}
+
+.other_items
+{
+	text-align: left;
+	
+}
+.erreur_message
+{
+	padding-left: 214px;
+	max-width: 250px;
+}
+.lien_inscription
+{
+	
+	text-align: left;
+}
+.lien_htext
+{
+		border: none;
+		background-color: white;
+		color:#8B2156;
+		text-decoration:underline;
+		cursor: pointer;	
+}
+.rich-mpnl-body
+{
+    background-image:url(../images/panel.jpg);
+	background-repeat:no-repeat;
+	width: 442px;
+	height: 191px;
+	border-style:solid;
+    border-width:2px;
+    border-color: #000;
+    vertical-align: bottom;
+}
+
+.buttonOfconfirm
+{
+/*	float: right;*/
+    background: #E7D9C4;
+    color: black;
+    width: 40px;
+    /*height: 20px;*/
+    border-style:solid;
+    border-width:2px;
+    border-color: #50749E;
+    padding-top : 3px;
+    padding-bottom : 3px;
+    padding-right : 10px;
+    padding-left : 10px;
+    font-size: 14px;
+    margin: 5px 5px 0 0 ;
+}
+
+.element_formulaire
+{
+	
+	text-align: left;
+	
+}
+
+.protoStyle1_synthese
+
+{
+	width: 50%;
+vertical-align: middle;
+padding-right: 10px;
+
+
+}
+.protoStyle2_synthese
+
+{width: 50%;
+
+vertical-align: middle;}
+
+
+
+
+
+.protoStyle1
+{
+	width: 35%;
+vertical-align: top;
+padding-right: 10px;
+}
+.protoStyle2
+{width: 60%;
+
+text-align: left;
+}
+.protoStyle3
+{width: 5%;}
+.tdmenuaccordian
+{
+	/*background-color: #D2BB9A;
+	border-top: 3px solid;
+	border-color: white;*/
+	
+}
+.bigcontainer
+{
+	
+	width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	
+	
+}
+
+.tableau_center_gauche
+{
+	
+	
+	text-align: left;
+	
+}
+.ligne_tableau_avancement
+{
+	
+	text-align: left;
+	height: 35px;
+	font-weight: bold;
+}
+
+
+.zone_synthese
+{
+	
+	width: 100%
+}
+
+.logout
+{
+	
+font-size: 14px;
+color: black;
+	
+}
+
+.part1
+{
+	text-align: left;
+	padding-left: 70px;
+	height: 62px;
+	color: #552A7A;
+	font-weight:bold;
+	font-family: georgia,Tahoma,Arial;
+	
+	
+}
+.part2
+{
+	
+	text-align: left;
+	padding-left: 70px;
+	height: 60px;
+	color: #552A7A;
+	font-weight:bold;
+	font-family: georgia,Tahoma,Arial;
+	
+}
+.part3
+{
+	
+	text-align: left;
+	padding-left: 70px;
+	height: 30px;
+	color: #552A7A;
+	font-weight:bold;
+	font-family: georgia,Tahoma,Arial;
+	
+	
+	
+}
+
+
+.ash2_sombre
+{
+	
+	text-align:center;
+    color:#552A7A;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+    background:none;
+	
+	
+}
+
+.protoStyle1_fifty
+{width: 50%;
+padding-right: 10px;
+vertical-align: middle;
+}
+.protoStyle2_fifty
+{width: 50%;
+text-align: left;
+}
+
+.h1sombre
+{
+	color:#8A1F55;
+	
+}
+.h2class
+{
+	
+color: white;	
+	font-size: 16px;
+	font-weight: blod;
+}
+.barre_icone_avancement
+{
+	
+background: url(../images/cursor.png) no-repeat;
+background-position: right;
+height: 53px;
+	
+}
+
+.layoutavancement
+{
+	padding-top:10px;
+width:320px;
+
+min-height:510px;
+background-image: linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+background-image: -o-linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+background-image: -moz-linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+background-image: -webkit-linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+background-image: -ms-linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+
+background-image: -webkit-gradient(
+	linear,
+	right top,
+	left top,
+	color-stop(0.13, #FFFFFF),
+	color-stop(1, #CFD1D9)
+);
+
+
+}
+.avancement
+{
+height:170px;	
+margin-bottom:20px
+	
+	}
+
+.indecateur_avancement
+{
+	width:60px;
+	background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-explorer.png);
+	background-repeat:no-repeat;
+	
+	}
+	
+.icon_avancement
+	{
+		height:60px;
+		background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-percente.png);
+		background-repeat:no-repeat;
+		width:25px;
+		
+		}
+.icon_media
+{
+		height:30px;
+		background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-icon_media.fw.png);
+		background-repeat:no-repeat;
+		width:25px;
+		
+		}
+.barre_progression
+{
+	background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-avancement_barre.png);
+	background-repeat:no-repeat;
+	
+	}
+	
+	.titre_layout
+	{
+	
+	font: 16px Tahoma, Helvetica, Arial, Sans-Serif;
+	text-align: left;
+	color: #222;
+    text-shadow: 0px 2px 3px #555;
+	
+	
+	}
+	
+	
+	
+.logo_protoopaie
+{
+	
+background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-protopaie.png);
+background-repeat:no-repeat;
+height:120px;
+width:240px;
+
+
+
+	}
+.header_div{
+	margin-left : 6px;
+	width:1024px;
+background-image: linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+background-image: -o-linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+background-image: -moz-linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+background-image: -webkit-linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+background-image: -ms-linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	right top,
+	color-stop(0.13, #D0D1DB),
+	color-stop(0.26, #FFFFFF)
+);
+	}
+.logo_center
+{
+	width : 400px;
+	
+	
+	}
+	.tab_logo
+	{
+	width:1024px;	
+		
+	}
+		
+		
+.accueil
+{
+	font-size : 20px;
+	text-align : right;
+	color : #D2BB9A;
+    vertical-align : bottom;
+	font-variant: small-caps;
+				
+}
+.haccordion{
+padding: 0;
+overflow: hidden;
+width: 792px;
+height: 60px;
+}
+
+.haccordion ul{
+margin: 0;
+padding: 0;
+list-style: none;
+overflow: hidden; /*leave as is*/
+}
+
+
+.haccordion li{
+margin: 0;
+padding: 0;
+display: block; /*leave as is*/
+width: 100%; /*For users with JS disabled: Width of each content*/
+height: 200px; /*For users with JS disabled: Height of each content*/
+overflow: hidden; /*leave as is*/
+float: left; /*leave as is*/
+}
+
+.haccordion li .hpanel{
+width: 100%; /*For users with JS disabled: Width of each content*/
+height: 200px;  /*For users with JS disabled: Height of each content*/
+}
+
+.table_menu
+{
+height:56px;
+text-align:center;	
+	
+	}
+
+.level1{
+font-size:14px;
+font-weight:bold;
+color:#FFF;
+background-color:#d2bb9a;
+vertical-align: middle;
+ height: 30px;
+	}
+	
+.level2{
+font-size:12px;
+color:#FFF;
+background-color:#7c6447;
+
+vertical-align: middle;
+ height: 30px;
+ border : 2px solid;
+border-color: #7c6447;
+
+}
+
+.level2:HOVER{
+font-size:12px;
+color:#7c6447;	
+background-color:#D2BB9A;
+border : 2px solid;
+border-color: #7c6447;
+}
+	
+.level2Selected{
+font-size:12px;
+color:white;
+background-color:#4B4432;
+font-weight: bold;
+	}
+
+
+	
+#hc2 li{
+margin:0 0 0 0; /*Spacing between each LI container*/
+border: 4px solid white;
+}
+
+#hc2 li a{
+color: white;
+}
+
+#hc2 li a:HOVER{
+color:#7c6447;
+
+background-color: white;
+}
+
+#hc2 li .hpanel{
+padding: 5px; /*Padding inside each content*/
+background: #d2bb9a;
+/*background: black;*/
+cursor: hand;
+cursor: pointer;
+}
+
+.level1 a
+{color :black;}
+
+.level2 a
+{color :white;
+font-weight: bold;}
+
+
+.windowTitle1{
+	
+	width: 100%;
+	text-align: left;
+	color: white;
+	font-size: 18px;
+	text-decoration: underline;	
+}
+.windowDescription1{
+	
+	width: 100%;
+	text-align: right;
+	color: white;
+	font-style: italic;
+	font-size: 14px;
+	
+	
+}
+
+
+.tablesalarie{
+	
+	width: 100%;
+	border-color: white;
+	
+	
+}
+
+.tablesalarie td{
+	
+	border-color: white;
+	border-style: solid;
+	border-width: 1px;
+	background-color: #D2BB9A;
+	vertical-align: middle; 	
+	
+	
+}
+
+.tablesalarie th{
+	
+	border-color: white;
+	border-style: solid;
+	border-width: 1px;
+	background-color: white;
+	vertical-align: middle; 	
+	
+}
+
+.searchbutton { 
+	background-image: url(../images/search.png); 
+}
+
+/*	@author Jakjoud Abdeslam : From view style */
+
+.formViewLink{
+	text-align:center;
+	font-size:12pt;
+	font-weight:bold;
+	color: #2E6E9E;
+}
+
+/* @author Jakjoud Abdeslam drop down lists*/
+.dropdown{
+	width: 155px;
+}
+.yui3-cssreset html{color:#000;background:#FFF;}.yui3-cssreset body,.yui3-cssreset div,.yui3-cssreset dl,.yui3-cssreset dt,.yui3-cssreset dd,.yui3-cssreset ul,.yui3-cssreset ol,.yui3-cssreset li,.yui3-cssreset h1,.yui3-cssreset h2,.yui3-cssreset h3,.yui3-cssreset h4,.yui3-cssreset h5,.yui3-cssreset h6,.yui3-cssreset pre,.yui3-cssreset code,.yui3-cssreset form,.yui3-cssreset fieldset,.yui3-cssreset legend,.yui3-cssreset input,.yui3-cssreset textarea,.yui3-cssreset p,.yui3-cssreset blockquote,.yui3-cssreset th,.yui3-cssreset td{margin:0;padding:0;}.yui3-cssreset table{border-collapse:collapse;border-spacing:0;}.yui3-cssreset fieldset,.yui3-cssreset img{border:0;}.yui3-cssreset address,.yui3-cssreset caption,.yui3-cssreset cite,.yui3-cssreset code,.yui3-cssreset dfn,.yui3-cssreset em,.yui3-cssreset strong,.yui3-cssreset th,.yui3-cssreset var{font-style:normal;font-weight:normal;}.yui3-cssreset li{list-style:none;}.yui3-cssreset caption,.yui3-cssreset th{text-align:left;}.yui3-cssreset h1,.yui3-cssreset h2,.yui3-cssreset h3,.yui3-cssreset h4,.yui3-cssreset h5,.yui3-cssreset h6{font-size:100%;font-weight:normal;}.yui3-cssreset q:before,.yui3-cssreset q:after{content:'';}.yui3-cssreset abbr,.yui3-cssreset acronym{border:0;font-variant:normal;}.yui3-cssreset sup{vertical-align:text-top;}.yui3-cssreset sub{vertical-align:text-bottom;}.yui3-cssreset input,.yui3-cssreset textarea,.yui3-cssreset select{font-family:inherit;font-size:inherit;font-weight:inherit;}.yui3-cssreset input,.yui3-cssreset textarea,.yui3-cssreset select{*font-size:100%;}.yui3-cssreset legend{color:#000;}
+}
+
+/* @author Jakjoud Abdeslam : list view style */
+
+.protogenDTable.ui-datatable .ui-datatable-header{
+background: #D2BB9A !important;
+width: 100% !important;
+height: 50px !important;
+vertical-align: middle;
+}
+
+.protogenDTable.ui-datatable{
+width: 100% !important;
+
+}
+
+.protogenDTable.ui-datatable .ui-datatable-header{
+background: #D2BB9A !important;
+height: 50px !important;
+vertical-align: middle;
+}
+
+.protogenDTable.ui-datatable .ui-datatable-even{
+background: white ;
+
+
+}
+
+.protogenDTable.ui-datatable .ui-datatable-odd.ui-state-hover{
+background: #F4E7C1 ;
+
+}
+
+.mystyle.ui-datatable .ui-datatable-even.ui-state-hover{
+background: #F4E7C1 ;
+
+}
+
+.protogenDTable.ui-datatable .ui-datatable-even.ui-state-highlight{
+background: #7C6447 ;
+
+}
+
+.protogenDTable.ui-datatable .ui-datatable-odd.ui-state-highlight{
+background: #7C6447 ;
+
+}
+
+.protogenDTable.ui-datatable .ui-datatable-data-empty td {
+color:red;
+font-weight:bold;
+}
+.ui-datatable.protogenDTable th {
+background: EAAB00;
+font-family: verdana;
+font-size: small;
+}
+
+
+.protogenDTable.ui-datatable .ui-expanded-row-content{
+background:white;
+}
+
+.protogenDTable.ui-datatable .ui-column-filter{
+	width:60px	!important;
+}
+
+.myitem.ui-menu .uimenuitem-text{
+	vertical-align: middle	!important;
+	font-size: 12px;
+}
+/*
+*	Jakjoud abdeslam mtm blocks
+*/
+.mtmformTable{
+	
+	border: 0px;
+}
+
+.mtmformTDLabel{
+	text-align: right;
+	
+}
+
+.mtmformTDValue{
+	text-align: left;
+}
+
+.mtmformTDSep{
+	text-align: right;
+	width: 15px;
+}
+
+.mtmformLSep{
+	height: 20px;
+}
+
+/*
+*	Pictogrammes
+*/
+/*	MENU */
+.folder-menu-icon {
+	background-image: url('../images/pictos_16px/dossiers_32px.png') !important;
+}
+
+.dashboard-menu-icon {
+	background-image: url('../images/pictos_16px/graphique_stat_32px.png') !important;
+}
+
+.return-menu-icon {
+	background-image: url('../images/pictos_16px/arborescence_32px.png') !important;
+}
+
+.administration-menu-icon {
+		background-image: url('../images/pictos_16px/reglage_outil_32px.png') !important;
+	
+}
+
+.sortir-menu-icon {
+		background-image: url('../images/pictos_16px/allumer_eteindre_32px.png') !important;
+	
+}
+
+.sub-menu-icon {
+		background-image: url('../images/pictos_16px/curseur_32px.png') !important;
+	
+}
+
+/* Procedure */
+
+.launch-procedure-icon {
+		background-image: url('../images/pictos_16px/lancer_32px.png') !important;
+	
+}
+
+.atom-procedure-icon {
+		background-image: url('../images/pictos_16px/parametres_creux_32px.png') !important;
+	
+}
+
+.nextarrow-procedure-icon {
+		background-image: url('../images/pictos_16px/suivant_32px.png') !important;
+	
+}
+
+.stepdone-procedure-icon {
+		background-image: url('../images/pictos_16px/valider_32px.png') !important;
+	
+}
+.stepinprocess-procedure-icon {
+		background-image: url('../images/pictos_16px/lancer_chargement_32px.png') !important;
+	
+}
+.steppending-procedure-icon {
+		background-image: url('../images/pictos_16px/horloge_32px.png') !important;
+	
+}
+
+/* List view*/
+.update-contextmenu-icon {
+		background-image: url('../images/pictos_16px/loupe_32px.png') !important;
+}
+.delete-contextmenu-icon {
+		background-image: url('../images/pictos_16px/poubelle_recycle_32px.png') !important;
+}
+.action-datalistbar-icon {
+		background-image: url('../images/pictos_16px/parametres_plein_32px.png') !important;
+}
+.document-datalistbar-icon {
+		background-image: url('../images/pictos_16px/fichier_32px.png') !important;
+}
+.fca-datalistbar-icon {
+		background-image: url('../images/pictos_16px/trombone_attache_32px.png') !important;
+}
+.selectall-datalistbar-icon {
+		background-image: url('../images/pictos_16px/valider_32px.png') !important;
+}
+.export-datalistbar-icon {
+		background-image: url('../images/pictos_16px/fichier_entrant_1_32px.png') !important;
+}
+.modify-datalistbar-icon {
+		background-image: url('../images/pictos_16px/crayon_2_32px.png') !important;
+}
+.delete-datalistbar-icon {
+		background-image: url('../images/pictos_16px/poubelle_recycle_32px.png') !important;
+}
+.check-datalistbar-icon {
+		background-image: url('../images/pictos_16px/valider_32px.png') !important;
+}
+
+/*	Communication tools	*/
+
+.messagego-communication-icon {
+		background-image: url('../images/pictos_16px/courrier_envoye_32px.png') !important;
+}
+/*	Resources	*/
+.download-resource-icon{
+		background-image: url('../images/pictos_16px/tout_recupere_32px.png') !important;
+}
+
+/*	Process Session buttons */
+.dialog-ok-icon{
+		background-image: url('../images/pictos_16px/valider_32px.png') !important;
+}
+
+.dialog-ko-icon{
+		background-image: url('../images/pictos_16px/annuler_32px.png') !important;
+}

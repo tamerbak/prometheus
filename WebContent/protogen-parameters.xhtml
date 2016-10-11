@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+	
+	<h1  style="padding-left: 10px;"><h:outputText value="#{parametersController.window.title}" ></h:outputText></h1><br/><br/><br/>
+	<h:outputText value="#{parametersController.window.description}" escape="false" style="font: 15px/16px verdana,sans-serif;color: #2E6E9E;margin: 0 0 4px 0;padding-bottom: 20px;" ></h:outputText><br/>
+	<br />
+		
+		
+	<table class="formTable">
+		<tr>
+			<td>	
+				<center><p:commandButton icon="ui-icon-play" action="#{frontController.next}" rendered="#{frontController.inProcess}" ajax="false" value="Suivant"/></center>
+			</td>
+		</tr>
+	</table>
+	</ui:define>
+	
+	<ui:define name="aide">
+	
+	</ui:define>
+
+</ui:composition>
+</html>

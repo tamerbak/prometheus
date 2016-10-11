@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+	<h1><h:outputText value="#{resourcesControl.resource.title}" /></h1>
+	<h2  style="padding-left: 10px;"><h:outputText value="#{resourcesControl.resource.description}" style="text-align:center;font-size:12;font-weight:bold"/></h2>
+	
+	<br />
+		<center>
+		<table class="formTable">
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr>
+				<td class="formTDLabel">
+					<p:commandButton id="downloadLink" value="Télécharger" ajax="false" icon="download-resource-icon">  
+					    <p:fileDownload value="#{resourcesControl.file}" />  
+					</p:commandButton>  		
+							
+				</td>
+				
+			</tr>
+			
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+				
+		</table>
+			<p:commandButton icon="ui-icon-play" action="#{frontController.next}" ajax="false" value="Suivant"/>		
+		
+		</center>
+	
+	
+	</ui:define>
+	
+	<ui:define name="aide">
+	
+	</ui:define>
+
+</ui:composition>
+</html>

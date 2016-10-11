@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+	
+	<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false" resizable="false" dynamic="false" > 
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative;bottom: 10px;">Chargement ...</label>
+			  
+	</p:dialog> 
+	<p:dialog id="subvdlg" widgetVar="subvdlg" closable="true" modal="false" header="Visualisation des données" >
+		<p:panelGrid style = "width:100%">
+			<f:facet name="header">
+				<p:row>
+				<c:forEach items="#{frontController.titles}" var="t"> 
+					<p:column>#{t.value}</p:column>
+				</c:forEach>
+				</p:row> 
+			</f:facet>
+			<p:row> 
+			<c:forEach items="#{frontController.subviewValues}" var="t">
+				<p:column>#{t}</p:column>
+			</c:forEach> 
+			</p:row>
+		</p:panelGrid>
+		<f:facet name="footer">
+			<p:commandButton  value="Fermer" actionListener="#{frontController.hideSubs}" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();subvdlg.hide();" update="@form"/>
+		</f:facet>
+	</p:dialog>
+	
+	<h1 style="padding-left: 10px;"><h:outputText value="#{synthesisController.processTitle}" style="text-align:center;font-size:16;font-weight:bold"></h:outputText></h1>
+	<h2  style="padding-left: 10px;"><h:outputText value="#{frontController.processDescription}" style="text-align:center;font-size:12;font-weight:bold"></h:outputText></h2>
+	<br />
+		
+	<p:toolbar>
+		<p:toolbarGroup align="right">
+			<p:commandButton  action="#{frontController.endProcess}" ajax="false" value="Retour au tableau de bord" styleClass="button button-icon white-gradient glossy"/>
+		</p:toolbarGroup>
+	</p:toolbar>
+	<br/>	
+	
+	<p:scrollPanel rendered="#{not empty frontController.histoShow}"
+				mode="native">
+				<p:tabView id="alldata"
+					rendered="#{not empty frontController.histoShow}" style="border:0px">
+					<c:forEach items="#{frontController.histoShow}" var="ih">
+						<p:tab>
+							<f:facet name="title">
+							   <h:outputText value="#{ih.title}" styleClass="tabTitle"/>
+							</f:facet>
+							<p:panel style="border : 0px;">
+								
+								<c:forEach items="#{ih.history}" var="histo">
+									<h:outputText value="#{histo.windowTitle}" styleClass="outputMediumTitle"/>
+								
+									<p:dataTable  value="#{histo.data}"
+										var="tableLine">
+										
+
+										<p:column rendered="#{not empty tableLine.innerData}"
+											style="width:2%">
+											<p:rowToggler />
+										</p:column>
+										<p:column rendered="#{histo.subVisibility}" style="width:2%">
+											<p:commandButton icon="ui-icon-search" update="@form"
+												onstart="PF('dlg2').show();"
+												oncomplete="PF('dlg2').hide();subvdlg.show();"
+												styleClass="button button-icon red-gradient glossy"
+												actionListener="#{frontController.detailedRow}">
+												<f:param name="subvindex" value="#{tableLine.dbID}" />
+												<f:param name="subvhistorywindow"
+													value="#{histo.windowTitle}" />
+											</p:commandButton>
+										</p:column>
+										<p:columns rendered="#{elementColumn.visible}"
+											value="#{histo.titles}" var="elementColumn"
+											columnIndexVar="indexVar"
+											sortBy="#{tableLine.value[indexVar]}">
+											<f:facet name="header">#{elementColumn.value}</f:facet>
+											<h:outputText title="#{tableLine.roundValue[indexVar]}"
+												value="#{fn:substring(tableLine.roundValue[indexVar],0,70)}" />
+											<h:outputText
+												rendered="#{fn:length(tableLine.roundValue[indexVar]) gt 69}"
+												value="..." />
+										</p:columns>
+
+										<p:rowExpansion rendered="#{not empty tableLine.innerData}">
+											<h:outputText escape="false" value="#{tableLine.table}" />
+										</p:rowExpansion>
+									</p:dataTable>
+						<br />
+
+								</c:forEach>
+							</p:panel>
+						</p:tab>
+					</c:forEach>
+				</p:tabView>
+			</p:scrollPanel>
+		
+	
+	</ui:define>
+	
+	<ui:define name="aide">
+	
+	</ui:define>
+
+</ui:composition>
+</html>

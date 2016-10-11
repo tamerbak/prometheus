@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	class=" linen js flexbox no-touch hashchange rgba hsla multiplebgs backgroundsize borderradius boxshadow textshadow opacity cssanimations cssgradients csstransforms csstransforms3d csstransitions fontface generatedcontent boxsizing pointerevents details">
+
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="MobileOptimized" content="320" />
+	<!-- http://www.kylejlarson.com/blog/2012/iphone-5-web-design/ and http://darkforge.blogspot.fr/2010/05/customize-android-browser-scaling-with.html -->
+	<meta name="viewport"
+		content="user-scalable=0, initial-scale=1.0, target-densitydpi=115" />
+
+	<!-- For all browsers -->
+	<link rel="stylesheet" href="css/reset.css?v=1" />
+	<link rel="stylesheet" href="css/style.css?v=1" />
+	<link rel="stylesheet" href="css/colors.css?v=1" />
+	<link rel="stylesheet" href="css/wizard.css?v=1" />
+	<link rel="stylesheet" media="print" href="css/print.css?v=1" />
+	<!-- For progressively larger displays -->
+	<link rel="stylesheet" media="only all and (min-width: 480px)"
+		href="css/480.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 768px)"
+		href="css/768.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 992px)"
+		href="css/992.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 1200px)"
+		href="css/1200.css?v=1" />
+	<!-- For Retina displays -->
+	<link rel="stylesheet"
+		media="only all and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5)"
+		href="css/2x.css?v=1" />
+
+	<!-- Additional styles -->
+	<link rel="stylesheet" href="css/styles/form.css?v=1" />
+	<link rel="stylesheet" href="css/styles/switches.css?v=1" />
+
+	<!-- jQuery Form Validation -->
+	<link rel="stylesheet"
+		href="js/libs/formValidator/developr.validationEngine.css?v=1" />
+
+	<!-- JavaScript at bottom except for Modernizr -->
+	<script src="js/libs/modernizr.custom.js"></script>
+
+	<!-- For Modern Browsers -->
+	<link rel="shortcut icon" href="img/favicons/favicon.png" />
+	<!-- For everything else -->
+	<link rel="shortcut icon" href="img/favicons/favicon.ico" />
+
+	<!-- iOS web-app metas -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<!-- iPhone ICON -->
+	<link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png"
+		sizes="57x57" />
+	<!-- iPad ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-ipad.png" sizes="72x72" />
+	<!-- iPhone (Retina) ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-retina.png" sizes="114x114" />
+	<!-- iPad (Retina) ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-ipad-retina.png" sizes="144x144" />
+
+	<!-- iPhone SPLASHSCREEN (320x460) -->
+	<link rel="apple-touch-startup-image" href="img/splash/iphone.png"
+		media="(device-width: 320px)" />
+	<!-- iPhone (Retina) SPLASHSCREEN (640x960) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/iphone-retina.png"
+		media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" />
+	<!-- iPhone 5 SPLASHSCREEN (640×1096) -->
+	<link rel="apple-touch-startup-image" href="img/splash/iphone5.png"
+		media="(device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
+	<!-- iPad (portrait) SPLASHSCREEN (748x1024) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-portrait.png"
+		media="(device-width: 768px) and (orientation: portrait)" />
+	<!-- iPad (landscape) SPLASHSCREEN (768x1004) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-landscape.png"
+		media="(device-width: 768px) and (orientation: landscape)" />
+	<!-- iPad (Retina, portrait) SPLASHSCREEN (2048x1496) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-portrait-retina.png"
+		media="(device-width: 1536px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2)" />
+	<!-- iPad (Retina, landscape) SPLASHSCREEN (1536x2008) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-landscape-retina.png"
+		media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2)" />
+
+	<!-- Microsoft clear type rendering -->
+	<meta http-equiv="cleartype" content="on" />
+
+	<!-- IE9 Pinned Sites: http://msdn.microsoft.com/en-us/library/gg131029.aspx -->
+	<meta name="application-name" content="Developr Admin Skin" />
+	<meta name="msapplication-tooltip"
+		content="Cross-platform admin template." />
+	<meta name="msapplication-starturl"
+		content="http://www.display-inline.fr/demo/developr" />
+	<!-- These custom tasks are examples, you need to edit them to show actual pages -->
+	<meta name="msapplication-task"
+		content="name=Agenda;action-uri=http://www.display-inline.fr/demo/developr/agenda.html;icon-uri=http://www.display-inline.fr/demo/developr/img/favicons/favicon.ico" />
+	<meta name="msapplication-task"
+		content="name=My profile;action-uri=http://www.display-inline.fr/demo/developr/profile.html;icon-uri=http://www.display-inline.fr/demo/developr/img/favicons/favicon.ico" />
+
+	<style>
+		.noBorderPanel tr, .noBorderPanel td{
+   			 border: none;
+		}
+		.user_cp_input input {
+			width: 319px;
+		}
+	
+	</style>
+
+</h:head>
+
+<body class="full-page-wizard">
+	<hgroup id="login-title" class="large-margin-bottom">
+		<h1 class="login-ginsurance-title-image"></h1>
+	</hgroup>
+	
+	<h:form id="sigform" class="block wizard same-height"
+		title="Création de compte">
+	<div id="container">
+
+		<p:growl id="signGrowl" showDetail="false" sticky="false" />
+
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false">
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">Chargement
+				...</label>
+
+		</p:dialog>
+
+		<p:messages autoUpdate="true" />
+
+
+		<h3 class="block-title">Création de compte</h3>
+
+		<p:wizard nextLabel="Suivant" backLabel="Précédent">
+
+			<p:tab id="infoTab" title=" 1. Informations personnelles" >
+				<fieldset class="fieldset-wizard wizard-fieldset fields-list">
+					<p:panelGrid id="inlineinsertgrid" style="width:100%;padding:40px;background:none;border:none !important;">
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Prénom</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:inputText
+									id="user_fname" value="#{insuranceController.firstName}"
+									styleClass="input input-wizard" autocomplete="off" >
+									<p:ajax event="blur"  />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Nom</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:inputText
+									id="user_lname" value="#{insuranceController.lastName}"
+									styleClass="input input-wizard" autocomplete="off"  >
+									<p:ajax event="blur"  />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Email</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:inputText
+									id="user_mail" value="#{insuranceController.email}"
+									styleClass="input input-wizard" autocomplete="off" required="true"
+									requiredMessage="E-Mail obligatoire"
+									validatorMessage="Veuillez saisir une adresse valide">
+									<p:ajax event="blur"  />
+									<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Mot de passe</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:password
+									validatorMessage="Les deux mots de passes sont différents"
+									id="password" value="#{insuranceController.password}"
+									match="cfpassword" required="true" styleClass="input input-wizard"
+									requiredMessage="Le mot de passe est obligatoire" >
+									<p:ajax event="blur"  />
+									</p:password>
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Confirmation du mot de passe</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:password
+									id="cfpassword" value="#{insuranceController.password}"
+									autocomplete="off" required="true"
+									requiredMessage="Le mot de passe est obligatoire" styleClass="input input-wizard">
+									<p:ajax event="blur" />
+								</p:password>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</fieldset>		
+			</p:tab>
+
+			<p:tab id="coordTab" title=" 2. Coordonnées">
+				<fieldset class="fieldset-wizard wizard-fieldset fields-list">
+					<p:panelGrid style="width:100%;padding:40px;background:none;border:none !important;">
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>ORIAS</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:inputText
+									id="user_orias" value="#{insuranceController.orias}"
+									styleClass="input input-wizard" autocomplete="off" required="true"
+									requiredMessage="ORIAS obligatoire">
+									<p:ajax event="blur"/>
+								</p:inputText>
+							</p:column>
+						</p:row>
+						
+						
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Pays</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:selectOneMenu
+									id="user_country" value="#{insuranceController.countryCode}"
+									styleClass="select-wizard select-item-width selectonemenu-wizard">
+									<!-- <p:ajax event="change" listener="#{insuranceController.countryChange}"
+										update=":sigform:ccode :sigform:user_cp :sigform:user_ville" /> -->
+									<!-- 
+									<f:selectItem itemLabel="Sélectionner votre pays"
+										itemValue="" />
+									-->
+									<f:selectItems value="#{countryManager.countries}" var="country" itemValue="+#{country.phoneCode}" itemLabel="#{country.niceName}" />
+						        		 <p:ajax listener="#{insuranceController.paysChange}" update=" sigform:countryPhoneCode, sigform:user_cp" />
+						        	<!-- 
+						        	<p:column>
+						        		<p:graphicImage  value="/assets/img/flags/ma.png" width="36" height="36"/>
+						        	</p:column>
+						        	<p:column>
+						        		#{country.niceName}
+						        	</p:column>
+						        	-->
+						        	<!-- 
+									<f:selectItem itemLabel="France" itemValue="+33" />
+									<f:selectItem itemLabel="Maroc" itemValue="+212" />
+									!-->
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Code postal</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:autoComplete  id="user_cp" title="Code postal" widgetVar="allsearch" binding="#{user_cp}" 
+								value="#{insuranceController.selectedCP}" completeMethod="#{insuranceController.completeCP}" size="49" styleClass="input-unstyled user_cp_input">
+								<p:ajax event="blur" listener="#{insuranceController.villeBlur}" update="@this, :sigform:user_ville" />
+								<p:ajax event="itemSelect" listener="#{insuranceController.cpChange}" 
+								 	update=":sigform:user_ville"  ></p:ajax>
+							</p:autoComplete>
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Ville</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:selectOneMenu
+									id="user_ville" value="#{insuranceController.selectedVille}"
+									styleClass="select-wizard select-item-width selectonemenu-wizard">
+									<p:ajax event="change" />
+									<f:selectItem itemLabel="Sélectionner votre ville" itemValue="" />
+									<f:selectItems value="#{insuranceController.villes}" var="cp"
+										itemLabel="#{cp}" itemValue="#{cp}" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Adresse</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:inputTextarea 
+									id="user_adress" value="#{insuranceController.adress}"
+									styleClass="input input-wizard" autocomplete="off">
+									<p:ajax event="keyup" />
+									</p:inputTextarea>
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Téléphone</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:panelGrid styleClass="noBorderPanel" style="margin-left:-8px;border: none !important;" columns="2">
+								
+									<p:inputText id="countryPhoneCode" value="#{insuranceController.countryCode}"  readonly="true" style="margin-left:-1px;width: 52px;" />
+									
+									<p:inputText
+										id="user_tel" value="#{insuranceController.tel}" 
+										style="height: 11px;margin-left: -17px;width: 245px;"
+										required="false"
+										validatorMessage="Veuillez entrer un numéro de téléphone valide"
+										styleClass="input input-wizard" >
+										<p:ajax event="blur" />
+										<f:validateRegex pattern="^[0-9][0-9]*$" />
+									</p:inputText>
+								
+								</p:panelGrid>
+								
+							</p:column>
+						</p:row>
+						
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"><b>Envoyer le code de validation par</b></label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+								<p:selectOneMenu
+									id="user_notify" value="#{insuranceController.notifyMethod}"
+									styleClass="select-wizard select-item-width selectonemenu-wizard">
+									<p:ajax event="change"/>
+									<f:selectItem itemLabel="Envoyer le code de validation par"
+										itemValue="" />
+									<f:selectItem itemLabel="Courrier électronique" itemValue="e" />
+									<f:selectItem itemLabel="SMS" itemValue="s" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						<p:row style="background: transparent;border: none;">
+							<p:column styleClass="column-form-proc float-left column-wizard">
+								<label class="outputLabel-custom label-wizard"> </label>
+							</p:column>
+							<p:column styleClass="column-form-proc" style="background: transparent !important;">
+							<p:commandButton
+									icon="ui-icon-locked" action="#{insuranceController.signup}"
+									value="Enregistrer" ajax="false" immediate="true"
+									update="sigform" styleClass="button-register-wizard float-right"></p:commandButton> 
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</fieldset>
+			</p:tab>
+			
+							
+		</p:wizard>
+	</div>
+	</h:form>
+	
+	<!-- Template functions -->
+	<script src="js/developr.notify.js"></script>
+</body>
+</html>

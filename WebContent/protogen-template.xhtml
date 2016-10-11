@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Generium</title>
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/css/style1.css"
+		rel="stylesheet" type="text/css" title="style 1" media="screen" />
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/css/style2.css"
+		rel="alternate stylesheet" type="text/css" title="style 2"
+		media="screen" />
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/css/panel_right.css"
+		rel="entral" type="text/css" title="style 3" media="screen" />
+
+	<!-- http://davidbcalhoun.com/2010/viewport-metatag -->
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="MobileOptimized" content="320" />
+
+	<!-- http://www.kylejlarson.com/blog/2012/iphone-5-web-design/ and http://darkforge.blogspot.fr/2010/05/customize-android-browser-scaling-with.html -->
+	<meta name="viewport"
+		content="user-scalable=0, initial-scale=1.0, target-densitydpi=115" />
+
+	<!-- For all browsers -->
+	<link rel="stylesheet" href="css/reset.css?v=1" />
+	<link rel="stylesheet" href="css/style.css?v=1" />
+	<link rel="stylesheet" href="css/colors.css?v=1" />
+	<link rel="stylesheet" media="print" href="css/print.css?v=1" />
+	<!-- For progressively larger displays -->
+	<link rel="stylesheet" media="only all and (min-width: 480px)"
+		href="css/480.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 768px)"
+		href="css/768.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 992px)"
+		href="css/992.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 1200px)"
+		href="css/1200.css?v=1" />
+	<!-- For Retina displays -->
+	<link rel="stylesheet"
+		media="only all and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5)"
+		href="css/2x.css?v=1" />
+
+	<!-- Webfonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300'
+		rel='stylesheet' type='text/css' />
+
+	<!-- Additional styles -->
+
+	<link rel="stylesheet" href="css/styles/form.css?v=1" />
+	<link rel="stylesheet" href="css/styles/switches.css?v=1" />
+	<link rel="stylesheet" href="css/styles/table.css?v=1" />
+	<link rel="stylesheet" href="css/custom.css" />
+
+	<!-- JavaScript at bottom except for Modernizr -->
+	<script src="js/libs/modernizr.custom.js"></script>
+
+	<!-- For Modern Browsers -->
+	<link rel="shortcut icon" href="img/favicons/favicon.png" />
+	<!-- For everything else -->
+	<link rel="shortcut icon" href="img/favicons/favicon.ico" />
+
+	<!-- iOS web-app metas -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<!-- iPhone ICON -->
+	<link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png"
+		sizes="57x57" />
+	<!-- iPad ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-ipad.png" sizes="72x72" />
+	<!-- iPhone (Retina) ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-retina.png" sizes="114x114" />
+	<!-- iPad (Retina) ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-ipad-retina.png" sizes="144x144" />
+
+	<!-- iPhone SPLASHSCREEN (320x460) -->
+	<link rel="apple-touch-startup-image" href="img/splash/iphone.png"
+		media="(device-width: 320px)" />
+	<!-- iPhone (Retina) SPLASHSCREEN (640x960) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/iphone-retina.png"
+		media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" />
+	<!-- iPhone 5 SPLASHSCREEN (640×1096) -->
+	<link rel="apple-touch-startup-image" href="img/splash/iphone5.png"
+		media="(device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
+	<!-- iPad (portrait) SPLASHSCREEN (748x1024) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-portrait.png"
+		media="(device-width: 768px) and (orientation: portrait)" />
+	<!-- iPad (landscape) SPLASHSCREEN (768x1004) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-landscape.png"
+		media="(device-width: 768px) and (orientation: landscape)" />
+	<!-- iPad (Retina, portrait) SPLASHSCREEN (2048x1496) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-portrait-retina.png"
+		media="(device-width: 1536px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2)" />
+	<!-- iPad (Retina, landscape) SPLASHSCREEN (1536x2008) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-landscape-retina.png"
+		media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2)" />
+
+	<!-- Microsoft clear type rendering -->
+	<meta http-equiv="cleartype" content="on" />
+
+	
+	
+</h:head>
+<h:body onload="procsessiondlg.show();">
+	<f:event listener="#{frontController.checkForSession}"
+		type="preRenderView" />
+	<div class="bigcontainer">
+
+		<f:view>
+			<h:form id="protogen_main">
+				<p:dialog id="procsessiondlg" widgetVar="procsessiondlg"
+					closable="false" modal="false" resizable="false"
+					rendered="#{frontController.interruptedProcess}">
+					<center>
+						Lors de votre dernière session vous avez interrompu le processus<br />
+						<b><h:outputText value="#{frontController.inprocLabel}" /></b><br />
+						à l'étape <br /> <b><h:outputText
+								value="#{frontController.inprocAtom}" /></b><br /> Voulez vous
+						reprendre à partir de ce point ?
+					</center>
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-circle-check" value="Oui"
+							action="#{frontController.loadInterruptedProcess}"
+							oncomplete="procsessiondlg.hide();" />
+						<p:commandButton icon="ui-icon-circle-close" value="Non"
+							action="#{frontController.deleteInterruptedProcess}"
+							oncomplete="procsessiondlg.hide();" style="float:right" />
+					</f:facet>
+				</p:dialog>
+				<!-- 					Generium header							 -->
+				<div class="header_div" id="idheader_div">
+					<p:hotkey bind="shift+F1"
+						handler="document.getElementById('#{acProcedure}').focus();"></p:hotkey>
+
+
+<<<<<<< .mine
+</div>		
+<div>
+	<table width="100%"><tr><td>
+	<p:dialog id="fdlg" closable="false" widgetVar="fdlg" modal="false" resizable="false" dynamic="false" > 
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<p:outputLabel>Chargement en cours ...</p:outputLabel>
+			  
+	</p:dialog> 
+	<p:menubar id="angramenu" autoDisplay="false" >
+		<p:menuitem value="Tableau de bord" immediate="true" title="Tableau de bord" action="protogen.xhtml" ajax="false" styleClass="myitem" icon="dashboard-menu-icon" rendered="#{frontController.showWholeMenu}" />
+		<p:menuitem value="Menu principal" immediate="true" title="Menu principal" onstart="fdlg.show();" oncomplete="fdlg.hide();" action="#{frontController.restoreMenu}" ajax="true" update="angramenu" styleClass="myitem" icon="return-menu-icon" rendered="#{!frontController.showWholeMenu}" />
+		
+		<p:spacer width="40" height="20" />
+		<c:forEach var="uimenu" items="#{frontController.supermenu}">
+			<p:submenu icon="folder-menu-icon" label="#{uimenu.supermenu}" styleClass="myitem" rendered="#{frontController.showWholeMenu}">
+				<p:menuitem>
+					<p:selectOneMenu value="#{frontController.filteredMenuItem}" style="width:100%" effect="fade"
+					filter="true" filterMatchMode="contains">
+						<p:ajax event="change"   listener="#{frontController.gotoMenu}" update="@form" />
+						<f:selectItem itemLabel="Recherche" itemValue="0" />  
+            			<f:selectItems value="#{uimenu.submenus}" var="sb" itemLabel="#{sb.value}" itemValue="#{sb.key}"/>
+					</p:selectOneMenu>
+				</p:menuitem>
+				<c:forEach var="submenu" items="#{uimenu.submenus}">
+					<p:menuitem value="#{ submenu.value }" action="#{ frontController.updateScreen }" ajax="false" icon="sub-menu-icon" immediate="true" >
+						<f:param name="screenseq" value="#{submenu.key}" />
+					</p:menuitem>
+				</c:forEach>
+			</p:submenu>
+			<p:spacer width="20" height="20" />
+		</c:forEach>
+		
+		<!-- 		Tools 						 
+=======
+					<table border="0" class="tab_logo">
+						<tr>
+							<td rowspan="2" class="logo-center" id="animation"><p:graphicImage
+									value="#{frontController.logoPath}"></p:graphicImage></td>
+							<td rowspan="2" class="logo_protoopaie"></td>
+							<td height="50" class="accueil"><p>
+									<h:outputText value="#{session.lastAccessedTime}">
+
+										<f:convertDateTime dateStyle="full" type="date" />
+									</h:outputText>
+									<br> <h:outputLabel
+											value="Bonjour #{frontController.userLastName}"></h:outputLabel>
+									</br>
+								</p></td>
+						</tr>
+						<tr>
+							<td height="85" class="accueil">
+
+								<table class="icnz_tools">
+									<tr>
+										<td class="icn_tools"><h:graphicImage id="doc"
+												alt="The image could not be found."
+												value="/images/pictos_32px/fichier_32px.png" title="doc"></h:graphicImage>
+										</td>
+										<td class="icn_tools"><p:commandLink
+												action="protogen-sendmail.xhtml" immediate="true"
+												ajax="false">
+												<p:graphicImage id="mail"
+													alt="The image could not be found."
+													value="/images/pictos_32px/arobase_32px.png" title="Email" />
+											</p:commandLink></td>
+										<td class="icn_tools"><p:commandLink
+												action="protogen-sendfax.xhtml" immediate="true"
+												ajax="false">
+												<h:graphicImage id="print"
+													alt="The image could not be found."
+													value="/images/pictos_32px/fax_32px.png" title="Fax"></h:graphicImage>
+											</p:commandLink></td>
+										<td class="icn_tools"><p:commandLink
+												action="#{communicationControl.redirection}"
+												immediate="true" ajax="false">
+												<h:graphicImage id="tel" alt="The image could not be found."
+													value="/images/pictos_32px/combine_telephonique_actif_32px.png"
+													title="appel"></h:graphicImage>
+											</p:commandLink></td>
+										<td class="icn_tools"><p:commandLink
+												action="hangout.xhtml" immediate="true" target="blank"
+												ajax="false">
+												<h:graphicImage id="conf_img"
+													alt="The image could not be found."
+													value="/images/pictos_32px/call_center_32px.png"
+													title="visio"></h:graphicImage>
+											</p:commandLink></td>
+										<td class="icn_tools"><p:commandLink
+												action="protogen-sendsms.xhtml" immediate="true"
+												ajax="false">
+												<h:graphicImage id="sms" alt="The image could not be found."
+													value="/images/pictos_32px/courrier_32px.png" title="sms"></h:graphicImage>
+											</p:commandLink></td>
+										<td class="icn_tools"><h:commandLink
+												action="protogen-administration.xhtml" immediate="true"
+												ajax="false">
+												<h:graphicImage value="/images/pictos_32px/admin_32px.png"
+													style="border: 0; width:32px; height:32px;" />
+											</h:commandLink></td>
+										<td class="icn_tools"><h:commandLink
+												action="#{frontController.logout}" immediate="true"
+												ajax="false">
+												<h:graphicImage
+													value="/images/pictos_32px/allumer_eteindre_32px.png"
+													style="border: 0; width:32px; height:32px;" />
+											</h:commandLink></td>
+									</tr>
+								</table>
+
+
+
+
+							</td>
+						</tr>
+					</table>
+
+				</div>
+				<div>
+					<table width="100%">
+						<tr>
+							<td><p:dialog id="fdlg" closable="false" widgetVar="fdlg"
+									modal="false" resizable="false" dynamic="false"
+									showEffect="bounce">
+									<p:graphicImage value="/images/loading.gif" />
+									<p:spacer width="20" height="10" />
+									<p:outputLabel>Chargement en cours ...</p:outputLabel>
+
+								</p:dialog> <p:menubar id="angramenu" autoDisplay="false">
+									<!-- <p:menuitem value="Tableau de bord" immediate="true"
+										title="Tableau de bord" action="protogen.xhtml" ajax="false"
+										styleClass="myitem" icon="dashboard-menu-icon"
+										rendered="#{frontController.showWholeMenu}" /> -->
+									<!-- <p:menuitem value="Menu principal" immediate="true"
+										title="Menu principal" onstart="fdlg.show();"
+										oncomplete="fdlg.hide();"
+										action="#{frontController.restoreMenu}" ajax="true"
+										update="angramenu" styleClass="myitem" icon="return-menu-icon"
+										rendered="#{!frontController.showWholeMenu}" /> -->
+
+									<p:spacer width="40" height="20" />
+									<c:forEach var="uimenu" items="#{frontController.supermenu}">
+										<p:submenu icon="folder-menu-icon" label="#{uimenu.supermenu}"
+											styleClass="myitem"
+											rendered="#{frontController.showWholeMenu}">
+											<p:menuitem>
+												<p:selectOneMenu value="#{frontController.filteredMenuItem}"
+													style="width:100%" effect="fade" filter="true"
+													filterMatchMode="contains">
+													<p:ajax event="change"
+														listener="#{frontController.gotoMenu}" update="@form" />
+													<f:selectItem itemLabel="Recherche" itemValue="0" />
+													<f:selectItems value="#{uimenu.submenus}" var="sb"
+														itemLabel="#{sb.value}" itemValue="#{sb.key}" />
+												</p:selectOneMenu>
+											</p:menuitem>
+											<c:forEach var="submenu" items="#{uimenu.submenus}">
+												<p:menuitem value="#{ submenu.value }"
+													action="#{ frontController.updateScreen }" ajax="false"
+													icon="sub-menu-icon" immediate="true">
+													<f:param name="screenseq" value="#{submenu.key}" />
+												</p:menuitem>
+											</c:forEach>
+										</p:submenu>
+										<p:spacer width="20" height="20" />
+									</c:forEach>
+
+									<!-- 		Tools 						 
+>>>>>>> .r229
+		<p:menuitem value="Modifier" icon="modify-datalistbar-icon" action="#{listViewControl.doPrimeUpdate}" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" rendered="#{!frontController.showWholeMenu}" />
+		<p:menuitem value="Supprimer" icon="delete-datalistbar-icon" action="#{listViewControl.doPrimeDelete}" update="@form" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" rendered="#{!frontController.showWholeMenu}" />
+		<p:menuitem value="Exporter" icon="export-datalistbar-icon" action="#{listViewControl.exportFile}" ajax="false" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" rendered="#{!frontController.showWholeMenu}" />
+		-->
+
+									<!-- 		Links to windows			 -->
+									<c:forEach var="lin" items="#{frontController.window.links}">
+										<p:menuitem value="#{ lin.title }"
+											action="#{ frontController.updateScreenThroughLink }"
+											ajax="false" icon="sub-menu-icon" immediate="true"
+											rendered="#{!frontController.showWholeMenu}">
+											<f:param name="screenseq" value="#{lin.id}" />
+										</p:menuitem>
+									</c:forEach>
+
+
+									<!-- 		Actions						 -->
+									<c:forEach var="btn"
+										items="#{frontController.window.CActionbuttons}">
+
+										<p:menuitem value="#{btn.title}" title="#{btn.description}"
+											id="act_btn_#{btn.id}" icon="action-datalistbar-icon"
+											actionListener="#{listViewControl.doCalculus}" update="@form"
+											onstart="fdlg.show();" oncomplete="fdlg.hide();"
+											rendered="#{!frontController.showWholeMenu}">
+
+											<f:param name="actionID" value="#{btn.id}"></f:param>
+										</p:menuitem>
+
+									</c:forEach>
+
+									<!-- 		Documents					 -->
+									<c:forEach var="dbtn"
+										items="#{frontController.window.CDocumentbuttons}">
+										<p:menuitem value="#{dbtn.title}" title="#{dbtn.description}"
+											icon="document-datalistbar-icon"
+											action="#{listViewControl.docPrint}" ajax="false"
+											onstart="fdlg.show();" oncomplete="fdlg.hide();"
+											rendered="#{!frontController.showWholeMenu}">
+											<f:param name="docID" value="#{dbtn.id}"></f:param>
+										</p:menuitem>
+									</c:forEach>
+
+									<!-- 		Bound Documents				 -->
+									<c:forEach var="bound" title="#{bound.description}"
+										items="#{frontController.boundButtons}">
+										<p:menuitem value="#{bound.title}"
+											title="#{bound.description}" icon="document-datalistbar-icon"
+											action="#{listViewControl.docPrint}" ajax="false"
+											onstart="fdlg.show();" oncomplete="fdlg.hide();"
+											rendered="#{!frontController.showWholeMenu}">
+											<f:param name="docID" value="#{bound.id}"></f:param>
+										</p:menuitem>
+									</c:forEach>
+
+									<!-- 		Attachements 				-->
+									<c:forEach var="fca" items="#{frontController.fcas}">
+										<p:menuitem value="#{fca.attribute}"
+											icon="fca-datalistbar-icon"
+											action="#{listViewControl.downloadContentAttribute}"
+											ajax="false" onstart="fdlg.show();" oncomplete="fdlg.hide();"
+											rendered="#{!frontController.showWholeMenu}">
+											<f:param name="fcaID" value="#{fca.id}"></f:param>
+										</p:menuitem>
+									</c:forEach>
+
+
+									<p:menuitem>
+										<p:autoComplete style="position: absolute; right: 30px;"
+											id="acProcedure" widgetVar="acProcedure"
+											binding="#{acProcedure}"
+											value="#{frontController.selectedProcess}"
+											completeMethod="#{frontController.completeProcedure}"
+											styleClass="dropdown">
+											<p:ajax event="itemSelect"
+												listener="#{frontController.selChanged}"></p:ajax>
+										</p:autoComplete>
+									</p:menuitem>
+
+								</p:menubar></td>
+
+						</tr>
+					</table>
+				</div>
+
+				<!-- 					Generium Content							 -->
+
+				<table>
+					<tr>
+						<td style="width: 700px">
+							<!--//////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+
+							<div class="Area51">
+
+
+
+								<div class="zone_info"></div>
+
+								<div class="zone_formulaire">
+									<h1 class="htitle">
+										<h:outputLabel value="Generium" styleClass="h1text"></h:outputLabel>
+									</h1>
+
+
+									<!-- ************************************************************************************************-->
+
+
+									<ui:insert name="contenu" />
+
+
+									<!-- ************************************************************************************************-->
+
+
+
+								</div>
+							</div> <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
+						</td>
+
+
+						<td style="width: 300px">
+							<!-- ******************************************************************************  -->
+
+							<div class="layoutavancement">
+
+
+								<table width="300"
+									style="width: 300px; height: 170px; background-image: url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-explorer.png); background-repeat: no-repeat;"
+									border="0">
+									<tr style="height: 170px;">
+										<td style="width: 70px"></td>
+										<td style="height: 170px; vertical-align: middle">
+
+											<table border="0">
+												<tr style="height: 2px">
+													<td></td>
+													<td></td>
+												</tr>
+												<tr style="height: 40px">
+													<td
+														style="width: 200px; vertical-align: middle; text-align: left; color: green;">
+														<p:contextMenu for="previoussteplabelpanel"
+															rendered="#{frontController.previousFound}">
+															<c:forEach items="#{frontController.previousAtoms}"
+																var="patom">
+																<p:menuitem value="#{patom.title}"
+																	icon="ui-icon-circle-triangle-e"
+																	action="#{frontController.gotoAction}" immediate="true">
+																	<f:param name="toatom" value="#{patom.id}" />
+																</p:menuitem>
+															</c:forEach>
+														</p:contextMenu> <p:panel style="height:40px" id="previoussteplabelpanel"
+															widgetVar="previoussteplabelpanel">
+															<p:outputLabel
+																value="#{frontController.previousStepLabel}"
+																style="vertical-align:middle;text-align : left; color:green;" />
+														</p:panel>
+													</td>
+													<td
+														style="width: 30px; vertical-align: middle; text-align: left; color: green;">
+														<p:graphicImage
+															value="/images/pictos_16px/valider_32px.png"
+															rendered="#{frontController.previousFound}" />
+													</td>
+
+
+												</tr>
+												<tr style="height: 40px">
+													<td
+														style="width: 200px; vertical-align: middle; text-align: left; color: black;">
+														<p:contextMenu for="currentsteplabelpanel"
+															rendered="#{frontController.currentFound}">
+															<c:forEach items="#{frontController.currentAtoms}"
+																var="catom">
+																<p:menuitem value="#{catom.title}"
+																	icon="ui-icon-circle-triangle-e"
+																	action="#{frontController.gotoAction}" immediate="true">
+																	<f:param name="toatom" value="#{catom.id}" />
+																</p:menuitem>
+															</c:forEach>
+														</p:contextMenu> <p:panel style="height:40px" id="currentsteplabelpanel"
+															widgetVar="currentsteplabelpanel">
+															<p:outputLabel id="currentsteplabel"
+																value="#{frontController.currentStepLabel}"
+																style="vertical-align:middle;text-align : left; color:black;" />
+														</p:panel>
+													</td>
+													<td
+														style="width: 28px; vertical-align: middle; text-align: left; color: green;">
+														<p:graphicImage
+															value="/images/pictos_16px/lancer_chargement_32px.png"
+															rendered="#{frontController.currentFound}" />
+													</td>
+
+
+												</tr>
+												<tr style="height: 40px">
+
+													<td
+														style="width: 200px; vertical-align: middle; text-align: left; color: red;">
+
+														<p:contextMenu for="nextsteplabelpanel"
+															rendered="#{frontController.nextFound}">
+															<c:forEach items="#{frontController.nextAtoms}"
+																var="natom">
+																<p:menuitem value="#{natom.title}"
+																	icon="ui-icon-circle-triangle-e"
+																	action="#{frontController.gotoAction}" immediate="true">
+																	<f:param name="toatom" value="#{natom.id}" />
+																</p:menuitem>
+															</c:forEach>
+														</p:contextMenu> <p:panel style="height:40px" id="nextsteplabelpanel"
+															widgetVar="nextsteplabelpanel">
+															<p:outputLabel value="#{frontController.nextStepLabel}"
+																style="vertical-align:middle;text-align : left; color:red;" />
+														</p:panel>
+													</td>
+													<td
+														style="width: 30px; vertical-align: middle; text-align: left; color: green;">
+														<p:graphicImage
+															value="/images/pictos_16px/horloge_32px.png"
+															rendered="#{frontController.nextFound}" />
+													</td>
+
+
+												</tr>
+												<tr>
+													<td></td>
+													<td></td>
+												</tr>
+											</table>
+
+										</td>
+									</tr>
+
+
+
+								</table>
+
+								<table width="300" border="0">
+									<tr>
+										<td>&nbsp;</td>
+										<td class="titre_layout">Avancement</td>
+									</tr>
+									<tr>
+										<td class="icon_avancement"></td>
+										<td class="barre_progression">
+
+											<table width="#{annuaireRedirectController.avancement}"
+												border="0">
+												<tr>
+
+													<td class="barre_icone_avancement"></td>
+												</tr>
+
+											</table>
+										</td>
+									</tr>
+								</table>
+
+								<table width="300" border="0">
+
+									<tr>
+										<td class="icon_media"></td>
+										<td class="titre_layout">Besoin d'aide ?</td>
+									</tr>
+
+									<tr>
+										<td colspan="2" class="video">
+											<!--  <iframe width="300" height="169" src="//www.youtube.com/embed/PDpiwL5s28I" frameborder="0" allowfullscreen="1"></iframe>
+      
+     <iframe width="300" height="169" src="http://www.youtube.com/embed/2N9yeP_ACCo" frameborder="0" allowfullscreen="1"></iframe>
+      
+      
+     <iframe width="320" height="200" src="http://www.multimedia-etc.com/videos/pub_V2_gps_suite_web_site.html" frameborder="0" allowfullscreen="1"></iframe>
+   -->
+
+										</td>
+									</tr>
+								</table>
+							</div> <!-- ******************************************************************************  -->
+
+							<ui:insert name="aide" />
+						</td>
+
+
+					</tr>
+				</table>
+			</h:form>
+		</f:view>
+	</div>
+	
+	<!-- JavaScript at the bottom for fast page loading -->
+
+	<!-- Scripts -->
+	<script src="js/setup.js"></script>
+
+	<!-- Template functions -->
+	<script src="js/developr.input.js"></script>
+	<script src="js/developr.message.js"></script>
+	<script src="js/developr.modal.js"></script>
+	<script src="js/developr.navigable.js"></script>
+	<script src="js/developr.notify.js"></script>
+	<script src="js/developr.scroll.js"></script>
+	<script src="js/developr.progress-slider.js"></script>
+	<script src="js/developr.tooltip.js"></script>
+	<script src="js/developr.confirm.js"></script>
+	<script src="js/developr.agenda.js"></script>
+	<script src="js/developr.tabs.js"></script>
+	<!-- Must be loaded last -->
+
+	<!-- Tinycon -->
+	<script src="js/libs/tinycon.min.js"></script>
+
+	<script>
+
+		// Call template init (optional, but faster if called manually)
+		$.template.init();
+
+		// Tooltip menu
+		$(document).ready(function()
+		{
+			$('#select-tooltip').menuTooltip($('#select-context').hide(), {
+				classes: ['no-padding']
+			});
+		});
+
+	</script>
+	
+</h:body>
+</html>

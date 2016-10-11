@@ -1,0 +1,10 @@
+soit
+	nombre x, n.
+dans
+	lire x;
+	lire n;
+	tantque x<10 faire
+		x := x+n;
+	fin;
+	ecrire x;
+fin

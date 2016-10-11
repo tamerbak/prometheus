@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+	<h2  style="padding-left: 10px;"><h:outputText value="#{formSynthesisController.windowTitle}" style="text-align:center;font-size:16;font-weight:bold"></h:outputText></h2>
+	<h2  style="padding-left: 10px;"><h:outputText value="Synthèse" style="text-align:center;font-size:12;font-weight:bold"></h:outputText></h2>
+	<br />
+		<p:menubar>
+			<p:menuitem icon="ui-icon-arrowreturnthick-1-w" action="#{ frontController.updateScreenThroughLink }" rendered="#{formViewController.insert}" ajax="false" immediate="true" value="Retour">
+					<f:param name="screenseq" value="#{frontController.lastWindow.id}" />
+				</p:menuitem>
+				<p:menuitem icon="ui-icon-arrowreturnthick-1-w" action="#{ frontController.updateScreenThroughLink }" rendered="#{!formViewController.insert}" ajax="false" immediate="true" value="Retour">
+					<f:param name="screenseq" value="#{frontController.window.id}" />
+				</p:menuitem>
+				<p:spacer width="20" height="5" />
+				<p:menuitem icon="ui-icon-triangle-1-w" action="#{ frontController.updateScreenThroughLink }" rendered="#{!frontController.inProcess and frontController.linksAvailable}" ajax="false" immediate="true" value="#{frontController.lastWindow.title}">
+					<f:param name="screenseq" value="#{frontController.lastWindow.id}" />
+				</p:menuitem>
+				
+				<p:menuitem icon="ui-icon-triangle-1-e" action="#{frontController.next}" rendered="#{frontController.inProcess and formViewController.saved}" ajax="false" immediate="true" value="Suivant"/>
+				<p:menuitem icon="ui-icon-triangle-1-e" action="#{ frontController.updateScreenThroughLink }" rendered="#{!frontController.inProcess and frontController.linksAvailable and !frontController.lastWindowAvailable}" ajax="false" immediate="true" value="#{frontController.firstLink.title}">
+					<f:param name="screenseq" value="#{frontController.firstLink.id}" />
+				</p:menuitem>
+		</p:menubar>
+		
+		<center>
+		<table class="formTable">
+			<ui:repeat var="uictrl" value="#{formSynthesisController.controls}">
+			<tr>
+				<td><h:outputText value="#{uictrl.title}" rendered="#{uictrl.visible}" styleClass="formViewLink"></h:outputText></td>
+			</tr>
+			<tr>
+				<td class="formTDLabel">
+					<h:outputText value="#{uictrl.controlID}"></h:outputText>
+				</td>
+				<td class="formTDSep"></td>
+				<td >      
+				
+					<h:outputText value="#{uictrl.controlValue}" rendered="#{!uictrl.reference and !uictrl.ctrlDate}" style="color:#2E6E9E;text-align:left; font-weight:bold;"></h:outputText>
+					<h:outputText value="#{uictrl.trueValue}" rendered="#{uictrl.reference}" style="color:#2E6E9E;text-align:left; font-weight:bold;"></h:outputText>
+					<h:outputText value="#{uictrl.dateValue}" rendered="#{uictrl.ctrlDate}" style="color:#2E6E9E;text-align:left; font-weight:bold;">
+						<f:convertDateTime  dateStyle="full" type="date" />
+					</h:outputText>
+				</td>
+			</tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			</ui:repeat>
+		</table>
+		
+		<p:accordionPanel widgetVar="mtmAccordion" id="mtmAccordion">
+		<c:forEach var="mtmBlock" items="#{formSynthesisController.dtos}" >
+			<p:tab title="#{mtmBlock.entity.name}" id="tabid_#{mtmBlock.entityID}" closable="true" >
+				
+				<h:panelGroup>
+				<table class="mtmTable">
+					<tr>
+						<ui:repeat var="title" value="#{mtmBlock.titles}">
+							<th class="mtmTDHeader"><h:outputText value="#{title}"></h:outputText></th>
+						</ui:repeat>
+					</tr>
+					<ui:repeat var="mtmLine" value="#{mtmBlock.lines}">
+						<tr>
+							<ui:repeat var="svalue" value="#{mtmLine.values}">
+								<td class="mtmTDValue"><h:outputText value="#{svalue.value}" rendered="#{!svalue.date}"></h:outputText>
+								<h:outputText value="#{svalue.formattedDateValue}" rendered="#{svalue.date}"></h:outputText></td>
+								
+							</ui:repeat>
+						</tr>
+					</ui:repeat>
+				</table>
+				</h:panelGroup>
+			</p:tab>
+		</c:forEach>
+		</p:accordionPanel>
+		
+			<p:commandButton icon="ui-icon-play" action="#{frontController.next}" rendered="#{frontController.inProcess}" ajax="false" value="Suivant"/>		
+		
+		</center>
+	
+	
+	</ui:define>
+	
+	<ui:define name="aide">
+	
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,125 @@
+ul {
+	margin:0;
+	padding:0;
+}
+ul li{
+	list-style: none;
+}
+
+
+#palette, #canvas, #properties {
+	float:left;
+}
+
+#canvas  {
+	border: 1px solid #ccc;
+	/*background-color:#ff0;*/
+	/*float:right;*/
+	padding:10px;
+	width:950px;
+	height:650px;
+	background:#2C53B0 url(blueprint-min.png) repeat;
+	overflow: scroll;
+}
+#palette{
+	padding:0 10px 5px 5px;
+	width:310px;
+}
+#properties{
+	padding:0 5px 5px 10px;
+	width:300px;
+}
+.prop label, .prop .control, .head label,  .head .control{
+	display:inline-block;
+}
+.prop label, .head label{
+	width:30%;
+}
+.prop .control, .head .control{
+	width:67%;
+	text-align: left;
+}
+.head{
+	padding:0 5px;
+}
+.head label{
+	font-weight: bold;
+}
+.head {
+	border-top:1px solid #bbb;
+	border-bottom:2px solid #bbb;
+	border-left:1px solid #bbb;
+	border-right:1px solid #bbb;
+}
+.prop {
+	border-bottom:1px solid #bbb;
+	border-left:1px solid #bbb;
+	border-right:1px solid #bbb;
+}
+.prop .control select{
+	width:87%;
+}
+
+.title, .title:hover {
+	background-color: #0f4e74;
+	height: 30px;
+	width: 100%;
+	color: #fff;
+	display: block;
+	padding: 5px 10px;
+	text-decoration: none;
+	margin: 10px 0;
+}
+#palette .control-label{
+	color: #888;
+	font-weight: normal;
+}
+.create li {
+	display:inline-block;
+	float:left;
+	margin:3px;
+}
+
+.node_action{
+	overflow: hidden;
+	margin-bottom:10px;
+}
+.create{
+	width:300px;
+}
+.create .btn {
+	width:75px;
+}
+.btn-request{
+	color: #fff;
+	background-color: #7278cf;
+	border-color: #7278cf;
+}
+.btn-infos{
+	color: #fff;
+	background-color: #d33f2b;
+	border-color: #d33f2b;
+}
+
+.btn-screen{
+	color: #fff;
+	background-color: #ffb403;
+	border-color: #ffb403;
+}
+.btn-answer{
+	color: #fff;
+	background-color: #019956;
+	border-color: #019956;
+}
+.btn-choice{
+	color: #fff;
+	background-color: #bd8440;
+	border-color: #bd8440;
+}
+
+#palette .form-control, #palette .form-control:focus {
+	border:1px solid #1570a6;
+}
+div.save, .transition_action {
+	text-align: right
+}

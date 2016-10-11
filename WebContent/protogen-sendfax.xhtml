@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="#{frontController.masterPage}">
+
+	<ui:define name="contenu">
+
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">
+				<h:outputText value="#{communicationControl.comm.title}"></h:outputText>
+			</h1>
+			</hgroup>
+		</div>
+
+		<h4 style="padding-left: 10px;">
+			<h:outputText value="#{communicationControl.comm.description}"></h:outputText>
+		</h4>
+		<br />
+
+		<p:growl id="growl" widgetVar="growl" sticky="false" />
+		<!-- <p:fieldset legend="FAX"> -->
+		<details class="details margin-bottom" open="true"> <summary class="summaryDetails">FAX</summary>
+		<p:panelGrid
+			style="width:100%;padding:40px;background:none;border:none !important;">
+
+
+			<div class="ui-border">
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="numfaxs" styleClass="outputLabel-custom"
+							value="Numéros Fax séparés par virgule" />
+					</p:column>
+					<p:column>
+						<p:inputText id="numfaxs"
+							value="#{communicationControl.faxNumber}" style="width:400px"
+							validatorMessage="Format du numéro invalide">
+							<f:validateRegex pattern="^\+[0-9]+$" />
+						</p:inputText>
+						<p:watermark for="numfaxs" value="+3300000000" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="faxpj" value="Fax en Pièce jointe"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:fileUpload locale="#{frontController.localization.langCode}" id="faxpj"
+							fileUploadListener="#{communicationControl.fileUpload}"
+							cancelLabel="Annuler" label="Parcourir" uploadLabel="Charger"
+							mode="advanced" multiple="false" sizeLimit="1000000" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="datef" value="Date d'envoi"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:calendar id="datef"
+							value="#{communicationControl.datefaxdiffere}"
+							locale="#{communicationControl.locale}"></p:calendar>
+					</p:column>
+				</p:row>
+
+			</div>
+		</p:panelGrid>
+
+		<table>
+			<tr>
+				<td></td>
+				<td align="right" class="with-padding" style="width:100%;"><p:commandButton
+						icon="ui-icon-print" action="#{communicationControl.sendFAX}"
+						ajax="false" value="Envoyer" /></td>
+			</tr>
+		</table>
+		</details>
+
+	</ui:define>
+
+	<ui:define name="aide">
+		<p:panel closable="true" rendered="#{frontController.showRightPanel}"
+			toggleable="true" collapsed="true" style="width:100%">
+
+			<f:facet name="header">Aide</f:facet>
+			<p>Envoie d'un courrier Fax</p>
+			<p>Dans cet écran vous pouvez envoyer un Fax</p>
+			<p>Vous devez en premier lieu renseigner le numérode
+				destinaitaire en spécifiant le code national (Ex +33 pour la france)</p>
+			<p>Ensuite vous devez charger le fichier à envoyer, pour des
+				questions de performance seuls les fichiers PDF sont acceptés</p>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>
+</html>

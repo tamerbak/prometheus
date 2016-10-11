@@ -1,0 +1,123 @@
+.layoutavancement
+{
+	padding-top:10px;
+width:320px;
+
+min-height:510px;
+background-image: linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+background-image: -o-linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+background-image: -moz-linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+background-image: -webkit-linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+background-image: -ms-linear-gradient(right , #FFFFFF 13%, #CFD1D9 100%);
+
+background-image: -webkit-gradient(
+	linear,
+	right top,
+	left top,
+	color-stop(0.13, #FFFFFF),
+	color-stop(1, #CFD1D9)
+);
+
+
+}
+.avancement
+{
+height:170px;	
+margin-bottom:20px
+	
+	}
+
+.indecateur_avancement
+{
+	width:60px;
+	background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-explorer.png);
+	background-repeat:no-repeat;
+	
+	}
+	
+.icon_avancement
+	{
+		height:60px;
+		background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-percente.png);
+		background-repeat:no-repeat;
+		width:25px;
+		
+		}
+.icon_media
+{
+		height:30px;
+		background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-icon_media.fw.png);
+		background-repeat:no-repeat;
+		width:25px;
+		
+		}
+.barre_progression
+{
+	background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-avancement_barre.png);
+	background-repeat:no-repeat;
+	
+	}
+	
+	.titre_layout
+	{
+	
+	font: 16px Tahoma, Helvetica, Arial, Sans-Serif;
+	text-align: left;
+	color: #222;
+    text-shadow: 0px 2px 3px #555;
+	
+	
+	}
+	
+	
+	
+.logo_protoopaie
+{
+	
+background-image:url(../images/gps-suite-logiciel-gestion-salaire-paie-comptable-protopaie.png);
+background-repeat:no-repeat;
+height:120px;
+width:240px;
+
+
+
+	}
+.header_div{
+	margin-left : 6px;
+	width:1024px;
+background-image: linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+background-image: -o-linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+background-image: -moz-linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+background-image: -webkit-linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+background-image: -ms-linear-gradient(left , #D0D1DB 13%, #FFFFFF 26%);
+
+background-image: -webkit-gradient(
+	linear,
+	left top,
+	right top,
+	color-stop(0.13, #D0D1DB),
+	color-stop(0.26, #FFFFFF)
+);
+	}
+.logo_center
+{
+	width : 400px;
+	
+	
+	}
+	.tab_logo
+	{
+	width:1024px;	
+		
+	}
+		
+		
+.accueil
+{
+	font-size : 20px;
+	text-align : right;
+	color : #D2BB9A;
+    vertical-align : bottom;
+	font-variant: small-caps;
+				
+}

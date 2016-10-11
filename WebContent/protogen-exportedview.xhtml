@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head><title><h:outputText value="#{exportDocumentView.documentTitle}"></h:outputText></title></head>
+<body><center>
+	<table style="border-collapse: collapse; width:800px">
+	<tr><td style="text-align:center;border: 1px solid black; padding:4px" colspan="2"><h:outputText value="#{exportDocumentView.documentTitle}" style="text-align:center;font-size:16;font-weight:bold"></h:outputText></td></tr>
+	<tr>
+		<td style="text-align:center;border: 1px solid black; padding:4px"><h:outputText value="#{exportDocumentView.exportDateTime}" style="text-align:center;font-size:14"></h:outputText></td>
+		<td style="text-align:center;border: 1px solid black; padding:4px"><h:outputText value="#{exportDocumentView.currentUser}" style="text-align:center;font-size:14"></h:outputText></td>
+	</tr>
+	</table>
+	<table style="border-collapse: collapse; width:600px"><tr><td style="text-align:center;border: 1px solid black; padding:4px"><h:outputText value="#{listViewControl.windowDescription}" style="text-align:center;font-size:12;font-weight:bold"></h:outputText></td></tr></table>
+	<br /><br />
+		<table style="border-collapse: collapse; width:600px">
+			<tr>
+				<ui:repeat var="title" value="#{exportDocumentView.dataTitles}">
+					<th style="border: 1px solid black; padding:4px; text-align: center; font-wieght:bold"> 
+						<h:outputText value="#{title.value}"></h:outputText>
+					</th>
+				</ui:repeat>
+			</tr>
+			<ui:repeat var="lvalue" value="#{exportDocumentView.dataValues}">
+				<tr>
+					<ui:repeat var="cvalue" value="#{lvalue}">
+						<td style="border: 1px solid black; padding:4px"> 
+							<h:outputText value="#{cvalue}"></h:outputText>
+						</td>
+					</ui:repeat>
+				</tr>
+			</ui:repeat>
+			
+		</table>
+		</center>
+	</body>
+</html>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<link rel="stylesheet" href="#{frontController.styletheme}" id="style"/>
+	<link rel="stylesheet" href="#{frontController.colortheme}" id="color"/>
+		
+	<script type="text/javascript"
+		src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js"></script>
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+		
+	</script>
+	<script type="text/javascript">
+		Twilio.Device.setup("${token}", {
+			debug : true
+		});
+
+		Twilio.Device.ready(function(device) {
+			$("#log").text("Prêt");
+		});
+
+		Twilio.Device.error(function(error) {
+			$("#log").text("erreur : " + error.message);
+		});
+
+		Twilio.Device.connect(function(conn) {
+			$("#log").text("établissement de l'appel avec succes");
+		});
+
+		Twilio.Device.disconnect(function(conn) {
+			$("#log").text("appel terminé");
+		});
+		/*
+		     Twilio.Device.incoming(function (conn) {
+		       $("#log").text("Incoming connection from " + conn.parameters.From);
+		       // accept the incoming connection and start two-way audio
+		       conn.accept();
+		     });
+		 */
+		function call() {
+			// get the phone number to connect the call to
+			params = {
+				"PhoneNumber" : $("#number").val()
+			};
+			Twilio.Device.connect(params);
+		}
+
+		function hangup() {
+			Twilio.Device.disconnectAll();
+		}
+	</script>
+
+</h:head>
+<h:body style="#{frontController.uniformPageBodyStyle}">
+	
+	<div class="linen">
+		
+		<center>
+			<table>
+				<tr>
+					<td><center>
+							<h:outputText value="#{communicationControl.comm.title}"
+								style="font: 24px/25px verdana,sans-serif;color: white;margin: 0 0 4px 0;padding-bottom: 20px;">
+
+							</h:outputText>
+						</center></td>
+				</tr>
+				<tr>
+					<td>
+						<center>
+							<h:outputText value="#{communicationControl.comm.description}"
+								style="font: 15px/16px verdana,sans-serif;color: white;margin: 0 0 4px 0;padding-bottom: 20px;"></h:outputText>
+						</center>
+					</td>
+				</tr>
+			</table>
+		</center>
+		<br />
+		<center>
+			<p:panelGrid style="margin-top: 37px;" columns="2">
+				<f:facet name="header">Appel téléphonique</f:facet>
+				<p:outputLabel value="Numéro" />
+
+				<input type="text" id="number" name="number" style="width: 400px" />
+			</p:panelGrid>
+			<br />
+			<p:commandButton type="button" onclick="call();" value="Appeler"
+				icon="ui-icon-circle-check" />
+			<p:commandButton type="button" onclick="hangup();" value="Raccrocher"
+				icon="ui-icon-circle-close" />
+			<br />
+			
+		</center>
+	</div>
+</h:body>
+
+</html>

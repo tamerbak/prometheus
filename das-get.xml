@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fr.protogen.connector.model.DataModel>
+	<entity>reference de table</entity>
+	<dataMap></dataMap>
+	<rows></rows>
+	<token>
+		<fr.protogen.connector.model.AmanToken>
+			<!-- Le contenu du token de sécurité -->
+		</fr.protogen.connector.model.AmanToken>
+	</token>
+	<operation>GET</operation>		<!-- Opération -->
+</fr.protogen.connector.model.DataModel>

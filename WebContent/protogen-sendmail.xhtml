@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="#{frontController.masterPage}">
+	<ui:define name="contenu">
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">
+				<h:outputText value="#{communicationControl.comm.title}"></h:outputText>
+			</h1>
+			</hgroup>
+		</div>
+
+		<h4 style="padding-left: 10px;">
+			<h:outputText value="#{communicationControl.comm.description}"
+				escape="false"></h:outputText>
+		</h4>
+		<br />
+
+		<p:growl id="growl" widgetVar="growl" sticky="false" />
+		<details class="details margin-bottom" open="true"> <summary class="summaryDetails">Courrier
+		électronique</summary> <p:panelGrid
+			style="width:100%;padding:40px;background:none;border:none !important;">
+
+			<div class="ui-border">
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="toadresses" value="A"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:autoComplete id="toadresses" widgetVar="toadresses"
+							value="#{communicationControl.tos}" multiple="true"
+							completeMethod="#{communicationControl.completeMails}">
+						</p:autoComplete>
+					</p:column>
+				</p:row>
+
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="ccadresses" value="CC"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:autoComplete id="ccadresses" widgetVar="ccadresses"
+							value="#{communicationControl.ccs}" multiple="true"
+							completeMethod="#{communicationControl.completeMails}">
+						</p:autoComplete>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="cciadresses" value="CCi"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="cciadresses"
+							value="#{communicationControl.emailCCI}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="emailsub" value="Sujet"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="emailsub"
+							value="#{communicationControl.emailSubject}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="emailpj" value="Pièce jointe"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column styleClass="fileUpload-header">
+					<p:fileUpload locale="#{frontController.localization.langCode}" id="emailpj"
+							fileUploadListener="#{communicationControl.handleFileUpload}"
+							cancelLabel="Annuler" label="Parcourir" uploadLabel="Charger"
+							mode="advanced" multiple="false" sizeLimit="1000000" />
+					</p:column>
+					
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="emailmessage" value="Message"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:editor id="emailmessage" widgetVar="editorWidget"
+							value="#{communicationControl.emailMessage}" />
+					</p:column>
+				</p:row>
+
+			</div>
+		</p:panelGrid>
+
+		<table>
+			<tr>
+				<td></td>
+				<td align="right" class="with-padding" style="width: 100%;"><p:commandButton
+						icon="ui-icon-mail-closed"
+						action="#{communicationControl.sendMail}" ajax="false"
+						value="Envoyer" /> <p:spacer
+						rendered="#{frontController.inProcess}" height="10" width="15" />
+					<p:spacer rendered="#{frontController.inProcess}" height="10"
+						width="15" /> <p:commandButton icon="ui-icon-play"
+						action="#{frontController.next}"
+						rendered="#{frontController.inProcess}" ajax="false"
+						value="Suivant" /></td>
+			</tr>
+		</table>
+		</details>
+
+		<!-- <script type="text/javascript">
+               editorWidget.toolbar.destroy();
+            </script> -->
+
+	</ui:define>
+
+	<ui:define name="aide">
+		<p:panel closable="true" rendered="#{frontController.showRightPanel}"
+			toggleable="true" collapsed="true" style="width:100%">
+
+			<f:facet name="header">Aide</f:facet>
+			<p>Envoie d'un courrier électronique</p>
+			<p>Dans cet écran vous pouvez envoyer un message par courrier
+				électronique</p>
+			<p>Vous pouvez envoyer votre message vers plusieurs destinataires
+				à travers les champs "A", "CC" et "CCI"</p>
+			<p>Une fonction d'autocomplétion vous permet de charger les
+				adresses des autres utilisateurs de façon non exaustive, pour
+				activer l'autocmplétion veuillez renseigner le nom ou le prénom du
+				destinataire</p>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>
+</html>

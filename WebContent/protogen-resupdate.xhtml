@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+	<table class = "windowTitle1"><tr><td>
+	<h:outputText value="Gestion des ressources" style="text-align:center;font-size:16;font-weight:bold"></h:outputText></td></tr></table>
+	<table class = "windowDescription1">
+		<tr><td>
+			<h:outputText value="Veuillez charger le fichier concernant cette ressource" style="text-align:center;font-size:12;font-weight:bold"></h:outputText>
+		</td></tr>
+	</table>
+	<br />
+		<center>
+		<table class="formTable">
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr>
+				<td class="formTDLabel">
+				<p:fileUpload locale="#{frontController.localization.langCode}" fileUploadListener="#{administrationControl.handleFileUpload}"
+					cancelLabel="Annuler" label="Parcourir" uploadLabel="Charger"  
+			            mode="advanced"
+					    multiple="false"
+			            sizeLimit="1000000"   
+			            />
+				</td>
+				
+			</tr>
+			
+			
+					
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+			<tr class="formLSep" ><td></td><td></td><td></td></tr>
+		</table>
+		
+					
+		</center>
+	
+	
+	</ui:define>
+	
+	<ui:define name="aide">
+	
+	</ui:define>
+
+</ui:composition>
+</html>

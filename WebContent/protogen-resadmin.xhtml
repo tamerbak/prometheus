@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+	<table class = "windowTitle1"><tr><td>
+	<h:outputText value="Gestion des ressources" style="text-align:center;font-size:16;font-weight:bold"></h:outputText></td></tr></table>
+	<table class = "windowDescription1">
+		<tr><td>
+			<h:outputText value="Ici vous pouvez accèder aux différentes ressources fichier" style="text-align:center;font-size:12;font-weight:bold"></h:outputText>
+		</td></tr>
+	</table>
+	<br />
+		<center>
+		
+		<p:contextMenu for="restable">
+			<p:menuitem value="Modifier" icon="ui-icon-search" action="#{administrationControl.doUpdate}" ajax="false"/>  
+		</p:contextMenu>
+		<p:dataTable id="restable" widgetVar="restable" value="#{administrationControl.resources}" var="rsc" 
+			selection="#{administrationControl.selectedResource}"  selectionMode="single" rowKey="#{rsc.title}"
+			>
+			<p:column headerText="Titre">
+				#{rsc.title}
+			</p:column>
+			<p:column headerText="Description">
+				#{rsc.description}
+			</p:column>
+				
+		</p:dataTable>
+		
+		</center>
+	
+	
+	</ui:define>
+	
+	<ui:define name="aide">
+	
+	</ui:define>
+
+</ui:composition>
+</html>

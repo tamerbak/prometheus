@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+	<title>Generium Powered</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<link href="assets/css/login-form.css" rel="stylesheet" />
+</h:head>
+	
+<h:body>
+	<f:view>
+		<div class="login-bg">
+	
+		</div>
+		<div class="login-bloc">
+			<div class="login-bloc-logo">
+			
+			</div>
+			
+			<div class="login-bloc-form">
+			<h:form id="form-login">
+					<p:growl id="logingrowl" showDetail="true" sticky="false" />
+					<h2>Bienvenue au GPS de la gestion</h2>
+					
+					<span class="form-input">Email</span>
+					<span class="form-input">
+						<p:inputText id="user_name" autocomplete="off" value="#{userServices.login}" >
+						</p:inputText>
+					</span>
+					
+					<span id="passwordLabel" class="form-input">Mot de passe</span>
+					<span class="form-input">
+						<p:password id="password" value="#{userServices.password}"/>
+					</span>
+					
+					<div class="connexion-btns">
+					
+						<h:commandButton action="#{userServices.authenticate}" 
+										 value="Se connecter" ajax="false" 
+										 styleClass="form-button login-btn">
+						</h:commandButton>
+						<h:commandButton action="protogen-wizard.xhtml" 
+										 value="Créer un nouveau compte" ajax="false" 
+										 styleClass="form-button signup-btn" immediate="true">
+						</h:commandButton>
+
+					</div>
+					<div class="password-op">
+					
+						<span><input type="checkbox" name="rememberPassword" value=""/> Retenir votre mot de passe?</span>
+						<label><a href="password-recovery.xhtml">Mot de passe oublié?</a></label>
+					
+					</div>
+				
+			</h:form>
+			</div>
+			
+		</div>
+	</f:view>
+</h:body>
+</html>

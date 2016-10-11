@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<!-- Login pages styles -->
+<link rel="stylesheet" media="screen" href="css/login.css?v=1" />
+	
+<!-- For all browsers -->
+<link rel="stylesheet" href="css/reset.css?v=1" />
+<link rel="stylesheet" href="css/style.css?v=1" />
+<link rel="stylesheet" href="css/colors.css?v=1" />
+<link rel="stylesheet" media="print" href="css/print.css?v=1" />
+<!-- For progressively larger displays -->
+<link rel="stylesheet" media="only all and (min-width: 480px)"
+	href="css/480.css?v=1" />
+<link rel="stylesheet" media="only all and (min-width: 768px)"
+	href="css/768.css?v=1" />
+<link rel="stylesheet" media="only all and (min-width: 992px)"
+	href="css/992.css?v=1" />
+<link rel="stylesheet" media="only all and (min-width: 1200px)"
+	href="css/1200.css?v=1" />
+	
+<!-- For Retina displays -->
+<link rel="stylesheet"
+	media="only all and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5)"
+	href="css/2x.css?v=1" />
+
+<!-- Webfonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300'
+	rel='stylesheet' type='text/css' />
+
+<!-- Additional styles -->
+
+<link rel="stylesheet" href="css/styles/form.css?v=1" />
+<link rel="stylesheet" href="css/styles/switches.css?v=1" />
+<link rel="stylesheet" href="css/styles/table.css?v=1" />
+<link rel="stylesheet" href="css/custom.css" />
+
+<!-- JavaScript at bottom except for Modernizr -->
+<script src="js/libs/modernizr.custom.js"></script>
+
+<!-- For Modern Browsers -->
+<link rel="shortcut icon" href="img/favicons/favicon.png" />
+<!-- For everything else -->
+<link rel="shortcut icon" href="img/favicons/favicon.ico" />
+
+<!-- iOS web-app metas -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<!-- iPhone ICON -->
+<link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png"
+	sizes="57x57" />
+<!-- iPad ICON -->
+<link rel="apple-touch-icon"
+	href="img/favicons/apple-touch-icon-ipad.png" sizes="72x72" />
+<!-- iPhone (Retina) ICON -->
+<link rel="apple-touch-icon"
+	href="img/favicons/apple-touch-icon-retina.png" sizes="114x114" />
+<!-- iPad (Retina) ICON -->
+<link rel="apple-touch-icon"
+	href="img/favicons/apple-touch-icon-ipad-retina.png" sizes="144x144" />
+
+<!-- iPhone SPLASHSCREEN (320x460) -->
+<link rel="apple-touch-startup-image" href="img/splash/iphone.png"
+	media="(device-width: 320px)" />
+<!-- iPhone (Retina) SPLASHSCREEN (640x960) -->
+<link rel="apple-touch-startup-image"
+	href="img/splash/iphone-retina.png"
+	media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" />
+<!-- iPhone 5 SPLASHSCREEN (640×1096) -->
+<link rel="apple-touch-startup-image" href="img/splash/iphone5.png"
+	media="(device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
+<!-- iPad (portrait) SPLASHSCREEN (748x1024) -->
+<link rel="apple-touch-startup-image"
+	href="img/splash/ipad-portrait.png"
+	media="(device-width: 768px) and (orientation: portrait)" />
+<!-- iPad (landscape) SPLASHSCREEN (768x1004) -->
+<link rel="apple-touch-startup-image"
+	href="img/splash/ipad-landscape.png"
+	media="(device-width: 768px) and (orientation: landscape)" />
+<!-- iPad (Retina, portrait) SPLASHSCREEN (2048x1496) -->
+<link rel="apple-touch-startup-image"
+	href="img/splash/ipad-portrait-retina.png"
+	media="(device-width: 1536px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2)" />
+<!-- iPad (Retina, landscape) SPLASHSCREEN (1536x2008) -->
+<link rel="apple-touch-startup-image"
+	href="img/splash/ipad-landscape-retina.png"
+	media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2)" />
+
+
+<!-- JavaScript at the bottom for fast page loading -->
+
+<!-- Scripts -->
+<script src="js/setup.js"></script>
+
+<!-- Template functions -->
+<script src="js/developr.input.js"></script>
+<script src="js/developr.message.js"></script>
+<script src="js/developr.modal.js"></script>
+<script src="js/developr.navigable.js"></script>
+<script src="js/developr.notify.js"></script>
+<script src="js/developr.scroll.js"></script>
+<script src="js/developr.progress-slider.js"></script>
+<script src="js/developr.tooltip.js"></script>
+<script src="js/developr.confirm.js"></script>
+<script src="js/developr.agenda.js"></script>
+<script src="js/developr.tabs.js"></script>
+<!-- Must be loaded last -->
+
+<!-- Tinycon -->
+<script src="js/libs/tinycon.min.js"></script>
+
+<script>
+	// Call template init (optional, but faster if called manually)
+	$.template.init();
+
+	// Tooltip menu
+	$(document).ready(function() {
+		$('#select-tooltip').menuTooltip($('#select-context').hide(), {
+			classes : [ 'no-padding' ]
+		});
+	});
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

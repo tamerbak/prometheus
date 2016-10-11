@@ -1,0 +1,11 @@
+soit
+	nombre x, n.
+dans
+	lire x;
+	si x < 8 alors
+		x := x + 2.5;
+	sinon
+		x := 25.02;
+	finsi;
+	ecrire x;
+fin

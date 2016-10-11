@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+body{
+	width: 1000px;
+	text-align: center;
+	background-color: white;
+}
+
+.logoheader{
+	float:left;
+	background-color: white;
+	height: 100px;
+	width : 100%;
+}
+
+.headline{
+	height : 10px;
+	width:100%;
+	background-image: url(../img/headline.png) no-repeat left bottom;
+}
+.menucol {
+	float:left;
+	width:250px;
+	background-color:transparent;
+}
+.pcontent {
+	float:right;
+	width:640px;
+	background-color:transparent;
+}
+
+.padvance{
+	width:100px;	
+	float:right;
+	background-color:transparent;
+	
+}
+
+.alldivscontent{
+	width:1000px;
+	background-color: white;
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fr.protogen.connector.model.DataModel>
+	<entity>user_document</entity>
+	<operation>PUT</operation>
+	<token>
+		<appId>SQ64QF8ZE97FQZ87987QF</appId>
+		<sessionId>d51e1fe9-c18b-493d-9d3a-28ae570dd21b</sessionId>
+	</token>
+	<rows>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<attributeReference>type</attributeReference>
+					<value>.png</value>
+					<type>TEXT</type>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<attributeReference>nom</attributeReference>
+					<value>20-12-2013</value>
+					<type>TEXT</type>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<attributeReference>fk_user_dossier</attributeReference>
+					<value>0</value>
+					<type>fk_user_dossier</type>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<attributeReference>fk_user_ocr_driver</attributeReference>
+					<value>40</value>
+					<type>fk_user_ocr_driver</type>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+	</rows>
+</fr.protogen.connector.model.DataModel>

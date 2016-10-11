@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="wiki-fo-layout.xhtml">
+	
+	<ui:define name="left-menu">
+		<ui:include src="wiki-fo-left-menu.xhtml" />
+	</ui:define>
+	<ui:define name="content">		
+		<div class="row">
+                <div class="col-lg-12">
+                    <h1 class="article-header">#{articleManager.selectedArticle.title}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-xs-12">
+                    <p>
+                        <h:outputText value="#{articleManager.selectedArticle.content}" escape="false" />
+                    </p>
+                </div>
+                <div class="col-lg-6 col-xs-12">
+                    <iframe width="400" height="266"
+                            src="#{articleManager.selectedArticle.video}">
+                    </iframe>
+                    <!-- <video width="320" height="240" controls>
+                        <source src="http://" type="video/mp4">
+                        <source src="movie.ogg" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video> -->   
+                    
+                    <!-- Tag cloud -->
+                    <div>
+	                    <p:tagCloud model="#{articleManager.tagModel}" style="width:400px;margin-top:10px;">
+	   						<p:ajax event="select" immediate="true"  async="true" listener="#{articleManager.onTagItemSelect}" update="@form"/>
+	   					</p:tagCloud>
+   					</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 row-link" >
+              		  <ui:repeat var="referencedArticle" value="#{articleManager.selectedArticle.links}" varStatus="status">
+              		  		<p:commandLink actionListener="#{articleManager.navigateToMenu}" update="@form">
+ 								<f:param name="LinkedArticleID" value="#{referencedArticle.articleId}" />
+                                <i class="fa fa-fw link "><span class="linkedArticle-margin">#{referencedArticle.title}</span></i><span class="fa arrow"></span>
+                            </p:commandLink>	
+	                               
+	                  </ui:repeat>
+                    
+                    
+                </div>
+            </div>
+            <!-- /.row -->
+   		
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#frontForm\\:autocompleteInput_input').focus();
+	});
+	
+	</script>
+	</ui:define>
+	
+</ui:composition>
+</html>

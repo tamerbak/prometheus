@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fr.protogen.connector.model.DataModel>
+	<entity>reference de table</entity>
+	<dataMap></dataMap>
+	<rows>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Table</label>
+					<attributeReference>nom du champs</attributeReference>
+					<type>PK</type>
+					<value><![CDATA[valeur]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Champs texte</label>
+					<attributeReference>reference du champs dans la BD
+					</attributeReference>
+					<type>TEXT</type>
+					<value><![CDATA[Valeur]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Champs qui référence une autre table</label>
+					<attributeReference>champs dans la base de données</attributeReference>
+					<type>champs dans la base de données</type>
+					<list>	<!-- Liste des valeurs possibles -->
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id> <!-- Valeur de la clé primaire -->
+							<label>Remise 5%</label> <!-- Libellé correspondant -->
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[Valeur retournée en clé primaire]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée Champs date</label>
+					<attributeReference>référence de la base de données</attributeReference>
+					<type>DATE</type>
+					<value><![CDATA[2013-01-01 00:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+	</rows>
+	<token>
+		<fr.protogen.connector.model.AmanToken>
+			<!-- Le contenu du token de sécurité -->
+		</fr.protogen.connector.model.AmanToken>
+	</token>
+	<operation>GET</operation>		<!-- Opération -->
+</fr.protogen.connector.model.DataModel>

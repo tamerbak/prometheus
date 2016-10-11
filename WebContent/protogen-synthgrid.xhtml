@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+	<ui:define name="contenu">
+		<p:poll interval="600" id="mypoll" widgetVar="mypoll" immediate="true"
+			listener="#{frontController.pollWorkflows}" update="growl" />
+		<p:growl id="growl" showDetail="true"  sticky="true" />
+
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">
+				<h:outputText value="#{synthGridController.windowTitle}"></h:outputText>
+			</h1>
+			</hgroup>
+		</div>
+
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false" showEffect="bounce">
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">Chargement...</label>
+
+		</p:dialog>
+		<div class="with-padding">
+			<!-- FILTRE AVANCEE DE DONNEES -->
+			<center>
+
+				<p:panel id="fsfiltres" rendered="#{synthGridController.filtersEnabled}"
+					header="Filtres avancés de données" toggleable="true"
+					styleClass="panelfiltre"
+					collapsed="#{synthGridController.window.forcedFilter}">
+
+
+					<p:panelGrid style="width:100%;">
+
+						<div class="ui-border">
+							<c:forEach items="#{synthGridController.filtersControls}" var="fctrl">
+								<p:row>
+									<p:column styleClass="column-admin">
+										<h:outputText value="#{fctrl.controlID}"
+											styleClass="outputLabel-custom" />
+											
+										<!-- Type Number -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==4 or fctrl.attribute.CAttributetype.id==8}"
+											style="width:95%" columns="2">
+											<h:outputText>Inférieur à</h:outputText>
+											<br/>
+											<h:outputText>Supérieur à</h:outputText>
+										</h:panelGrid>
+
+										<!-- Type String -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==2}"
+											style="width:95%" columns="2">
+											<h:outputText
+												rendered="#{fctrl.attribute.CAttributetype.id==2}">Commence par</h:outputText>
+											<br/>
+											<h:outputText
+												rendered="#{fctrl.attribute.CAttributetype.id==2}">Se termine par&nbsp;</h:outputText>
+										</h:panelGrid>
+										<!-- Type date -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==3}"
+											style="width:95%" columns="2">
+											<h:outputText
+												rendered="#{fctrl.attribute.CAttributetype.id==3}">Après</h:outputText>
+											<br/>
+											<h:outputText
+												rendered="#{fctrl.attribute.CAttributetype.id==3}">Avant&nbsp;</h:outputText>
+										</h:panelGrid>
+										
+									</p:column>
+									
+									<p:column>
+										<!-- Type Data Reference -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											style="width:95%;" columns="2">
+										<p:selectOneMenu disabled="#{fctrl.readOnly}"
+											value="#{fctrl.controlValue}" rendered="#{fctrl.reference}"
+											style="width:200px;opacity: 1 !important;">
+											<f:selectItem itemLabel="" itemValue="" />
+											<f:selectItems var="ke" value="#{fctrl.listReference}"
+												itemValue="#{ke.key}" itemLabel="#{ke.value}" />
+										</p:selectOneMenu>
+										</h:panelGrid>
+										
+										<!-- Type Number -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==4 or fctrl.attribute.CAttributetype.id==8}"
+											style="width:95%" columns="2">
+											<p:inputText value="#{fctrl.lthan}" style="width:200px" />
+											<br/><p:inputText value="#{fctrl.gthan}" style="width:200px" />
+										</h:panelGrid>
+
+										<!-- Type String -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==2}"
+											style="width:95%" columns="2">
+											<p:inputText value="#{fctrl.lthan}"
+												rendered="#{fctrl.attribute.CAttributetype.id==2}"
+												style="width:200px" />
+											<br/><p:inputText value="#{fctrl.gthan}"
+												rendered="#{fctrl.attribute.CAttributetype.id==2}"
+												style="width:200px" />
+										</h:panelGrid>
+										<!-- Type date -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==3}"
+											style="width:95%" columns="2">
+											<p:calendar value="#{fctrl.bdateValue}" locale="#{frontController.localization.langCode}"
+												rendered="#{fctrl.attribute.CAttributetype.id==3}" />
+											<br/><p:calendar value="#{fctrl.adateValue}" locale="#{frontController.localization.langCode}"
+												rendered="#{fctrl.attribute.CAttributetype.id==3}" />
+										</h:panelGrid>
+									
+									</p:column>
+								</p:row>
+							</c:forEach>
+						</div>
+					</p:panelGrid>
+
+					<table class="tableHederFooter">
+						<tr>
+							<!-- <td class="background-cell"></td> -->
+							<td colspan="2"><p:commandButton value="Valider"
+									styleClass="button white-gradient glossy float-right tableButton"
+									actionListener="#{synthGridController.doFilter}"
+									update="scrolldatapanel" onstart="PF('dlg2').show();"
+									oncomplete="PF('dlg2').hide();" /></td>
+						</tr>
+					</table>
+
+				</p:panel>
+
+				<!-- ALPHA TABLE
+				<p:panel header="#{synthGridController.mainEntity.entity.name}" style="width:100%" >
+					<p:dataTable id="listViewTable" var="tableLine"
+						value="#{synthGridController.mainEntity.rows}"
+						emptyMessage="Aucune donnée disponible"
+						selection="#{synthGridController.selectedRow}"
+						selectionMode="multiple" rowKey="#{tableLine.dbID}"
+						style="width:100%" styleClass="datatableStyle">
+
+						<p:ajax event="rowDblselect" onstart="PF('dlg2').show();"
+							oncomplete="PF('dlg2').hide();"
+							listener="#{synthGridController.onRowDblClckSelect}" update="@form" />
+						<p:ajax event="rowSelect"
+							listener="#{synthGridController.rowSelected}"
+							update=":protogen_main:camenu" />
+
+						<p:columns value="#{synthGridController.titles}"
+							rendered="#{elementColumn.visible}" var="elementColumn"
+							columnIndexVar="indexVar" sortBy="#{tableLine.value[indexVar]}">
+							<f:facet name="header">#{elementColumn.value}</f:facet>
+							<h:outputText title="#{tableLine.roundValue[indexVar]}"
+								value="#{fn:substring(tableLine.roundValue[indexVar],0,70)}" />
+							<h:outputText
+								rendered="#{fn:length(tableLine.roundValue[indexVar]) gt 69}"
+								value="..." />
+						</p:columns>
+
+					</p:dataTable> 
+				</p:panel> -->
+				
+				<!-- SUB TABLES -->
+				
+			</center>
+			<br />
+		</div>
+	</ui:define>
+
+	<ui:define name="aide">
+		
+
+	</ui:define>
+</ui:composition>
+</html>

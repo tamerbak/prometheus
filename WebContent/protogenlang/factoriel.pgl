@@ -1,0 +1,12 @@
+soit
+	entier fact, n, res.
+dans
+	lire fact;
+	n := 1;
+	res := 1;
+	tantque n < (fact+1) faire
+		res := res*n;
+		n := n+1;
+	fin;
+	ecrire res;
+fin

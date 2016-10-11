@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="#{frontController.masterPage}">
+
+	<ui:define name="contenu">
+		
+		<style>
+			 #mn-top .form-elem {
+				margin :2px 20px 10px 0px !important;
+			}
+			a.delete-link, a.delete-link:hover{
+				text-decoration: none;
+			}
+		</style>
+		
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">Gestion de tableau de bord</h1>
+			</hgroup>
+		</div>
+		<div class="with-padding">
+		<div class="ui-grid ui-grid-responsive" style="margin-bottom:15px;" >
+                <div id="mn-top" class="ui-grid-row ">
+                    <div class="ui-grid-col-8" style="width: 72%;display: inline-block;">
+                        <p:commandButton value="Ajouter Widget" type="button" onclick="dlg.show();" ></p:commandButton>
+                        <p:dialog header="Créer widget web" widgetVar="dlg" resizable="false">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="titre" value="Titre" styleClass="form-elem"/>
+                                <p:inputText id="titre" value="#{manageDashboardBean.titre}" label="titre" styleClass="form-elem" />
+                     
+                                <h:outputLabel for="type" value="Type" styleClass="form-elem" />
+                                <p:selectOneMenu id="type" value="#{manageDashboardBean.type}"  style="width:125px"  styleClass="form-elem">
+                <!--                    <f:selectItem itemLabel="Diagramme circulaire" itemValue="P" /> -->
+                <!--                    <f:selectItem itemLabel="Diagramme en bâtons" itemValue="C" /> -->
+                <!--                    <f:selectItem itemLabel="Tableau" itemValue="T" /> -->
+                                    <f:selectItem itemLabel="Page web" itemValue="Web" />
+                                    <f:selectItem itemLabel="Video" itemValue="Stream" />
+                                </p:selectOneMenu>
+                                
+                                <h:outputLabel for="contenu" value="Contenu" styleClass="form-elem" />
+                                <p:inputTextarea id="contenu" value="#{manageDashboardBean.contenu}" label="contenu" styleClass="form-elem" style="width:174px;" />
+                     
+                                <f:facet name="footer">
+                                    <p:commandButton value="Créer" actionListener="#{manageDashboardBean.createWidget}" ajax ="false" style="flaot:right"  />
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+                    </div>
+                    <div class="ui-grid-col-3"  style="width: 20%;display: inline-block;">
+                        <p:selectOneButton value="#{manageDashboardBean.typeDashboard}">
+                            <f:selectItem itemLabel="L" itemValue="list" />
+                            <f:selectItem itemLabel="C" itemValue="column" />
+                        </p:selectOneButton>
+                    </div>
+                </div>
+            </div>
+			<p:dataTable id="checkboxDT" var="widget" value="#{manageDashboardBean.widgets}" style="margin-bottom:0">
+		        <f:facet name="header">
+		            Liste des widgets
+		        </f:facet>
+		        
+		        <p:column headerText="Title">
+		            <h:outputText value="#{widget.title}" />
+		        </p:column>
+		        <p:column headerText="Type" styleClass="h-type">
+<!-- 		            <u class="dashboard-type type-#{widget.type}" ></u> -->
+		            <p:graphicImage  value="/img/adminicon/type-#{widget.type}.png" title="#{widget.type}" />
+		        </p:column>
+		        <p:column  style="width:16px;text-align:center">
+		        	<h:selectBooleanCheckbox value="#{widget.toShow}" />
+		        </p:column>
+		        <p:column  >
+	    			<p:commandLink  action="#{manageDashboardBean.deleteAction}" ajax="false" styleClass="delete-link"  rendered="#{widget.toDel}" >
+	    				<f:param name="widget_id" value="#{widget.id}" />
+	    				<p:graphicImage  value="/img/adminicon/trash.png" title="supprimer #{widget.title}"  />
+	    			</p:commandLink>
+	    		</p:column>
+		        <f:facet name="footer">
+		            <p:commandButton value="Valider" action="#{manageDashboardBean.actionValider}" />
+		        </f:facet>
+		    </p:dataTable>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+</html>

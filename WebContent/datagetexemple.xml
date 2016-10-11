@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fr.protogen.connector.model.DataModel>
+	<entity>user_salarie</entity>
+	<dataMap></dataMap>
+	<rows>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Client</label>
+					<type>PK</type>
+					<value><![CDATA[56]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom Prénom</label>
+					<type>TEXT</type>
+					<value><![CDATA[Alan & Wilson ltd]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Référence TVA</label>
+					<type>TEXT</type>
+					<value><![CDATA[1215454212]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Numéro de compte comptable</label>
+					<type>TEXT</type>
+					<value><![CDATA[411]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par défaut</label>
+					<type>fk_user_taux_de_remise</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Remise 5%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée clientèle</label>
+					<type>DATE</type>
+					<value><![CDATA[2013-01-01 00:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<type>TEXT</type>
+					<value><![CDATA[15421545]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode règlement par défaut</label>
+					<type>fk_user_mode_reglement</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Virement</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>43</id>
+							<label>Effets</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>52</id>
+							<label>Espèce</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>53</id>
+							<label>Chèque</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>54</id>
+							<label>Carte de crédit</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[43]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Client</label>
+					<type>PK</type>
+					<value><![CDATA[60]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom Prénom</label>
+					<type>TEXT</type>
+					<value><![CDATA[Soyoz Distribution]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Référence TVA</label>
+					<type>TEXT</type>
+					<value><![CDATA[456789]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Numéro de compte comptable</label>
+					<type>TEXT</type>
+					<value><![CDATA[411]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par défaut</label>
+					<type>fk_user_taux_de_remise</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Remise 5%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée clientèle</label>
+					<type>DATE</type>
+					<value><![CDATA[2013-11-05 00:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<type>TEXT</type>
+					<value><![CDATA[123456]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode règlement par défaut</label>
+					<type>fk_user_mode_reglement</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Virement</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>43</id>
+							<label>Effets</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>52</id>
+							<label>Espèce</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>53</id>
+							<label>Chèque</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>54</id>
+							<label>Carte de crédit</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Client</label>
+					<type>PK</type>
+					<value><![CDATA[68]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom Prénom</label>
+					<type>TEXT</type>
+					<value><![CDATA[ST Automotive]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Référence TVA</label>
+					<type>TEXT</type>
+					<value><![CDATA[4587965]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Numéro de compte comptable</label>
+					<type>TEXT</type>
+					<value><![CDATA[411022]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par défaut</label>
+					<type>fk_user_taux_de_remise</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Remise 5%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[57]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée clientèle</label>
+					<type>DATE</type>
+					<value><![CDATA[2013-11-04 00:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<type>TEXT</type>
+					<value><![CDATA[128521]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode règlement par défaut</label>
+					<type>fk_user_mode_reglement</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Virement</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>43</id>
+							<label>Effets</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>52</id>
+							<label>Espèce</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>53</id>
+							<label>Chèque</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>54</id>
+							<label>Carte de crédit</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[52]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Client</label>
+					<type>PK</type>
+					<value><![CDATA[69]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom Prénom</label>
+					<type>TEXT</type>
+					<value><![CDATA[Midi Industries]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Référence TVA</label>
+					<type>TEXT</type>
+					<value><![CDATA[4588965]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Numéro de compte comptable</label>
+					<type>TEXT</type>
+					<value><![CDATA[411020]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par défaut</label>
+					<type>fk_user_taux_de_remise</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Remise 5%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[57]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée clientèle</label>
+					<type>DATE</type>
+					<value><![CDATA[2013-11-04 00:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<type>TEXT</type>
+					<value><![CDATA[128452]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode règlement par défaut</label>
+					<type>fk_user_mode_reglement</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Virement</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>43</id>
+							<label>Effets</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>52</id>
+							<label>Espèce</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>53</id>
+							<label>Chèque</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>54</id>
+							<label>Carte de crédit</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[53]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Client</label>
+					<type>PK</type>
+					<value><![CDATA[62]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom Prénom</label>
+					<type>TEXT</type>
+					<value><![CDATA[Africa]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Référence TVA</label>
+					<type>TEXT</type>
+					<value><![CDATA[12121321]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Numéro de compte comptable</label>
+					<type>TEXT</type>
+					<value><![CDATA[411]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par défaut</label>
+					<type>fk_user_taux_de_remise</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Remise 5%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée clientèle</label>
+					<type>DATE</type>
+					<value><![CDATA[2013-11-06 00:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<type>TEXT</type>
+					<value><![CDATA[121545]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode règlement par défaut</label>
+					<type>fk_user_mode_reglement</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Virement</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>43</id>
+							<label>Effets</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>52</id>
+							<label>Espèce</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>53</id>
+							<label>Chèque</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>54</id>
+							<label>Carte de crédit</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Client</label>
+					<type>PK</type>
+					<value><![CDATA[63]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom Prénom</label>
+					<type>TEXT</type>
+					<value><![CDATA[DIAMA]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Référence TVA</label>
+					<type>TEXT</type>
+					<value><![CDATA[12454122]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Numéro de compte comptable</label>
+					<type>TEXT</type>
+					<value><![CDATA[411]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par défaut</label>
+					<type>fk_user_taux_de_remise</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Remise 5%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[41]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée clientèle</label>
+					<type>DATE</type>
+					<value><![CDATA[2013-11-20 23:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<type>TEXT</type>
+					<value><![CDATA[125421]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode règlement par défaut</label>
+					<type>fk_user_mode_reglement</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Virement</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>43</id>
+							<label>Effets</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>52</id>
+							<label>Espèce</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>53</id>
+							<label>Chèque</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>54</id>
+							<label>Carte de crédit</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Client</label>
+					<type>PK</type>
+					<value><![CDATA[57]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom Prénom</label>
+					<type>TEXT</type>
+					<value><![CDATA[GRENA]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Référence TVA</label>
+					<type>TEXT</type>
+					<value><![CDATA[2154564546]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Numéro de compte comptable</label>
+					<type>TEXT</type>
+					<value><![CDATA[411]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par défaut</label>
+					<type>fk_user_taux_de_remise</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Remise 5%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée clientèle</label>
+					<type>DATE</type>
+					<value><![CDATA[2013-11-04 00:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<type>TEXT</type>
+					<value><![CDATA[EA45412]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode règlement par défaut</label>
+					<type>fk_user_mode_reglement</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Virement</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>43</id>
+							<label>Effets</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>52</id>
+							<label>Espèce</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>53</id>
+							<label>Chèque</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>54</id>
+							<label>Carte de crédit</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>ID Client</label>
+					<type>PK</type>
+					<value><![CDATA[61]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom Prénom</label>
+					<type>TEXT</type>
+					<value><![CDATA[PERLE]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Référence TVA</label>
+					<type>TEXT</type>
+					<value><![CDATA[54545412]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Numéro de compte comptable</label>
+					<type>TEXT</type>
+					<value><![CDATA[411]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par défaut</label>
+					<type>fk_user_taux_de_remise</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Remise 5%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>41</id>
+							<label>Remise 15%</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>55</id>
+							<label>Remise fin année</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>56</id>
+							<label>Remise fidélité</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>57</id>
+							<label>Remise générique</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Date entrée clientèle</label>
+					<type>DATE</type>
+					<value><![CDATA[2013-11-06 00:00:00.0]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<type>TEXT</type>
+					<value><![CDATA[87455654]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode règlement par défaut</label>
+					<type>fk_user_mode_reglement</type>
+					<list>
+						<fr.protogen.connector.model.DataCouple>
+							<id>40</id>
+							<label>Virement</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>43</id>
+							<label>Effets</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>52</id>
+							<label>Espèce</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>53</id>
+							<label>Chèque</label>
+						</fr.protogen.connector.model.DataCouple>
+						<fr.protogen.connector.model.DataCouple>
+							<id>54</id>
+							<label>Carte de crédit</label>
+						</fr.protogen.connector.model.DataCouple>
+					</list>
+					<value><![CDATA[40]]></value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+	</rows>
+</fr.protogen.connector.model.DataModel>

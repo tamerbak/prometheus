@@ -1,0 +1,151 @@
+.login-bg{
+	/*background-image:url('./bg-login.png');*/
+	background :#dddee0;
+	width:100%;
+	position:fixed;
+}
+
+.login-bloc{
+	z-index:1010;
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:12%;
+	margin-left:0px;
+	margin-right:0px;
+	
+}
+
+.login-bloc-logo{
+	background-image:url('./logo-saham.png');
+	background-repeat:no-repeat;
+	height:89px;
+	margin:0 42%;
+	margin-bottom:15px;
+}
+.login-bloc-logo-eqdom{
+	background-image:url('./Image_1_222.jpg');
+	background-repeat:no-repeat;
+	height:89px;
+	margin:0 42%;
+	margin-bottom:15px;
+}
+
+.login-bloc-form{
+	background-image:url('./bg-login.png');
+	background-repeat:no-repeat;
+	width:466px;
+	height:332px;
+	margin:0 31.1%;
+	padding-top:10px;
+	padding-left:56px;
+	padding-right:73px;
+}
+
+.login-bloc-form h2 {
+	color:#FFFFFF;	
+	font-size:20px;
+	margin-bottom:35px;
+	font-family:"Arial";
+	margin-right: 72px;
+	
+}
+.login-bloc-form h3 {
+	color:#2b5b83;	
+    font-size: 11px;
+    font-family:"Myriad Pro";
+    font-weight: normal;
+    margin-bottom: 89px;
+    width: 325px;
+	
+}
+.login-bloc-form span{
+	color:#aaaaaa;	
+	font-size:13px;
+	font-family:"Myriad Pro";
+	
+}
+
+.form-input{
+	display:block;
+	font-weight:bold;
+	margin-top : 40px;
+}
+
+.form-input input{
+	width:67%;
+	height:30px;
+	color:#aaaaaa;	
+	font-size:13px;
+	font-family:"Myriad Pro";
+	
+}
+
+#passwordLabel{
+	margin-top:15px;
+}
+
+.connexion-btns{
+	margin-top:40px;
+}
+
+
+
+form .form-button{
+    border: 0 none;
+    color: #000000;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+   	background-repeat:no-repeat;
+    height: 38px;
+    border-radius: 5px;
+    cursor:pointer;
+    position: relative;
+	right: -40%;
+
+}
+form .login-btn{
+	 width: 107px;
+	 background-image: url('./bouton-login.png');
+	 right: -37%;
+}
+form .signup-btn{
+	 width: 195px;
+	background-image: url('./bouton-login.png');
+}
+.password-op{
+	margin-top:25px;
+}
+.password-op span input{
+	vertical-align:sub;
+	transform: scale(1.3);
+
+ 	/* Webkit browsers*/
+    -webkit-transform: scale(1.3);
+}
+.password-op span{
+	display:block;
+}
+.password-op label{
+	display:block;
+	margin-left:3px;
+	margin-top:5px;
+}
+.login-bloc-form label *{
+	font-size:13px;
+	font-family:"Myriad Pro";
+	color:#aaaaaa;
+	text-decoration:none;
+	cursor:pointer;
+}
+
+
+.pwd-recovey-bloc{
+	background-image:url('../assets/img/pwd-recover-bg.png');
+}
+
+
+
+
+

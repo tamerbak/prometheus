@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+	<title>Audial</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+</h:head>
+
+<h:body styleClass="linen">
+	<f:view>
+
+		<div id="container">
+
+			<hgroup id="login-title" class="large-margin-bottom">
+			<h1 class="login-title-image"></h1>
+			</hgroup>
+
+			<div id="form-wrapper">
+				<div id="form-block" class="scratch-metal">
+					<div id="form-viewport">
+						<h:form id="form-login"
+							styleClass="input-wrapper input-wrapper blue-gradient glossy"
+							title="Authentifier">
+
+							<ul class="inputs black-input large">
+								<li><span class="icon-user mid-margin-right"></span> <p:inputText
+										id="user_name" styleClass="input-unstyled"
+										autocomplete="off" value="#{userServices.login}" /> <p:watermark
+										for="user_name" value="E-mail"></p:watermark></li>
+								<li><span class="icon-lock mid-margin-right"></span> <p:password
+										id="password" value="#{userServices.password}"
+										styleClass="input-unstyled" /> <p:watermark
+										for="password" value="Mot de passe"></p:watermark></li>
+							</ul>
+							<p class="button-height">
+								<p:commandButton action="#{userServices.authenticate}" value="Authentifier" ajax="false" 
+								style="float:right;" styleClass="button glossy float-right login-button"></p:commandButton>
+								<br />
+							</p>
+						</h:form>
+
+						<ui:include src="changepassword.xhtml"></ui:include>
+						
+						<ui:include src="protogen-signup.xhtml"></ui:include>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</f:view>
+	<script src="js/login-script.js"></script>
+
+</h:body>
+</html>

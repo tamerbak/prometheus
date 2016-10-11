@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+	<ui:define name="contenu">
+		<p:growl id="frgrl" showDetail="true" />
+		<p:poll interval="600" id="mypoll" widgetVar="mypoll"
+			listener="#{frontController.pollWorkflows}" immediate="true"
+			update="frgrl" />
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1>
+				<h:outputText value="#{formViewController.windowTitle}" />
+			</h1>
+			</hgroup>
+		</div>
+		
+	</ui:define>
+
+
+</ui:composition>
+</html>

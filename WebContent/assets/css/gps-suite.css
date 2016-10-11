@@ -1,0 +1,188 @@
+body{
+	padding-top:91px;
+}
+nav {
+	height:91px;
+	background-color:#171717;
+}
+
+.navbar-gps{
+	margin-top: 91px;
+	background-color:#fff;
+}
+.fa.arrow:before {
+	content: "\f105";
+}
+.nav>li>a:hover, .nav>li>a:focus {
+	text-decoration: none;
+	background-color: #eee;
+}
+.ui-tagcloud-strength-1 a{
+	color:#18486e;
+	font-family: Arial;
+    font-size: 9pt;
+    font-weight: regular;
+}
+.ui-tagcloud-strength-2 a{
+	color:#296a9e;
+	font-family: Arial;
+    font-size: 10pt;
+    font-weight: bold;
+}
+.ui-tagcloud-strength-3 a{
+	color:#69a6d7;
+	font-family: Arial;
+    font-size: 14pt;
+    font-weight: regular;
+}
+.ui-tagcloud-strength-4 a{
+	color:#276494;
+	font-family: Arial;
+    font-size: 14pt;
+    font-weight: bold;
+}
+.ui-tagcloud-strength-5 a{
+	color:#18486e;
+	font-family: Arial;
+    font-size: 22pt;
+    font-weight: bold;
+}
+
+
+.ui-autocomplete{
+	height: 28px;
+    width: 182px;
+
+}
+
+
+.ui-autocomplete-input{
+	height: 28px;
+    width: 182px;
+
+}
+.ui-autocomplete-panel {
+       z-index: 2012;
+    }
+.menu-margin {
+	margin-right : 5px;
+}
+
+.ui-corner-all{
+	border-radius:0px;
+}
+
+.page_title{
+    background-color: #18486e;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 15px;
+    margin-top: 40px;
+    padding-left: 11px;
+    text-align: left;
+    text-decoration: none;
+}
+.article-header{
+	margin-top: 40px;
+	border-bottom:0px;
+	font-size: 20px;
+	font-weight: bolder;
+	color:#18486e;
+	margin-bottom:15px;
+}
+
+.linkedArticle-margin{
+	padding-left:5px;
+}
+
+.search-input{
+	height:28px;
+}
+
+.nav>li>a {
+	color:#18486e;
+	font-size: 15px;
+}
+.nav>li.active>a {
+	text-decoration: none;
+	background-color: #8ba3b6;
+	color:#fff;
+}
+.nav>li.second-active>a {
+	background-color: #18486e;
+}
+
+div.row-link {
+	margin-top:40px;
+}
+
+.large_field {
+	width: 300px;
+}
+.fa-dashboard {
+	margin-right: 5px;
+}
+.ui-selectonemenu{
+     width: 300px !important;
+}
+.ui-selectonemenu-label{
+     width: 100% !important;
+} 
+.link {
+	display:inline-block;
+	width:212px;
+	height:46px;
+	background:#18486e url("../img/bouton.png");
+	color:#fff;
+	margin:0 5px;
+	border-radius: 3px;
+	text-align: center;
+	line-height: 46px;
+	text-decoration: none;
+	font-size: 15px;
+}
+
+a.link {
+	display:inline-block;
+	width:212px;
+	height:46px;
+	background:#18486e url("../img/bouton.png");
+	color:#fff;
+	margin:0 5px;
+	border-radius: 3px;
+	text-align: center;
+	line-height: 46px;
+	text-decoration: none;
+}
+
+.btn-gps{
+	background-color:#d21e1e;
+}
+
+.white{
+	color:#fff;
+}
+
+.title-search{
+	background-color: #00f;
+	color:#fff;
+}
+.search-result {
+	border-bottom: 1px solid #eee;
+	padding-bottom:20px;
+}
+.search-result h1.title{
+	color:#18486e;
+	font-size : 15px;
+}
+
+#page-wrapper {
+    border-left: 1px solid #e7e7e7;
+    margin: -19px 0 0 250px;
+    min-height: 1300px;
+    padding: 1px 28px;
+    position: inherit;
+}

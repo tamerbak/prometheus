@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="#{frontController.masterPage}">
+	<ui:define name="contenu">
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false">
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">Chargement
+				...</label>
+		</p:dialog>
+		<p:dialog id="cnfdlg" widgetVar="cnfdlg" header="Déconnexion"
+			closable="false" modal="false">
+			<center>
+				Pour que les changements prennent effet vous allez devoir vous
+				reconnecter<br /> Etes-vous sûr de vouloir continuer ?
+			</center>
+			<f:facet name="footer">
+				<center>
+					<p:commandButton value="Valider"
+						action="#{administrationControl.chPwd}" onstart="dlg2.show();"
+						oncomplete="dlg2.hide();" update="@form"
+						styleClass="button glossy float-right login-button" />
+					<p:spacer width="15" height="5" />
+					<p:commandButton value="Annuler" oncomplete="cnfdlg.hide();"
+						update="@form" styleClass="button glossy float-right login-button" />
+				</center>
+			</f:facet>
+		</p:dialog>
+
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">Administration</h1>
+			</hgroup>
+		</div>
+
+		<details class="details margin-bottom" open="true"> <summary
+			class="summaryDetails">Mon profil</summary> <p:panelGrid
+			style="width:100%;padding:40px;background:none;border:none !important;">
+
+			<div class="ui-border">
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nom" value="Nom"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="nom"
+							value="#{administrationControl.selectedUser.lastName}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="prenom" value="Prénom"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="prenom"
+							value="#{administrationControl.selectedUser.firstName}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="utel" value="Téléphone"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="utel"
+							value="#{administrationControl.selectedUser.tel}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="adrss" value="Adresse"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputTextarea id="adrss"
+							value="#{administrationControl.selectedUser.adress}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="pictouser" value="Photo de profil"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:fileUpload value="#{administrationControl.file}" mode="simple" id="pictouser" />
+						<p:commandButton value="Charger" ajax="false" actionListener="#{administrationControl.upload}" />
+						
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column colspan="2">
+						<center>
+							<p:carousel id="carousel" value="#{administrationControl.themes}"
+								rows="3" var="thm" headerText="Thèmes"
+								itemStyle="width:230px;height:135px;">
+								<center>
+									<h:panelGrid columns="1" cellpadding="1">
+										<p:commandLink 
+											actionListener="#{administrationControl.updateChosenTheme}"
+											update=":protogen_main:growl" onclick="dlg2.show();"
+											onsuccess="dlg2.hide();">
+											<div id="linkHoverImg">
+												<p:graphicImage value="images/miniatures/#{thm.image}" id="imgMiniature" onclick="clickMiniature(this);"/>
+											</div>
+											<f:param name="thm" value="#{thm.id}" />
+										</p:commandLink> 
+									</h:panelGrid>
+								</center>
+							</p:carousel>
+						</center>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel value="Couleur du thème"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:commandButton value=""
+							onclick="changeCSS('css/colors.css?v=1', 'css/style.css?v=1', 'css/admin.css', 'css/layout.css');"
+							actionListener="#{administrationControl.updateColorTheme}"
+							styleClass="margin-right button blueAdmin-gradient glossy">
+							<f:param name="colorthm" value="css/colors.css?v=1" />
+							<f:param name="stylethm" value="css/style.css?v=1" />
+							<f:param name="adminthm" value="css/admin.css" />
+							<f:param name="layoutthm" value="css/layout.css" />
+						</p:commandButton>
+						<p:commandButton value=""
+							onclick="changeCSS('css/colors_red.css?v=1', 'css/style_red.css?v=1', 'css/admin_red.css?v=1', 'css/layout_red.css');"
+							actionListener="#{administrationControl.updateColorTheme}"
+							styleClass="margin-right button redAdmin-gradient glossy">
+							<f:param name="colorthm" value="css/colors_red.css?v=1" />
+							<f:param name="stylethm" value="css/style_red.css?v=1" />
+							<f:param name="adminthm" value="css/admin_red.css" />
+							<f:param name="layoutthm" value="css/layout_red.css" />
+						</p:commandButton>
+						<p:commandButton value=""
+							onclick="changeCSS('css/colors_green.css?v=1', 'css/style_green.css?v=1', 'css/admin_green.css', 'css/layout_green.css');"
+							actionListener="#{administrationControl.updateColorTheme}"
+							styleClass="margin-right button greenAdmin-gradient glossy">
+							<f:param name="colorthm" value="css/colors_green.css?v=1" />
+							<f:param name="stylethm" value="css/style_green.css?v=1" />
+							<f:param name="adminthm" value="css/admin_green.css" />
+							<f:param name="layoutthm" value="css/layout_green.css" />
+						</p:commandButton>
+						<p:commandButton value=""
+							onclick="changeCSS('css/colors_yellow.css?v=1', 'css/style_yellow.css?v=1', 'css/admin_yellow.css', 'css/layout_yellow.css');"
+							actionListener="#{administrationControl.updateColorTheme}"
+							styleClass="margin-right button yellowAdmin-gradient glossy">
+							<f:param name="colorthm" value="css/colors_yellow.css?v=1" />
+							<f:param name="stylethm" value="css/style_yellow.css?v=1" />
+							<f:param name="adminthm" value="css/admin_yellow.css" />
+							<f:param name="layoutthm" value="css/layout_yellow.css" />
+						</p:commandButton>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="optionFunc" value="Fonctionalités optionelles"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectCheckboxMenu id="optionFunc"
+							label="Fonctions optionnelles"
+							value="#{administrationControl.superMenus}" filter="true"
+							filterText="Filter" filterMatchMode="contains"
+							panelStyle="width:370px" style="width:263px;">
+							<f:selectItems value="#{administrationControl.menus}" />
+						</p:selectCheckboxMenu>
+					</p:column>
+				</p:row>
+
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="newpwd" value="Nouveau mot de passe"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:password id="newpwd"
+							value="#{administrationControl.newPassword}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="cpwd" value="Confirmation"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:password id="cpwd"
+							value="#{administrationControl.confirmPassword}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+				
+			</div>
+		</p:panelGrid>
+
+		<table>
+			<tr>
+				<td></td>
+				<td align="right" class="with-padding" style="width: 100%;"><p:commandButton
+						value="Valider" onclick="cnfdlg.show();" type="button"
+						styleClass="button glossy float-right login-button" update="@form">
+					</p:commandButton></td>
+			</tr>
+		</table>
+
+		</details>
+		<br />
+
+		<details class="details margin-bottom" open="false"> 
+			<summary class="summaryDetails">Rôles secondaires</summary> 
+			<p:panelGrid style="width:100%;padding:40px;background:none;border:none !important;">
+				<div class="ui-border">
+					<p:row>
+						<p:column styleClass="column-admin">
+							<p:outputLabel for="cpwd" value="Rôle"
+								styleClass="outputLabel-custom" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="roles" style="width:263px;"
+								value="#{administrationControl.selectedRoleSecId}">
+								<f:selectItems value="#{administrationControl.rolesSec}" var="inst"
+									itemLabel="#{inst.value}" itemValue="#{inst.key}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+				</div>
+			</p:panelGrid>
+			<table>
+			<tr>
+				<td></td>
+				<td align="right" class="with-padding" style="width: 100%;"><p:commandButton
+						value="Valider" actionListener="#{administrationControl.switchRole}"
+						styleClass="button glossy float-right login-button" ajax="false">
+					</p:commandButton></td>
+			</tr>
+		</table>
+			
+		</details>
+		<br />
+		
+				<br />
+		<details class="details margin-bottom"
+			pt:rendered="#{administrationControl.superAdmin}" pt:id="adminorg"
+			pt:widgetVar="adminorg"> <summary class="summaryDetails">Administration
+		des organisations</summary> <p:panelGrid
+			style="width:100%;padding:40px;background:none;border:none !important;"
+			id="neworggrid">
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="pkgs" value="Modèles de paramétrage"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+
+					<p:selectOneMenu id="pkgs" style="width:263px;"
+						value="#{administrationControl.selectedPkgId}">
+						<p:ajax event="change"
+							listener="#{administrationControl.parameterPkgChange}"
+							update="instances" />
+						<f:selectItems value="#{administrationControl.pkgs}" var="inst"
+							itemLabel="#{inst.value}" itemValue="#{inst.key}" />
+					</p:selectOneMenu>
+
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="instances" value="Configurations"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:selectCheckboxMenu id="instances"
+						value="#{administrationControl.selectedInstances}"
+						label="Configurations" style="width:263px;">
+						<f:selectItems value="#{administrationControl.pkinstances}"
+							var="inst" itemLabel="#{inst.value}" itemValue="#{inst.key}" />
+					</p:selectCheckboxMenu>
+				</p:column>
+			</p:row>
+
+		</p:panelGrid>
+
+		<table>
+			<tr>
+				<td></td>
+				<td align="right" class="with-padding" style="width: 100%;"><p:commandButton
+						value="Ajouter" ajax="false"
+						actionListener="#{administrationControl.saveParameters}"
+						styleClass="button glossy float-right login-button"
+						update="adminorg" onstart="dlg2.show();" oncomplete="dlg2.hide();" /></td>
+			</tr>
+		</table>
+
+		</details>
+		<br />
+
+		<details class="details margin-bottom" pt:id="parainst"
+			pt:widgetVar="parainst"
+			pt:rendered="#{administrationControl.superAdmin}"> <summary
+			class="summaryDetails">Modèles de paramétrage</summary> <p:panelGrid
+			style="width:100%;padding:40px;background:none;border:none !important;"
+			id="orgprmgrid">
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="ipkgs" value="Modèles de paramétrage"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="ipkgs"
+						value="#{administrationControl.iselectedPkgId}">
+						<p:ajax event="change"
+							listener="#{administrationControl.iparameterPkgChange}"
+							update="instances" />
+						<f:selectItems value="#{administrationControl.pkgs}" var="inst"
+							itemLabel="#{inst.value}" itemValue="#{inst.key}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="iinstances" value="Enregistrements"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:selectCheckboxMenu id="iinstances"
+						value="#{administrationControl.selectedRows}"
+						label="Configurations">
+						<f:selectItems value="#{administrationControl.pkgRows}" var="inst"
+							itemLabel="#{inst.value}" itemValue="#{inst.key}" />
+					</p:selectCheckboxMenu>
+				</p:column>
+			</p:row>
+
+		</p:panelGrid>
+
+		<table>
+			<tr>
+				<td></td>
+				<td align="right" class="with-padding" style="width: 100%;"><p:commandButton
+						value="Enregistrer"
+						actionListener="#{administrationControl.saveInstanceParameters}"
+						ajax="false" styleClass="button glossy float-right login-button" />
+				</td>
+			</tr>
+		</table>
+
+		</details>
+		<br />
+		
+		<details class="details margin-bottom" pt:id="adminusers"
+			pt:widgetVar="adminusers"
+			pt:rendered="#{administrationControl.superAdmin}"> <summary
+			class="summaryDetails">Administration des utilisateurs</summary> <p:panelGrid
+			style="width:100%;padding:40px;background:none;border:none !important;"
+			id="newusergrid">
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="numail" value="E-Mail"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:inputText id="numail"
+						value="#{administrationControl.nucreatingUser.login}"
+						styleClass="input input-width-2" />
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nunom" value="Nom"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:inputText id="nunom"
+						value="#{administrationControl.nucreatingUser.lastName}"
+						styleClass="input input-width-2" />
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nuprenom" value="Prénom"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:inputText id="nuprenom"
+						value="#{administrationControl.nucreatingUser.firstName}"
+						styleClass="input input-width-2" />
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nuutel" value="Téléphone"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:inputText id="nuutel"
+						value="#{administrationControl.nucreatingUser.tel}"
+						styleClass="input input-width-2" />
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nuadrss" value="Adresse"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:inputTextarea id="nuadrss"
+						value="#{administrationControl.nucreatingUser.adress}"
+						styleClass="input input-width-2" />
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nuthm" value="Thème visuel"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="nuthm"
+						value="#{administrationControl.nuselectedTheme}"
+						style="width:263px;">
+						<f:selectItem itemLabel="Thème bleu" itemValue="THEME:BLEU" />
+						<f:selectItem itemLabel="Thème rouge" itemValue="THEME:ROUGE" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nuprofil" value="Profil utilisateur"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="nuprofil"
+						value="#{administrationControl.nuselectedProfil}"
+						style="width:263px;">
+						<p:ajax event="change"
+							listener="#{administrationControl.profileChanged}"
+							update="nubound" onstart="dlg2.show();" oncomplete="dlg2.hide();" />
+						<f:selectItems value="#{administrationControl.nuprofiles}"
+							var="prfl" itemLabel="#{prfl.role}" itemValue="#{prfl.id}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nuorganization" value="Organisation"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="nuorganization"
+						value="#{administrationControl.nuselectedOrg}"
+						style="width:263px;">
+						<f:selectItems value="#{administrationControl.organizations}"
+							var="org" itemLabel="#{org.value}" itemValue="#{org.key}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nuentity" value="Affectation"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="nuentity"
+						value="#{administrationControl.nuselectedOrgInstance}"
+						style="width:263px;">
+						<f:selectItems value="#{administrationControl.instances}"
+							var="org" itemLabel="#{org.value}" itemValue="#{org.key}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nubound" value="Entité"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="nubound"
+						value="#{administrationControl.nuselectedEntity}"
+						style="width:263px;">
+						<f:selectItem itemLabel="Faites votre choix" itemValue="0" />
+						<f:selectItems value="#{administrationControl.entities}" var="org"
+							itemLabel="#{org.value}" itemValue="#{org.key}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nunewpwd" value="Nouveau mot de passe"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:password id="nunewpwd"
+						value="#{administrationControl.nunewPassword}"
+						styleClass="input input-width-2" />
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column styleClass="column-admin">
+					<p:outputLabel for="nucpwd" value="Confirmation"
+						styleClass="outputLabel-custom" />
+				</p:column>
+				<p:column>
+					<p:password id="nucpwd"
+						value="#{administrationControl.nuconfirmPassword}"
+						styleClass="input input-width-2" />
+				</p:column>
+			</p:row>
+
+		</p:panelGrid>
+
+		<table>
+			<tr>
+				<td></td>
+				<td align="right" class="with-padding" style="width: 100%;"><p:commandButton
+						value="Ajouter"
+						actionListener="#{administrationControl.createUserInstance}"
+						update="@form" onstart="dlg2.show();" oncomplete="dlg2.hide();"
+						styleClass="button glossy float-right login-button" /></td>
+			</tr>
+		</table>
+
+		</details>
+		<!-- </p:fieldset> -->
+
+	</ui:define>
+	
+</ui:composition>
+</html>

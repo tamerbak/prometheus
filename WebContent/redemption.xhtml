@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+	<title>G-Insurance</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- <h:outputStylesheet name="layout.css" library="css" /> -->
+	<!--[if lt IE 9]>
+	
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<style type="text/css">
+		/*help shortcut*/
+		body.reversed a.shortcut-help {
+ 			   background-position:68px -542px;
+		}
+		.shortcut-help:before{
+			  background-position: -70px -548px;
+		}
+		
+		/*
+		*	Logos
+		*/
+		.rolelogo {
+			height: 45px;
+			position: absolute;
+			left: 10px;
+			top: 1px;
+		}
+		
+		/*
+		*	Show hide components in mtm forms
+		*/
+		.hideTextbox {
+			display:none;
+		}
+		.showTextbox{
+			width:125px;
+		}
+		.hideCalendar {
+			display:none;
+		}
+		.showCalendar{
+			width:125px;
+		}
+		.hideReference {
+			display:none;
+		}
+		.showReference{
+			width:132px;
+		}
+		
+		.mtmcols{
+			vertical-align: middle;
+			padding: 3px 3px !important;
+		}
+		/*
+		*	lines colors
+		*/
+	
+		.whiteline{
+			background : rgb(240, 240, 240) !important;
+		}
+		.yellowline{
+			background : #FFFFB0 !important;
+		}
+		.greenline{
+			background : #77FF87 !important;
+		}
+		
+		/*
+		*	Pick list override
+		*/
+		.ui-picklist .ui-button {
+			margin-bottom: 0.3em !important;
+			display: none !important;
+		}
+		.ui-picklist .ui-picklist-list {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: auto;
+			height: 200px;
+			width: 94%;
+		}
+		/*
+		*	TABLE DETAILS
+		*/
+		.detailsTitreTable{
+			text-align: right !important;
+			text-decoration: underline !important;
+			font-size: larger !important;
+			/*border-width: 0px !important;
+			background-color: #F5F5F5 !important;*/
+		}
+		.detailsValeurTable{
+			text-align: left !important;
+			font-size: larger !important;
+			/*border-width: 0px !important;*/
+		}
+		
+		.ui-spinner {
+			width:213px;
+		}
+		.ui-spinner-input {
+			width:177px;
+		}
+		#datepicker .ui-inputfield{
+			width:213p
+		}
+		
+		.ui-fileupload label {
+			width:30px;
+			height: 28px;
+			color: transparent !important;
+		}
+		.ui-fileupload button {
+			width:30px;
+			color: transparent !important;
+		} 
+		.template-upload .preview{
+			display : none;
+		}
+		.template-upload .size{
+			display : none;
+		}
+		.template-upload .progress{
+			display : none;
+		}
+		.template-upload .start{
+			display : none;
+		}
+		.template-upload .cancel{
+			display : none;
+		}
+		
+		.mywiz .ui-wizard-step-title{
+			color : #fff !important;
+		}
+		.ui-accordion-header {
+			background: #004992;
+		}
+		
+		/*
+		*	Fixing data table duplicated header
+		*/
+		
+		.ui-datatable-scrollable-header{
+			display:none !important;
+		}
+		.ui-datatable-scrollable-theadclone tr {
+			height :40px !important;
+			
+		}
+		.ui-datatable-frozenlayout-left{
+			width:300px;
+		}
+		
+		.ui-datatable-frozen-container .ui-datatable-scrollable-body table{
+			width:300px;
+		}
+		
+		.ui-datatable tbody td{
+			padding : 0px 0px ! important;
+		}
+		
+		.ui-datatable-data tr{
+			height : 80px !important;
+		}
+		
+		.ui-datatable-scrollable-theadclone th.ui-state-default{
+			height: 0px;
+			border-bottom-width: 0px;
+			border-top-width: 1px !important;
+			padding-top: 4px !important;
+			padding-bottom: 0px;
+		}
+		
+		
+		
+		.full-size{
+			width:100%;
+		}
+		.no-size{
+			width:0%;
+		}
+		.middle-size{
+			width:50%;
+		}
+		.quarter-size{
+			width:25%;
+		}
+		.three-quarters-size{
+			width:75%;
+		}
+		
+		.excel-icon {
+			background-image: url('images/excel.png') !important;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.acrobat-icon {
+			background-image: url('images/acrobat.png') !important;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		#document-menu-btn .ui-button-icon-left .ui-icon .ui-c .ui-icon-triangle-1-s{
+			background-image: url('images/acrobat.png') !important;
+			background-repeat: no-repeat !important;
+			background-size: contain !important;
+			background-position: inherit !important;
+		}
+		.list-view-table {
+			background-image: url('images/bg-logo.png') !important;
+			background-repeat: no-repeat; !important;
+			background-position: center;
+			width:100% !important;
+			min-height : 170px !important;
+		}
+		.reduced-calendar input{
+			width:150px;
+		}
+		.reduced-ddlist{
+			width : 150px;
+		}
+		.reduced-ddlist label{
+			width : 130px;
+		}
+		
+		.emailtable .ui-datatable-data tr{
+			height:20px !important;
+		}
+		
+		.plus-btn{
+			width: 10px !important;
+			height: 10px !important;
+		}
+		
+		.calendar-style input{
+			width:80px !important;
+		}	
+	</style>
+
+	<!-- For all browsers -->
+	<link rel="stylesheet" href="css/reset.css?v=1" id="reset" />
+	<link rel="stylesheet" href="#{frontController.styletheme}" id="style"/>
+	<link rel="stylesheet" href="#{frontController.colortheme}" id="color"/>
+	
+	
+	<link rel="stylesheet" media="print" href="css/print.css?v=1" />
+	<!-- For progressively larger displays -->
+	<link rel="stylesheet" media="only all and (min-width: 480px)"
+		href="css/480.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 768px)"
+		href="css/768.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 992px)"
+		href="css/992.css?v=1" />
+	<link rel="stylesheet" media="only all and (min-width: 1200px)"
+		href="css/1200.css?v=1" />
+	<!-- For Retina displays -->
+	<link rel="stylesheet"
+		media="only all and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5)"
+		href="css/2x.css?v=1" />
+
+	<!-- Webfonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300'
+		rel='stylesheet' type='text/css' />
+
+	<!-- Additional styles -->
+
+	<link rel="stylesheet" href="css/styles/form.css?v=1" />
+	<link rel="stylesheet" href="css/styles/switches.css?v=1" />
+	<link rel="stylesheet" href="css/styles/table.css?v=1" />
+	<link rel="stylesheet" href="css/custom.css" />
+
+	<!-- JavaScript at bottom except for Modernizr -->
+	<script src="js/libs/modernizr.custom.js"></script>
+
+	<!-- For Modern Browsers -->
+	<link rel="shortcut icon" href="img/favicons/favicon.png" />
+	<!-- For everything else -->
+	<link rel="shortcut icon" href="img/favicons/favicon.ico" />
+
+	<!-- iOS web-app metas -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<!-- iPhone ICON -->
+	<link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png"
+		sizes="57x57" />
+	<!-- iPad ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-ipad.png" sizes="72x72" />
+	<!-- iPhone (Retina) ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-retina.png" sizes="114x114" />
+	<!-- iPad (Retina) ICON -->
+	<link rel="apple-touch-icon"
+		href="img/favicons/apple-touch-icon-ipad-retina.png" sizes="144x144" />
+
+	<!-- iPhone SPLASHSCREEN (320x460) -->
+	<link rel="apple-touch-startup-image" href="img/splash/iphone.png"
+		media="(device-width: 320px)" />
+	<!-- iPhone (Retina) SPLASHSCREEN (640x960) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/iphone-retina.png"
+		media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" />
+	<!-- iPhone 5 SPLASHSCREEN (640×1096) -->
+	<link rel="apple-touch-startup-image" href="img/splash/iphone5.png"
+		media="(device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
+	<!-- iPad (portrait) SPLASHSCREEN (748x1024) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-portrait.png"
+		media="(device-width: 768px) and (orientation: portrait)" />
+	<!-- iPad (landscape) SPLASHSCREEN (768x1004) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-landscape.png"
+		media="(device-width: 768px) and (orientation: landscape)" />
+	<!-- iPad (Retina, portrait) SPLASHSCREEN (2048x1496) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-portrait-retina.png"
+		media="(device-width: 1536px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2)" />
+	<!-- iPad (Retina, landscape) SPLASHSCREEN (1536x2008) -->
+	<link rel="apple-touch-startup-image"
+		href="img/splash/ipad-landscape-retina.png"
+		media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2)" />
+	<script type="text/javascript">
+		function reShowActiveMenu() {
+			$(".click_menu_#{frontController.idMenu}").parents("li.with-right-arrow").find("span:first").click()
+		};
+	</script>
+	
+</h:head>
+<h:body class="clearfix with-menu with-shortcuts reversed"
+	onload="procsessiondlg.show();">
+	<f:event listener="#{frontController.checkForSession}"
+		type="preRenderView" />
+	<f:view locale="#{frontController.localization.langCode}">
+		<h:form enctype="multipart/form-data" id="protogen_main" >
+			<p:poll interval="600" id="eventpoll" widgetVar="eventpoll"
+				listener="#{frontController.pollEvents}" update="@form"
+				autoStart="true" immediate="true" />
+			
+			<p:poll interval="900" id="mailpoll" widgetVar="mailpoll"
+				listener="#{frontController.pollMails}" 
+				autoStart="true" immediate="true" />
+			
+			
+	
+			<!-- 		Reprise de session des procédures		 -->
+			<p:dialog id="procsessiondlg" widgetVar="procsessiondlg"
+				closable="false" modal="false" resizable="false"
+				rendered="#{frontController.interruptedProcess or frontController.formContextAvailable}">
+				<p:outputPanel rendered="#{frontController.interruptedProcess}">
+				<center>
+					Lors de votre dernière session, vous avez interrompu le processus<br />
+					<b><h:outputText value="#{frontController.inprocLabel}" /></b><br />
+					à l'étape <br /> <b><h:outputText
+							value="#{frontController.inprocAtom}" /></b><br /> Voulez-vous
+					reprendre à partir de ce point ?
+				</center>
+				</p:outputPanel>
+				<p:outputPanel rendered="#{frontController.formContextAvailable and not frontController.interruptedProcess}">
+					<center>
+						Lors de votre dernière session, vous n'avez pas sauvegardé votre travail<br />
+						Voulez vous reprendre la dernière valeur sauvegardée de l'écran #{frontController.lastScreen.title} ?
+					</center>
+				</p:outputPanel>
+				<f:facet name="footer">
+					<p:commandButton icon="ui-icon-circle-check" value="Oui"
+						action="#{frontController.loadInterruptedProcess}" ajax="false"
+						onstart="procsessiondlg.hide();" />
+					<p:commandButton icon="ui-icon-circle-close" value="Non"
+						action="#{frontController.deleteInterruptedProcess}" ajax="false"
+						onstart="procsessiondlg.hide();" style="float:right" />
+				</f:facet>
+			</p:dialog>
+			
+			
+
+			<p:dialog id="fdlg" style="vertical-align:middle" closable="false"
+				widgetVar="fdlg" modal="false" resizable="false" dynamic="false">
+				<p:graphicImage value="/images/loading.gif" />
+				<p:spacer width="20" height="10" />
+				<label style="position: relative; bottom: 10px;">#{msg['application.loading']}
+					...</label>
+			</p:dialog>
+
+			<p:dialog id="pardlg" widgetVar="pardlg"
+				style="vertical-align:middle" closable="true" modal="false"
+				resizable="false" dynamic="true">
+				<p:panelGrid columns="2">
+					<c:forEach items="#{listViewControl.parsToShow}" var="pr">
+						<p:outputLabel value="#{pr.title}" />
+						<p:inputText value="#{pr.value}" rendered="#{!pr.reference}" />
+						<p:selectOneMenu value="#{pr.value}" rendered="#{pr.reference}">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{pr.elements}" var="elt"
+								itemLabel="#{elt.value}" itemValue="#{elt.key}" />
+						</p:selectOneMenu>
+					</c:forEach>
+					<f:facet name="footer">
+						<p:commandButton style="width:100%; text-align:left"
+							value="Lancer le traitement"
+							actionListener="#{listViewControl.doCalculus}" update="@form"
+							onstart="fdlg.show();" oncomplete="fdlg.hide();pardlg.hide();" />
+					</f:facet>
+				</p:panelGrid>
+
+			</p:dialog>
+
+			<p:dialog id="parbdlg" widgetVar="parbdlg"
+				style="vertical-align:middle" closable="true" modal="false"
+				resizable="false" dynamic="true">
+				<p:panelGrid columns="2">
+					<c:forEach items="#{listViewControl.parsToShow}" var="pr">
+						<p:outputLabel value="#{pr.title}" />
+						<p:inputText value="#{pr.value}" rendered="#{!pr.reference}" />
+						<p:selectOneMenu value="#{pr.value}" rendered="#{pr.reference}">
+							<f:selectItems value="#{pr.elements}" var="elt"
+								itemLabel="#{elt.value}" itemValue="#{elt.key}" />
+						</p:selectOneMenu>
+					</c:forEach>
+					<f:facet name="footer">
+						<p:commandButton style="width:100%; text-align:left"
+							value="Lancer le traitement"
+							actionListener="#{listViewControl.doBatchCalculus}"
+							update="@form" onstart="fdlg.show();"
+							oncomplete="fdlg.hide();pardlg.hide();" />
+					</f:facet>
+				</p:panelGrid>
+
+			</p:dialog>
+
+
+
+			<!-- Title bar --> 
+			<header role="banner" style="height: 46px;" id="title-bar">
+			<h2></h2>
+			<p:graphicImage alt="gps" value="#{frontController.logoPath}" styleClass="rolelogo" />
+			</header>
+			<!-- end of header bar -->
+
+			<p:dialog id="roledesc" widgetVar="roledesc" header="Description" >
+				<h:outputText value="#{frontController.currentUser.coreRole.description}" />
+			</p:dialog>
+
+			<sidebar id="menu" role="complementary"> <!-- This wrapper is used by several responsive layouts -->
+			<div id="menu-content">
+					<div style="margin-left: 30px;margin-top: 15px;margin-bottom: 15px; font-size:medium" >
+					<p:commandLink 
+						value="#{frontController.currentUser.coreRole.role}"
+						onclick="roledesc.show();" />
+					</div>
+				<div id="profile">
+					<p:graphicImage alt="gps" value="#{frontController.profilPhoto}" 
+						style="height: 80px;margin-bottom: 9px;" />
+					 <span class="name">#{frontController.currentUser.lastName}
+						<b>#{frontController.currentUser.firstName}</b>
+						<br />
+						#{frontController.organizationName}
+					</span>
+					
+				</div>
+
+				<!-- Button to open/hide menu -->
+				<a href="#" id="open-menu"><span>Menu</span></a>
+
+				<!-- Button to open/hide shortcuts -->
+				<a href="#" id="open-shortcuts"><span class="icon-thumbs"></span></a>
+
+				<!-- Barre multi usage -->
+				<ul id="access" class="children-tooltip">
+					<li><p:commandLink action="protogen-alerts" ajax="false"
+							title="#{msg['application.alerts']}">
+							<span class="icon-alert"></span>
+						</p:commandLink></li>
+
+					<li><p:commandLink action="protogen-schedule.xhtml"
+							ajax="false" title="#{msg['application.agenda']}">
+							<span class="icon-calendar"></span>
+						</p:commandLink></li>
+
+					<li><p:commandLink action="protogen-administration"
+							ajax="false" title="#{msg['application.administration']}" immediate="true"
+							disabled="#{!frontController.adminMode}">
+							<span class="icon-user-menu"></span>
+						</p:commandLink></li>
+
+					<li><p:commandLink action="#{frontController.logout}"
+							ajax="false" title="#{msg['application.logout']}" immediate="true">
+							<span class="icon-logout-menu"></span>
+						</p:commandLink></li>
+				</ul>
+
+				<p:menuitem icon="ui-icon-calendar" style=" text-align:center"
+					immediate="true" title="Agenda (F4)" value="Agenda"
+					action="protogen-schedule.xhtml" ajax="false" styleClass="myitem" />
+				<p:menuitem icon="ui-icon-person" style="text-align:center"
+					immediate="true" title="Profil  (F6)" value="Administration"
+					action="protogen-administration" ajax="false" styleClass="myitem" />
+				<p:menuitem icon="ui-icon-power" style="text-align:center"
+					immediate="true" title="Déconnexion  (F9)" value="Déconnexion"
+					action="#{frontController.logout}" ajax="false" styleClass="myitem" />
+
+				<!-- Barre de recherche -->
+				<ul id="access-search">
+					<li><p:autoComplete id="searsh" widgetVar="allsearch"
+							binding="#{allsearch}"
+							value="#{frontController.selectedResearchable}"
+							completeMethod="#{frontController.completeResearchProcedure}"
+							size="42" style="font-size:13px; height: 20px;">
+							<p:ajax event="itemSelect"
+								listener="#{frontController.resChanged}" update="@form" ></p:ajax>
+						</p:autoComplete> <p:watermark for="searsh" value="#{msg['listview.search']}" /></li>
+				</ul>
+
+				<!-- MENU PRINCIPALE -->
+				<section class="navigable">
+				<ul class="big-menu" id="angramenu">
+					<c:forEach var="uimenu" items="#{frontController.angramainyu}">
+						<li class="with-right-arrow" style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.25)!important;">
+						<span  style="text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);">#{uimenu.titre}</span>
+							<ul class="big-menu">
+								<c:forEach var="subzero" items="#{uimenu.items}">
+									<li class="with-right-arrow" style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.25)!important; #{fn:length(subzero.subs) > 1 ? 'display: block;':'display: none;'}" >
+									<span style="text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);">#{subzero.title}</span>
+										<ul class="big-menu">
+											<c:forEach var="sbm" items="#{subzero.subs}">
+												<li class="click_menu_#{sbm.id}" style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.25)!important;#{sbm.id eq frontController.idMenu? 'border-left: 5px solid rgba(255, 255, 255, 0.8);': ''} ">
+												<span  style="#{sbm.id eq frontController.idMenu? 'border-left-width: 0px;':''}"> 
+												<p:graphicImage  rendered="#{sbm.id eq frontController.idMenu}" value="images/encorche.png" style="margin-left: -19px; float: left; margin-top: 4px;" />
+														<p:commandLink 
+															value="#{ sbm.title }" styleClass="#{sbm.id eq frontController.idMenu? frontController.navigableClass: ''} button-menu"
+															immediate="true"
+															action="#{ frontController.updateScreen }" ajax="false">
+															
+															<f:param name="screenseq" value="#{sbm.id}" />
+															<f:param name="screenseqParent" value="#{uimenu.id}" />
+														</p:commandLink>
+												</span></li>
+											</c:forEach>
+										</ul>
+									</li>
+										
+									<li  class="click_menu_#{subzero.id}" style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.25)!important;#{fn:length(subzero.subs) > 1 ? 'display: none;':(subzero.id eq frontController.idMenu? 'border-left: 5px solid rgba(255, 255, 255, 0.8);': '')} ">
+										<span style="#{subzero.id eq frontController.idMenu? 'border-left-width: 0px;':''}"> 
+										<p:graphicImage rendered="#{subzero.id eq frontController.idMenu}" value="images/encorche.png" style="margin-left: -19px; float: left; margin-top: 4px;" />
+												<p:commandLink
+													value="#{subzero.title }" styleClass="#{subzero.id eq frontController.idMenu? frontController.navigableClass: ''} button-menu"
+													immediate="true"
+													action="#{ frontController.updateScreen }" ajax="false">
+													
+													<f:param name="screenseq" value="#{subzero.id}" />
+												</p:commandLink>
+										</span>
+									</li>
+							
+								</c:forEach>
+								
+								<li style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.25)!important;border-left: 5px solid rgba(255, 255, 255, 0.8);#{uimenu.technical?'':'display:none'}">
+									<span>
+											<p:commandLink
+												value="Profils et rôles" styleClass="button-menu"
+												immediate="true"
+												action="parametrage-profils" ajax="false">
+											</p:commandLink>
+									</span>
+								</li>	
+								<li style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.25)!important;border-left: 5px solid rgba(255, 255, 255, 0.8);#{uimenu.technical?'':'display:none'}">
+									<span>
+											<p:commandLink
+												value="Utilisateurs" styleClass="button-menu"
+												immediate="true"
+												action="parametrage-utilisateurs" ajax="false">
+											</p:commandLink>
+									</span>
+								</li>	
+							</ul>
+						</li>
+						
+					</c:forEach>
+				</ul>
+				</section>
+				
+				<p:panel
+					style="margin-left:0px;margin-top:10px;width:100%; background:none; border:transparent;"
+					rendered="#{frontController.showRightPanel}">
+
+					
+					<center>
+						<p:autoComplete size="35" id="acProcedure"
+							title="#{msg['application.process']}"
+							widgetVar="acProcedure" binding="#{acProcedure}"
+							value="#{frontController.selectedProcess}"
+							completeMethod="#{frontController.completeProcedure}"
+							style="font-size:13px; height: 20px;">
+							<p:ajax event="itemSelect"
+								listener="#{frontController.selChanged}"></p:ajax>
+						</p:autoComplete>
+						<p:watermark for="acProcedure" value="#{msg['application.process']}"></p:watermark>
+					</center>
+					
+					<div class="message_list">
+						<table border="0"
+							style="margin: auto; visibility: #{frontController.inProcess?'visible':'hidden'}" >
+
+							<tr>
+								<td><img style="margin-top: 14px;"
+									src="img/prc-previous.png" /> <p:spacer width="4" /></td>
+								<td
+									style="width: 200px; text-align: left; color: #af3e3a; padding-top: 7px;">
+									<p:contextMenu for="previoussteplabelpanel"
+										rendered="#{frontController.previousFound}"
+										style="background-color: gray;">
+										<c:forEach items="#{frontController.previousAtoms}"
+											var="patom">
+											<p:menuitem value="#{patom.title}"
+												icon="#{patom.done?'ui-icon-check':'ui-icon-close'}"
+												action="#{frontController.gotoAction}" immediate="true"
+												ajax="false" onstart="fdlg.show();"
+												oncomplete="fdlg.hide();"
+												style="color:#{patom.done?'green':'orange'}">
+												<f:param name="toatom" value="#{patom.id}" />
+											</p:menuitem>
+										</c:forEach>
+									</p:contextMenu> <p:panel
+										style="min-height:28px;background: -webkit-gradient(linear, left top, left bottom, from(rgb(214, 214, 214)), to(#FFFFFF)) !important; background-color: gray;"
+										styleClass="procedurestep" id="previoussteplabelpanel"
+										widgetVar="previoussteplabelpanel">
+										<p:outputLabel value="#{frontController.previousStepLabel}"
+											style="vertical-align:middle;text-align : left; color:gray;margin-left:3px;" />
+									</p:panel>
+								</td>
+
+							</tr>
+							<tr>
+								<td><img style="margin-top: 14px;"
+									src="img/prc-inprogress.png" /> <p:spacer width="4" /></td>
+								<td
+									style="width: 200px; text-align: left; color: #af3e3a; padding-top: 7px;">
+									<p:contextMenu for="currentsteplabelpanel"
+										rendered="#{frontController.currentFound}"
+										style="background-color: gray;">
+										<c:forEach items="#{frontController.currentAtoms}" var="catom">
+											<p:menuitem value="#{catom.title}"
+												icon="#{catom.current?'ui-icon-circle-triangle-e':(catom.done?'ui-icon-check':(catom.mandatory?'ui-icon-alert':'ui-icon-gear'))}"
+												action="#{frontController.gotoAction}" immediate="true"
+												ajax="false" onstart="fdlg.show();"
+												oncomplete="fdlg.hide();"
+												style="color:#{catom.current?'#af3e3a':(catom.done?'green':(catom.mandatory?'red':'orange'))}">
+												<f:param name="toatom" value="#{catom.id}" />
+											</p:menuitem>
+										</c:forEach>
+									</p:contextMenu> <p:panel
+										style="min-height:28px;background: -webkit-gradient(linear, left top, left bottom, from(rgb(214, 214, 214)), to(#FFFFFF)) !important; background-color: gray;"
+										styleClass="procedurestep" id="currentsteplabelpanel"
+										widgetVar="currentsteplabelpanel">
+										<p:outputLabel id="currentsteplabel"
+											value="#{frontController.currentStepLabel}"
+											style="vertical-align:middle;text-align : left; color:gray;padding-top: 0px;margin-left:3px;" />
+									</p:panel>
+								</td>
+
+
+							</tr>
+							<tr>
+								<td><img style="margin-top: 14px;"
+									src="img/prc-pending.png" /> <p:spacer width="4" /></td>
+								<td
+									style="width: 200px; text-align: left; color: #af3e3a; padding-top: 7px;">
+
+									<p:contextMenu for="nextsteplabelpanel"
+										rendered="#{frontController.nextFound}"
+										style="background-color: gray;">
+										<c:forEach items="#{frontController.nextAtoms}" var="natom">
+											<p:menuitem value="#{natom.title}"
+												icon="#{natom.mandatory?'ui-icon-alert':'ui-icon-gear'}"
+												style="color:#{natom.mandatory?'red':'orange'}"
+												action="#{frontController.gotoAction}" immediate="true"
+												ajax="false" onstart="fdlg.show();"
+												oncomplete="fdlg.hide();">
+												<f:param name="toatom" value="#{natom.id}" />
+											</p:menuitem>
+										</c:forEach>
+									</p:contextMenu> <p:panel
+										style="min-height:28px;background: -webkit-gradient(linear, left top, left bottom, from(rgb(214, 214, 214)), to(#FFFFFF)) !important;"
+										styleClass="procedurestep" id="nextsteplabelpanel"
+										widgetVar="nextsteplabelpanel">
+										<p:outputLabel value="#{frontController.nextStepLabel}"
+											style="vertical-align:middle;text-align : left; color:gray;padding-top: 0px;margin-left:3px;" />
+									</p:panel>
+								</td>
+
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</p:panel>
+
+			</div>
+			</sidebar>
+
+			<!-- Main content -->
+			<section role="main" id="main">		
+				<ui:insert name="contenu" /> 
+			</section>
+			<br />
+
+			<!-- Side tabs shortcuts -->
+			<ul id="shortcuts" role="complementary"
+				class="children-tooltip tooltip-right">
+				<li class="current"><p:commandLink action="protogen"
+						styleClass="shortcut-dashboard" title="#{msg['application.home']}" immediate="true"
+						ajax="false" /></li>
+						
+				<!-- Help -->
+				<li><a  id="articles_help" style="cursor:pointer;" onclick="window.open('wiki-searchResults.xhtml');"
+						class="shortcut-help" 
+						title="#{msg['application.help']}" /></li>
+<!-- protogen-datahistory -->
+				
+				<li><p:commandLink action="protogen-datahistory"
+						styleClass="shortcut-medias" immediate="true" ajax="false"
+						title="#{msg['application.dms']}" /></li>
+				
+				
+				
+				<li><p:commandLink action="protogen-sendsms"
+						styleClass="shortcut-messages" title="SMS" immediate="true"
+						ajax="false" /></li>
+
+				<li><p:commandLink
+						onclick="window.open('protogen-sendappel.xhtml','selectWindow','status,width=800,height=262');"
+						styleClass="shortcut-agenda" title="Tel" immediate="true"
+						ajax="false" /></li>
+
+				<li><p:commandLink
+						onclick="window.open('hangout.xhtml','selectWindow','status,width=800,height=237');"
+						styleClass="shortcut-contacts" title="Hangout"
+						immediate="true" ajax="false" /></li>
+
+				
+				<li><p:commandLink action="protogen-sendmail"
+						styleClass="shortcut-stats" immediate="true" ajax="false"
+						title="E-mail" /></li>
+
+				<li class="at-bottom"><p:commandLink onclick="socialDlg.show();" immediate="true"
+						title="Medias" styleClass="shortcut-settings" /></li>
+			</ul>
+
+			
+			
+			<aside id="sidebar" class="column"> <h:panelGrid
+				id="linkspanelgrid" style="width:100%"
+				rendered="#{!frontController.showWholeMenu and frontController.linksAvailable}"
+				columns="1">
+				<c:forEach var="lin" items="#{frontController.window.links}">
+
+					<h:commandButton style="width:100%; text-align:left"
+						value="#{ lin.title }"
+						action="#{ frontController.updateScreenThroughLink }" ajax="false"
+						immediate="true" rendered="#{!frontController.showWholeMenu}">
+						<f:param name="screenseq" value="#{lin.id}" />
+					</h:commandButton>
+
+				</c:forEach>
+			</h:panelGrid> </aside>
+			<!-- end of sidebar -->
+
+		</h:form>
+	</f:view>
+	<!-- Scripts -->
+	<!-- JavaScript at the bottom for fast page loading -->
+	
+	<!-- Scripts -->
+	<script src="js/setup.js"></script>
+			
+
+	<!-- Template functions -->
+	<script src="js/developr.input.js"></script>
+	<script src="js/developr.message.js"></script>
+	<script src="js/developr.modal.js"></script>
+	<script src="js/developr.navigable.js"></script>
+	<script src="js/developr.notify.js"></script>
+	<script src="js/developr.scroll.js"></script>
+	<script src="js/developr.progress-slider.js"></script>
+	<script src="js/developr.tooltip.js"></script>
+	<script src="js/developr.confirm.js"></script>
+	<script src="js/developr.agenda.js"></script>
+	<script src="js/developr.tabs.js"></script>
+	
+	<!-- Must be loaded last -->
+	<script src="js/primefaces-locales.js"></script>
+	<script src="js/custom.js"></script>
+	
+	<!-- Tinycon 
+	<script src="js/libs/tinycon.min.js"></script>-->
+			
+
+	<script>
+
+		// Call template init (optional, but faster if called manually)
+		$.template.init();
+
+		// Tooltip menu
+		$(document).ready(function()
+		{
+			$('#select-tooltip').menuTooltip($('#select-context').hide(), {
+				classes: ['no-padding']
+			});
+			
+			$('.navigable li.click_menu_#{frontController.idMenu}').parents('li.with-right-arrow:first').click();
+		});
+
+	</script>
+	
+	<script>
+	
+	/* document.getElementById(id).setAttribute("class", ); */
+	
+	$("#shortcuts").find("li").filter(function activate() {
+	    $(this).css("background-color") === "red";
+	}).addClass("class");
+	
+	</script>
+	
+</h:body>
+</html>

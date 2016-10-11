@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="wiki-layout.xhtml">
+	
+	<ui:define name="left-menu">
+		<ui:include src="wiki-bo-left-menu.xhtml" />
+	</ui:define>
+	<ui:define name="content">		
+		<center>
+			<h2 class="page_title">Modifier l'article #{articleManager.toModifyMenu.article.title}</h2>
+		</center>
+		<h:form id="editArticleForm">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		
+		<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5" >
+	        <h:outputLabel for="title">Titre </h:outputLabel>
+	        <p:spacer width="10" height="5"/>
+	        <p:inputText id="title" value="#{articleManager.toModifyMenu.article.title}" styleClass="large_field" required="true" label="Titre" />
+	        
+	        <p:spacer width="5" height="5"/>
+	        <p:spacer width="10" height="5"/>
+	        <p:spacer width="5" height="5"/>
+	        
+	        <h:outputLabel for="video">URL Video </h:outputLabel>
+	        <p:spacer width="5" height="5"/>
+	        <p:inputText id="video" value="#{articleManager.toModifyMenu.article.video}" styleClass="large_field" required="false" label="URL Video"/>
+	        
+	        <p:spacer width="5" height="5"/>
+	        <p:spacer width="5" height="5"/>
+	        <p:spacer width="5" height="5"/>
+	        
+	        <h:outputLabel for="parentMenu">Menu parent </h:outputLabel>
+       		<p:spacer width="10" height="5"/>
+	        <p:selectOneMenu id="parentMenu" value="#{articleManager.parentMenuId}" >
+           		 <f:selectItem itemLabel="Sans Menu parent" itemValue="-1" />
+           		 <f:selectItems value="#{articleManager.allowedMenus}" var="menu" itemValue="#{menu.menuId}" itemLabel="#{menu.title}" />
+        	</p:selectOneMenu>
+	        
+	        <p:spacer width="5" height="5"/>
+	        <p:spacer width="10" height="5"/>
+	        <p:spacer width="5" height="5"/>
+	        
+	        <h:outputLabel for="linkedArticle">Articles référencés </h:outputLabel>
+	        <p:spacer width="10" height="5"/>
+	        <p:selectManyMenu id="linkedArticle" value="#{articleManager.referencedArticles}"  style="height:100px" styleClass="large_field" >
+           		 <f:selectItems value="#{articleManager.editReferencedArticles}" var="menu" itemValue="#{menu.article.articleId}" itemLabel="#{menu.article.title}"/>
+        	</p:selectManyMenu>
+        	
+	        <p:spacer width="5" height="5"/>
+	        <p:spacer width="10" height="5"/>
+	        <p:spacer width="5" height="5"/>
+        	
+        	<h:outputLabel for="menuTitle">Titre menu </h:outputLabel>
+        	<p:spacer width="10" height="5"/>
+	        <p:inputText id="menuTitle" value="#{articleManager.toModifyMenu.title}" required="true" label="Menu" styleClass="large_field" />
+	        
+	        <p:spacer width="5" height="5"/>
+      		<p:spacer width="10" height="5"/>
+	        <p:spacer width="5" height="5"/>
+	        
+	        <h:outputLabel for="tags">Mots-clés</h:outputLabel>
+	        <p:spacer width="10" height="5"/>
+	        <h:panelGrid columns="2" id="tagPanel" style="margin-bottom:10px" cellpadding="5">
+	    	    <p:inputText id="tags" value="#{articleManager.tags}" required="false" styleClass="large_field" onchange="extractTags();" />
+	        	<p:button id="addTagBtn" style="height: 26px;margin-left: 5px;width: 26px;" icon="ui-icon-circle-plus" onclick="addTagField(1);return true;"></p:button>
+	        </h:panelGrid>
+	        
+	        <p:spacer width="5" height="5"/>
+	        <p:spacer width="10" height="5"/>
+	        <p:spacer width="5" height="5"/>
+	        
+	        <h:outputLabel for="questions">Questions</h:outputLabel>
+	        <p:spacer width="10" height="5"/>
+	        <h:panelGrid columns="2" id="questionPanel" style="margin-bottom:10px" cellpadding="5">
+	        	<p:inputText id="questions" value="#{articleManager.questions}" required="false" styleClass="large_field" onchange="extractQuestions();"/>
+	        	<p:button id="addQuestionBtn" style="height: 26px;margin-left: 5px;width: 26px;" icon="ui-icon-circle-plus" onclick="addQuestionField(1);return true;"></p:button>
+	        </h:panelGrid>
+	        
+	        <p:spacer width="5" height="5"/>
+	        <p:spacer width="10" height="5"/>
+	        <p:spacer width="5" height="5"/>
+	        
+	        
+	        <h:outputLabel for="editor">Code HTML</h:outputLabel>
+	        <p:spacer width="10" height="5"/>
+	        <p:spacer width="5" height="5"/>
+	        
+
+ 
+    	</h:panelGrid>
+    	
+    	<p:editor id="editor"  widgetVar="editor" value="#{articleManager.toModifyMenu.article.content}" width="600" />
+		 
+		<h:panelGrid columns="3" style="margin-top: 10px">
+			<p:commandButton value="Valider" id="modifybtn" action="#{articleManager.editArticle}"  icon="ui-icon-disk" update="@form" ajax="false" onclick="appendTags();appendQuestions();return true;"/>
+			<p:commandButton  value="Annuler" id="cancelbtn" onclick="confirmation.show()" type="button"  alt="Annuler la modification" title="Annuler la modification" icon="ui-icon-arrowreturn-1-w"/>
+			<p:commandButton value="Prévisualiser" id="previewbtn" icon="ui-icon-search"    onclick="$('.previewClass').css({'height':'500px','width':'852px','top':'106.5px'});preview.show();$('.previewClass').css({'z-index':'1051','top':'106.5px','left':'278px'});" />
+		</h:panelGrid>
+ 		<p:dialog position="center" resizable="false" draggable="false" closable="true"  hideEffect="explode" 
+                					 header="Confirmation de l'annulation" widgetVar="confirmation">  
+                  			<div style="margin-bottom:15px;">
+                  				Êtes-vous sûr de vouloir annuler la modification de l'article #{articleManager.toModifyMenu.article.title}?
+                  			</div>
+					        <div style="float:right;">
+					        	<p:commandButton value="Oui" oncomplete="confirmation.hide()" update="@form"  
+					                    action="#{articleManager.cancelEditArticle}" >
+					        	</p:commandButton>  
+					        	<p:commandButton value="Non" onclick="confirmation.hide()" type="button" />   
+	                  		</div>
+  		</p:dialog>
+ 		<p:dialog  id="previewDialog" onShow="populatePreview();" styleClass="previewClass" header="" widgetVar="preview" minHeight="427" minWidth="853" >
+    		<div class="row">
+                <div class="col-lg-12">
+                    <h1 id="preview-articleTitle" class="article-header">#{articleManager.toAddMenu.article.title}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-xs-12">
+                    <p id="preview-articleContent" >
+                        
+                    </p>
+                </div>
+                <div class="col-lg-6 col-xs-12">
+                    <iframe width="400" height="266" id="preview-video"
+                            src="#{articleManager.toAddMenu.article.video}">
+                    </iframe>
+                    <!-- <video width="320" height="240" controls>
+                        <source src="http://" type="video/mp4">
+                        <source src="movie.ogg" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video> -->   
+                    
+                    <!-- Tag cloud -->
+                    <div>
+	                    <p:tagCloud model="#{articleManager.tagModel}" style="width:400px;margin-top:10px;">
+	   						<p:ajax event="select" immediate="true"  async="true" listener="#{articleManager.onTagItemSelect}" update="@form" disabled="true"/>
+	   					</p:tagCloud>
+   					</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 row-link" >
+              		  <ui:repeat var="referencedArticle" value="#{articleManager.toAddMenu.article.links}" varStatus="status">
+                                <i class="fa fa-fw link "><span class="linkedArticle-margin">#{referencedArticle.title}</span></i><span class="fa arrow"></span>
+
+	                  </ui:repeat>
+                    
+                    
+                </div>
+            </div>
+            <!-- /.row -->
+		</p:dialog>
+ 		
+ 		
+ 		</h:form>
+ 		<input type="text" id="fieldsTag"  style="visibility:hidden" /> 
+   		<input type="text" id="fieldsQuestion"  style="visibility:hidden" /> 
+   		
+		<script type="text/javascript">
+		//<![CDATA[
+		    $(document).ready(function(){
+		    	loadTags();
+		    	loadQuestions();
+		    	
+		    	$('#editArticleForm\\:editor').children('body:first').click(function(){
+		    		editor.focus();
+		    	});
+		    	
+		    });
+		    
+		    function loadTags(){
+		    	var regex= /\s{2,}/g;
+		    	var tags=$('#editArticleForm\\:tags').val();
+		    	tags=tags.replace(regex," ");
+		    	if(tags){
+		    		var tagsArray=tags.split(" ");
+		    		var tagsSize=tagsArray.length;
+		    		
+		    		for(var i=0;i<tagsSize;i++){
+		    			var fieldId=i+1;
+		    			var tagValue=tagsArray[i];
+		    			if(i==0){
+		    				$('#editArticleForm\\:tags').val(tagValue);
+		    				continue;
+		    			}
+		    			$('#editArticleForm\\:tagPanel').append('<tr id="tagsSpaceTr'+fieldId+'"><td><img width="10" height="5" src="/prometheus/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces" alt="" ></td><td><img width="5" height="5" src="/prometheus/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces" alt="" ></td></tr>');
+						$('#editArticleForm\\:tagPanel').append('<tr id="tagsTr'+fieldId+'"><td><input type="text" onchange="extractTags();" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all large_field tagsValue" value="'+tagValue+'"  role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><button onclick="deleteTagField('+fieldId+');return true;;window.location.href=\'/prometheus/wiki-ModifyArticle.xhtml\'" style="height: 26px;margin-left: 5px;width: 26px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" type="button"  role="button" aria-disabled="false"><span class="ui-button-icon-left ui-icon ui-icon-circle-minus"></span><span class="ui-button-text">ui-button</span></button></td></tr>');
+		    		}
+		    		$('#editArticleForm\\:addTagBtn').attr('onclick','addTagField('+(tagsSize)+');return true');
+		    		extractTags();
+		    	}
+		    }
+		    function loadQuestions(){
+		    	var questions=$('#editArticleForm\\:questions').val();
+		    	if(questions){
+		    		var questionsArray=questions.split(",");
+		    		var questionsSize=questionsArray.length;
+		    		
+		    		for(var i=0;i<questionsSize;i++){
+		    			var fieldId=i+1;
+		    			if(questionsArray[i]){
+		    				var questionValue=questionsArray[i].trim();
+			    			if(i==0){
+			    				$('#editArticleForm\\:questions').val(questionValue);
+			    				continue;
+			    			}
+			    			$('#editArticleForm\\:questionPanel').append('<tr id="questionsSpaceTr'+fieldId+'"><td><img width="10" height="5" src="/prometheus/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces" alt="" ></td><td><img width="5" height="5" src="/prometheus/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces" alt="" ></td></tr>');
+							$('#editArticleForm\\:questionPanel').append('<tr id="questionsTr'+fieldId+'"><td><input type="text" onchange="extractQuestions();" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all large_field questionsValue" value="'+questionValue+'"  role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><button onclick="deleteQuestionField('+fieldId+');return true;;window.location.href=\'/prometheus/wiki-ModifyArticle.xhtml\'" style="height: 26px;margin-left: 5px;width: 26px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" type="button"  role="button" aria-disabled="false"><span class="ui-button-icon-left ui-icon ui-icon-circle-minus"></span><span class="ui-button-text">ui-button</span></button></td></tr>');
+		    			}
+		    			
+		    		}
+		    		$('#editArticleForm\\:addQuestionBtn').attr('onclick','addQuestionField('+(questionsSize)+');return true');
+		    		extractQuestions();
+		    	}
+		    }
+			
+			
+			function addTagField(fieldId){
+				$('#editArticleForm\\:tagPanel').append('<tr id="tagsSpaceTr'+fieldId+'"><td><img width="10" height="5" src="/prometheus/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces" alt="" ></td><td><img width="5" height="5" src="/prometheus/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces" alt="" ></td></tr>');
+				$('#editArticleForm\\:tagPanel').append('<tr id="tagsTr'+fieldId+'"><td><input type="text" onchange="extractTags();" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all large_field tagsValue" value=""  role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><button onclick="deleteTagField('+fieldId+');return true;;window.location.href=\'/prometheus/wiki-ModifyArticle.xhtml\'" style="height: 26px;margin-left: 5px;width: 26px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" type="button"  role="button" aria-disabled="false"><span class="ui-button-icon-left ui-icon ui-icon-circle-minus"></span><span class="ui-button-text">ui-button</span></button></td></tr>');
+				$('#editArticleForm\\:addTagBtn').attr('onclick','addTagField('+(fieldId+1)+');return true');
+			}
+			
+			function addQuestionField(fieldId){
+				$('#editArticleForm\\:questionPanel').append('<tr id="questionsSpaceTr'+fieldId+'"><td><img width="10" height="5" src="/prometheus/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces" alt="" ></td><td><img width="5" height="5" src="/prometheus/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces" alt="" ></td></tr>');
+				$('#editArticleForm\\:questionPanel').append('<tr id="questionsTr'+fieldId+'"><td><input type="text" onchange="extractQuestions();" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all large_field questionsValue" value=""  role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><button onclick="deleteQuestionField('+fieldId+');return true;;window.location.href=\'/prometheus/wiki-ModifyArticle.xhtml\'" style="height: 26px;margin-left: 5px;width: 26px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" type="button"  role="button" aria-disabled="false"><span class="ui-button-icon-left ui-icon ui-icon-circle-minus"></span><span class="ui-button-text">ui-button</span></button></td></tr>');
+				$('#editArticleForm\\:addQuestionBtn').attr('onclick','addQuestionField('+(fieldId+1)+');return true');
+			}
+			
+			function deleteTagField(fieldId){
+				$('#tagsTr'+fieldId+'').remove();
+				$('#tagsSpaceTr'+fieldId+'').remove();
+				extractTags();
+				
+			}
+			
+			function deleteQuestionField(fieldId){
+				$('#questionsTr'+fieldId+'').remove();
+				$('#questionsSpaceTr'+fieldId+'').remove();
+				extractQuestions();
+				
+			}
+			
+			function extractTags(){
+				var res="";
+				res=$('#editArticleForm\\:tags').val();
+				$('.tagsValue').each(function(i, obj) {
+					if(res==""){
+						res=$(this).val();
+					}else{
+						res=res+","+$(this).val();
+					}
+				});
+				
+				$('#fieldsTag').val(res);
+			}
+			
+			function extractQuestions(){
+				var res="";
+				var regex= /\?+/;
+				res=$('#editArticleForm\\:questions').val();
+				res= res.replace(regex,"");
+				
+				if(res.length>0){
+					res=res+"?";
+				}
+
+				$('.questionsValue').each(function(i, obj) {
+					var question=$(this).val();
+					question= question.replace(regex,"");
+					if(question.length>0){
+						res=res+question+"?";
+					}
+				});
+				
+				$('#fieldsQuestion').val(res);
+			}
+			
+			function appendTags(){
+				$('#editArticleForm\\:tags').val($('#fieldsTag').val());
+			}
+			
+			function appendQuestions(){
+				$('#editArticleForm\\:questions').val($('#fieldsQuestion').val());
+			}
+			
+			function populatePreview(){
+				$('#editArticleForm\\:previewDialog_title').text('Prévisualisation de l\'article '+$('#editArticleForm\\:title').val());
+				$('#preview-articleTitle').text($('#editArticleForm\\:title').val());
+				$('#preview-articleContent').html($('#editArticleForm\\:editor').find('iframe').contents().find("body").html());
+				$('#preview-video').attr('src',$('#editArticleForm\\:video').val());
+				
+			}
+			
+			//]]>
+		</script>
+   	
+
+	</ui:define>
+	
+</ui:composition>
+</html>

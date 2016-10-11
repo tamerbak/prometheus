@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+
+<ui:define name="contenu">
+	<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false" resizable="false" dynamic="false" > 
+		<p:graphicImage value="/images/loading.gif" />
+		<p:spacer width="20" height="10" />
+		<label style="position: relative;bottom: 10px;">Chargement ...</label>
+	</p:dialog>
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	<h1 style="padding-left: 10px;">Business Plan</h1>
+	
+	<p:menubar>
+		<p:submenu icon="ui-icon-disk" label="Sauvegarder">
+			<p:menuitem value="Enregistrer" />
+			<p:menuitem value="Enregistrer dans un nouveau modèle" />
+		</p:submenu>
+		<p:menuitem icon="ui-icon-folder-open" value="Charger" />
+		<p:menuitem value="Paramétrage" icon="ui-icon-carat-2-e-w" onclick="bpwiz.loadStep (bpwiz.cfg.steps [0], true)" update="bpwiz" />
+		<c:forEach items="#{businessPlanControl.tabs}" var="tb">
+			<p:menuitem value="#{tb.title}" icon="ui-icon-carat-2-e-w" onclick="bpwiz.loadStep (bpwiz.cfg.steps [#{tb.orderIndex}], true)" update="bpwiz" />
+		</c:forEach>
+	</p:menubar>
+	
+	<p:wizard id="bpwiz" showStepStatus="false" widgetVar="bpwiz" backLabel="Précédent" nextLabel="Suivant" 
+		flowListener="#{businessPlanControl.onFlowProcess}" onnext="PF('dlg2').show();" onback="PF('dlg2').show();" >
+		
+		<p:tab id="parametrebp" title="Paramètres">
+			<h:panelGrid style="width:98%"><h2>Paramétrage du Business Plan</h2></h:panelGrid>
+			<p:panelGrid columns="2" style="width:100%">
+			<f:facet name="header">Paramétrage</f:facet>
+				<p:outputLabel for="typePlan" value="Type de plan" />
+				<p:selectOneMenu id="typePlan" value="#{businessPlanControl.selectedTypePlan}" style="width:250px" >
+					<f:selectItem itemLabel="Entreprise en croissance" itemValue="CROISSANCE" />
+					<f:selectItem itemLabel="Entreprise en crise" itemValue="CRISE" />
+					<f:selectItem itemLabel="Entreprise en création" itemValue="CREATION" />
+				</p:selectOneMenu>
+				<p:outputLabel for="showPlanComptable" value="Plan comptable" />
+				<p:selectOneMenu id="showPlanComptable" value="#{businessPlanControl.showPlanComptable}" style="width:250px" >
+					<f:selectItem itemLabel="Avec Plan Comptable" itemValue="1" />
+					<f:selectItem itemLabel="Sans Plan Comptable" itemValue="0" />
+				</p:selectOneMenu>
+				<p:outputLabel for="coefficientCroissance" value="Coefficient de croissance" />
+				<p:inputText id="coefficientCroissance" value="#{businessPlanControl.coefficientCroissance}" style="width:250px" />
+				<p:outputLabel for="anneeDemarrage" value="Année de démarrage" />
+				<p:spinner id="anneeDemarrage" value="#{businessPlanControl.anneeDemarrage}" max="2013" min="2010" style="width:250px" />
+				<p:outputLabel for="typeInterval" value="Granularité" />
+				<p:selectOneMenu id="typeInterval" value="#{businessPlanControl.typeInterval}" style="width:250px" >
+					<f:selectItem itemLabel="Par an" itemValue="1" />
+					<f:selectItem itemLabel="Par mois" itemValue="0" />
+				</p:selectOneMenu>
+				<p:outputLabel for="nombreAnnee" value="Nombre d'années" />
+				<p:spinner id="nombreAnnee" value="#{businessPlanControl.nombreAnnee}" min="2" max="5" style="width:250px" />
+				<p:outputLabel for="optionsAvancees" value="Options avancées" />
+				<p:selectCheckboxMenu id="optionsAvancees" label="Options Avancées" value="#{businessPlanControl.selectionOptionsAvancees}" filter="true" filterText="Filter" filterMatchMode="contains" panelStyle="width:250px" style="width:250px" >
+					<f:selectItems value="#{businessPlanControl.optionsAvancees}" var="oav" itemLabel="#{oav.label}" itemValue="#{oav.id}" />
+				</p:selectCheckboxMenu>
+			</p:panelGrid>
+			
+		</p:tab>
+		
+		<c:forEach items="#{businessPlanControl.tabs}" var="tb">
+			<p:tab id="bp_tb_#{tb.id}" title="#{tb.title}">
+			<h:panelGrid style="width:98%"><h2>Préparation du Business Plan</h2></h:panelGrid>
+				<p:panel header="#{tb.title}" style="width:98%">
+				<p:panelGrid style="width:98%" >
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="2">&nbsp;</p:column>
+							<c:forEach items="#{tb.titles}" var="title">
+								<p:column>
+									#{title}
+								</p:column>
+							</c:forEach>
+						</p:row>
+					</f:facet>
+					
+					<c:forEach items="#{tb.tabs}" var="ttab">
+						<p:row>
+							<p:column colspan="2"><strong>#{ttab.title}</strong></p:column>
+							<c:forEach items="#{ttab.total}" var="tot">
+								<p:column></p:column>
+							</c:forEach>
+						</p:row>
+						
+						
+						<c:forEach items="#{ttab.parentLignes}" var="bpl">
+						<p:row>
+							<p:column rendered="#{bpl.existChild}" >
+								<p:commandButton  icon="#{bpl.childrenVisible?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideChildren}" update="bpwiz" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();">
+									<f:param name="PARENTID" value="#{bpl.id}"/>
+								</p:commandButton> 
+							</p:column>
+							<p:column colspan="#{bpl.existChild?1:2}">
+								#{bpl.label}
+							</p:column>
+							<c:forEach items="#{bpl.values}" var="bpv">
+								<p:column>
+									<p:inputText id="bpval_#{ttab.id}_#{bpl.id}_#{bpv.year.year}" value="#{bpv.value}" >
+									</p:inputText>
+								</p:column>
+							</c:forEach>
+						</p:row>
+						<c:forEach items="#{bpl.children}" var="cld" >
+						<p:row rendered="#{bpl.childrenVisible}">
+							<p:column>&nbsp;</p:column>
+							<p:column>#{cld.label}</p:column>
+							<c:forEach items="#{cld.values}" var="bpv">
+								<p:column>
+									<p:inputText id="bpval_#{ttab.id}_#{cld.id}_#{bpv.year.year}" value="#{bpv.value}" >
+									</p:inputText>
+								</p:column>
+							</c:forEach>
+						</p:row>
+						</c:forEach>
+					</c:forEach>
+						
+						
+						
+						
+						<p:row>
+							<p:column colspan="2"><strong>#{ttab.footer}</strong></p:column>
+							<c:forEach items="#{ttab.total}" var="tot">
+								<p:column><strong><h:outputText value="#{tot}">
+								</h:outputText>
+								</strong></p:column>
+							</c:forEach>
+						</p:row>
+					
+					</c:forEach>
+					
+					
+					<c:forEach items="#{tb.variables}" var="pvr">
+						<p:row>
+							<p:column colspan="2"> <strong><h:outputText escape="false" value="#{pvr.title}" /></strong></p:column>
+							<c:forEach items="#{pvr.values}" var="pvv">
+								<p:column><strong><h:outputText value="#{pvv}">
+								</h:outputText></strong></p:column>
+							</c:forEach>
+						</p:row>
+					</c:forEach>			
+				</p:panelGrid>
+				</p:panel>
+			</p:tab>
+		
+		</c:forEach>
+		
+		
+	</p:wizard>	
+	
+</ui:define>
+	
+<ui:define name="aide">
+	
+</ui:define>
+
+</ui:composition>
+</html>

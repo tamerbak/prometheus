@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">Alertes</h1>
+			</hgroup>
+		</div>
+		
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false">
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">Chargement
+				...</label>
+		</p:dialog>
+
+		<p:dialog id="decision" closable="false" widgetVar="decision"
+			modal="false" visible="#{frontController.decisionVisible}"
+			resizable="false" dynamic="false">
+			<center>
+				<strong><h:outputText
+						value="#{frontController.decision.label}" /></strong><br />
+				<h:outputText value="#{frontController.decision.description}" />
+				<p:spacer height="10" width="5" />
+				<h:commandLink target="_blank"
+					value="#{frontController.wfLinkLabel}"
+					action="#{frontController.wfFollowLink}"
+					rendered="#{frontController.wfLinkVisible}" />
+				<br /> <br />
+				<p:inputTextarea id="decisioncommentaire"
+					value="#{frontController.commentaire}" autoResize="false" cols="50" />
+				<p:watermark for="decisioncommentaire"
+					value="Commentaires personnalisés"></p:watermark>
+				<br /> <br />
+				<p:commandButton actionListener="#{frontController.doWfYes}"
+					update="@form" value="#{frontController.decision.yesLabel}"
+					onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();decision.hide();" />
+				<p:spacer height="5" width="5" />
+				<p:commandButton actionListener="#{frontController.doWfNo}"
+					update="@form" value="#{frontController.decision.noLabel}"
+					onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();decision.hide();" />
+			</center>
+		</p:dialog>
+
+		<p:dialog id="danswer" closable="false" widgetVar="danswer"
+			modal="false" visible="#{frontController.answerVisible}"
+			resizable="false" dynamic="false">
+			<center>
+				<strong><h:outputText
+						value="#{frontController.answer.label}" /></strong><br />
+				<h:outputText value="#{frontController.answer.description}" />
+				<p:spacer height="10" width="5" />
+				<h:commandLink target="_blank"
+					value="#{frontController.wfLinkLabel}"
+					action="#{frontController.wfFollowLink}"
+					rendered="#{frontController.wfLinkVisible}" />
+				<br /> <br />
+
+				<h:outputText value="Décision : #{frontController.answerValue}" />
+				<br />
+				<h:outputText value="#{frontController.commentaire}" />
+				<br /> <br />
+
+				<p:commandButton
+					actionListener="#{frontController.workflowAnswerNext}"
+					update="@form" value="Valider" onstart="PF('dlg2').show();"
+					oncomplete="PF('dlg2').hide();danswer.hide();" />
+			</center>
+		</p:dialog>
+
+		<!-- 		ALERTS		 -->
+		<p:fieldset legend="Alertes"
+			styleClass="table-data-customize legend">
+			
+
+			<p:dataTable id="alertable"
+				emptyMessage="Il n'y a plus aucune alerte !" widgetVar="alertable"
+				value="#{frontController.userAlerts}" var="alr"
+				styleClass="table table-header">
+				<p:column headerText="Message">
+						#{alr.message}
+					</p:column>
+				<p:column headerText="Créée le">
+					<h:outputText value="#{alr.created}">
+						<f:convertDateTime pattern="#{frontController.localization.dateFormat}" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Vu">
+					<h:outputText value="#{alr.seen?'Oui':'Non'}">
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Vu le">
+					<h:outputText value="#{alr.seenOn}">
+						<f:convertDateTime pattern="#{frontController.localization.dateFormat}" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Clôturé">
+					<h:outputText value="#{alr.closed?'Oui':'Non'}">
+					</h:outputText>
+				</p:column>
+				<p:column style="width:6%">
+					<p:commandButton icon="ui-icon-search" actionListener="#{frontController.closeAlert}" update="@form"
+					onstart="PF('dlg2').show();"
+					oncomplete="PF('dlg2').hide();">
+					<f:param name="ALRTID" value="#{alr.id}"/>
+				</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:fieldset>
+		<br />
+
+		<!-- 		Workflows		 -->
+		<p:fieldset legend="Workflows" id="workflow-fieldset"
+			styleClass="table-data-customize legend" >
+			<p:contextMenu for="wftable">
+				<p:menuitem value="Exécuter"
+					action="#{frontController.executeWorkflowNode}" update="@form"
+					icon="ui-icon-check" onstart="PF('dlg2').show();"
+					oncomplete="PF('dlg2').hide();" />
+			</p:contextMenu>
+
+			<p:dataTable id="wftable"
+				emptyMessage="Il n'y a plus aucune alerte !" widgetVar="alertable"
+				value="#{frontController.userNodes}" var="alr"
+				selectionMode="single" selection="#{frontController.currentNode}"
+				rowKey="#{alr.id}" styleClass="table table-header">
+				<p:column headerText="Workflow">
+						#{alr.definition.title}
+					</p:column>
+				<p:column headerText="Etape">
+						#{alr.label}
+					</p:column>
+			</p:dataTable>
+		</p:fieldset>
+		
+		
+		<p:fieldset legend="Evénements"
+			styleClass="table-data-customize legend">
+			<p:dataTable id="evtalerttable" emptyMessage="Il n'y a plus aucune alerte !" widgetVar="evtalerttable"
+				value="#{frontController.events}" var="evt">
+				<p:column headerText="Evénement">
+					<h:outputText value="#{evt.event.title}"/>
+				</p:column> 
+				<p:column headerText="Message">
+					<h:outputText value="#{evt.content}"/>
+				</p:column> 
+				<p:column headerText="Date">
+					<h:outputText value="#{evt.creation}">
+						<f:convertDateTime pattern="#{frontController.localization.dateFormat}" />
+					</h:outputText>
+				</p:column> 
+				<p:column style="width:2%">
+					<p:commandButton icon="ui-icon-gear" action="#{frontController.markEvent}" ajax="false">
+						<f:param name="EVTIN" value="#{evt.id}" />
+					</p:commandButton>
+				</p:column> 
+			</p:dataTable>
+		</p:fieldset>
+		
+	</ui:define>
+
+	<ui:define name="aide">
+
+	</ui:define>
+
+</ui:composition>
+</html>

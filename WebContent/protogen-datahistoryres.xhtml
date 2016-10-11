@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+	
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	<h1 style="padding-left: 10px;">Archive numérique</h1>
+	<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false" resizable="false" dynamic="false" > 
+		<p:graphicImage value="/images/loading.gif" />
+		<p:spacer width="20" height="10" />
+		<label style="position: relative;bottom: 10px;">Chargement ...</label>
+	</p:dialog> 
+	<p:toolbar>
+		<p:toolbarGroup align="left">
+			<p:commandButton action="protogen-dataocr" value="Numériser de nouveaux documents" />
+		</p:toolbarGroup>
+		<p:toolbarGroup style="padding-top: 9px;" align="right">
+			<p:commandLink value="Créer un nouveau modèle" target="_blank" ajax="false" onclick="window.open('http://ns389914.ovh.net:8686/ocrediteur','selectWindow','status,width=1200,height=800');" style="float:right" />
+		</p:toolbarGroup>
+	</p:toolbar>
+	
+	<h:panelGrid style="width:100%">
+	<p:dataTable style="width:100%" id="resultable" value="#{gedControl.docs}" var="dc" 
+		paginator="true" rows="10" emptyMessage="Aucun document à afficher"	>
+		<p:column headerText="Document">
+			#{dc.bean}
+		</p:column>
+		<p:column headerText="Type">
+			#{dc.entity.name}
+		</p:column>
+		<p:column headerText="Modèle">
+			#{dc.driver.label}
+		</p:column>
+		<p:column headerText="Numérisé le">
+			#{dc.ocrDate}
+		</p:column>
+		<p:column headerText="Numérisé par">
+			<h:outputText value="#{dc.user.firstName} - #{dc.user.lastName}"/>
+		</p:column>
+		<p:column >
+			<p:commandButton icon="ui-icon-arrowthickstop-1-s" action="#{gedControl.downloadSelectedDoc}" ajax="false">
+				<f:param name="DOCTODWN" value="#{dc.id}" />
+			</p:commandButton>
+		</p:column>
+		<f:facet name="footer">
+			<p:commandButton value="Retour" action="protogen-datahistory">
+			</p:commandButton>
+		</f:facet>
+	</p:dataTable>
+	</h:panelGrid>
+	</ui:define>
+	
+	<ui:define name="aide">
+	
+	</ui:define>
+
+</ui:composition>
+</html>

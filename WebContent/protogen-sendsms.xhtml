@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">
+				<h:outputText value="#{communicationControl.comm.title}"
+					style="text-align:center;font-size:16;font-weight:bold"></h:outputText>
+			</h1>
+			</hgroup>
+		</div>
+
+		<h4 style="padding-left: 10px;">
+			<h:outputText value="#{communicationControl.comm.description}"
+				style="text-align:center;font-size:12;font-weight:bold"></h:outputText>
+		</h4>
+		<br />
+
+		<p:growl id="growl" widgetVar="growl" sticky="false" />
+
+		<details class="details margin-bottom"> <summary class="summaryDetails">Envoyer
+		SMS</summary> <p:panelGrid
+			style="width:100%;padding:40px;background:none;border:none !important;">
+
+
+			<div class="ui-border">
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="smsNumber" value="Numéro" 
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column styleClass="keyboard-custom">
+						<p:keyboard value="#{communicationControl.smsNumber}" style="width:130px;"
+							keypadOnly="true" backspaceLabel="Effacer" closeLabel="Fermer"
+							clearLabel="Vider" id="smsNumber" />
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="smsMessage" value="Message"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputTextarea id="smsMessage"
+							value="#{communicationControl.smsMessage}" style="width:390px;height:100px;" />
+					</p:column>
+				</p:row>
+			</div>
+		</p:panelGrid>
+		
+		<table>
+			<tr>
+				<td></td>
+				<td align="right" class="with-padding" style="width:100%;"><p:commandButton
+						action="#{communicationControl.sendSMS}" ajax="false" icon="ui-icon-mail-closed"
+						value="Envoyer" /> <p:commandButton
+						action="#{frontController.next}"
+						rendered="#{frontController.inProcess}" ajax="false"
+						value="Suivant" /></td>
+			</tr>
+		</table>
+		</details>
+
+	</ui:define>
+
+</ui:composition>
+</html>

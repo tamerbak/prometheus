@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/protogen-template.xhtml">
+
+	<ui:define name="contenu">
+	
+	<h2  style="padding-left: 10px;">ProtoLang : Code source pour le calcul de salaire</h2>
+	
+	
+	<h:inputTextarea value="#{parameterController.sourceCode}" rows="20" cols="100" ></h:inputTextarea><br />
+	<h:commandButton value="Sauvegarder" action="#{parameterController.updateAction}" ></h:commandButton>
+	</ui:define>
+	
+	<ui:define name="aide">
+	
+	</ui:define>
+
+</ui:composition>
+</html>

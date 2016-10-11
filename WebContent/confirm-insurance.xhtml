@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>GENERIUM</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<link href="#{facesContext.externalContext.requestContextPath}/css/admin.css" rel="stylesheet" type="text/css"  title="style 0" media="screen" />
+	<style type="text/css">
+		.logodiv{
+			position: fixed;
+			width: 600px;
+			height: 128px;
+			top: 5%;
+			left: 50%;
+			margin-left: -300px;
+			background-image: url(img/login/logo-ginsurance.png);
+			background-repeat: no-repeat;
+			background-position: center;			
+		}
+		.bienvenu{
+			position: fixed;
+			top: 35%;
+			left: 50%;
+			width: 500px;
+			margin-left: -250px;
+			background-image: url(img/login/barre-bleu-ginsurance.png);
+			background-repeat: no-repeat;
+			background-position: center;
+			height: 50px;
+		}
+		.active-div{
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			width: 500px;
+			margin-left: -250px;
+			text-align: center;
+		}
+		.bienvenu-text {
+			color : white;
+			font-weight:bold;
+			font-family: inherit;
+			font-size: 25pt;
+		}
+	</style>
+</h:head>
+<h:body >
+<f:view>
+	<h:form>
+	<p:growl id="logingrowl" showDetail="false" sticky="false" />
+	<div class="logodiv">
+	</div>
+	<div class="bienvenu">
+		<center><span class="bienvenu-text" >Bienvenue sur <strong>GInsurance</strong></span></center>
+	</div>
+	<div class="active-div" >
+		
+			<p:outputPanel rendered="#{!insuranceController.validform}" deferred="true">  
+			     
+			    <h2  style="padding-left: 10px;">			
+			    <h:outputText rendered="#{!insuranceController.validform}" value="#{insuranceController.message}" escape="false"/>&nbsp; 
+			    </h2>
+			    
+			</p:outputPanel>
+			
+			<p:panelGrid columns="2" style="width:100%;height:100%;" rendered="#{insuranceController.validform}">
+				
+				<h:outputLabel for="user_mail" value="E-mail" style="font-size:12px" />
+				<p:inputText id="user_mail" value="#{insuranceController.email}" requiredMessage="E-Mail obligatoire" validatorMessage="Veuillez saisir une adresse valide" required="true">
+					<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</p:inputText>
+				<h:outputLabel for="user_key" value="Clé d'activation" style="font-size:12px" />
+				<p:inputText id="user_key" value="#{insuranceController.activateKey}" />
+				<f:facet name="footer">
+					<p:commandButton value="Valider" actionListener="#{insuranceController.doActivate}" update="@form"/>
+				</f:facet>
+			</p:panelGrid>
+		
+	</div>	
+			
+	</h:form>
+</f:view>
+</h:body>
+</html>

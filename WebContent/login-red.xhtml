@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"  xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>GPS de la gestion</title>
+<link href="css/960.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/reset.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/text.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/login.css" rel="stylesheet" type="text/css" media="all" />
+</h:head>
+
+<h:body>
+<f:view>
+<h:form id="redloginform">
+<p:growl id="redlogingrowl" showDetail="true" sticky="false" />
+<div class="container_16">
+  <div class="grid_6 prefix_5 suffix_5">
+   	  <h1><img src="./images/logo.png" style="width: 100px;margin: 0px 0px -40px 0px;"/>
+	  GPS de la gestion</h1>
+    	<div id="login">
+			<p class="error">Authentification</p>        
+			<form id="form1" name="form1" method="post" action="">
+    	    <p>
+    	      <label><strong>Email</strong>
+<p:inputText id="user_name" value="#{userServices.login}" styleClass="inputText" requiredMessage="L'identifiant est obligatoire" required="true"/>
+    	      </label>
+  	      </p>
+    	    <p>
+    	      <label><strong>Mot de passe</strong>
+    <p:password id="password" value="#{userServices.password}" styleClass="inputText" requiredMessage="Le mot de passe est obligatoire" required="true"/>
+  	        </label>
+    	    </p>
+    	    <p:commandLink styleClass="black_button"  action="#{userServices.authenticate}" ><span>Authentification</span></p:commandLink>
+    		<p:commandLink style="color: black; font-weight: bold;"  action="protogen-signup" immediate="true" ><span>Créer un compte</span></p:commandLink>
+    	  </form>
+		  <br clear="all" />
+    	</div>
+        <div id="forgot">
+        <p:commandLink action="changepassword" styleClass="forgotlink" ajax="false" immediate="true" ><span>Mot de passe oublié ?</span></p:commandLink>
+        </div>
+  </div>
+</div>
+<br clear="all" />
+</h:form>
+</f:view>
+</h:body>
+</html>

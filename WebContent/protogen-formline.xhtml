@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+	<ui:define name="contenu">
+		<p:growl id="frgrl" showDetail="true" />
+		<p:poll interval="600" id="mypoll" widgetVar="mypoll" 
+			listener="#{frontController.pollWorkflows}" update="frgrl" />
+
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">
+				<h:outputText value="#{formViewController.windowTitle}"></h:outputText>
+			</h1>
+			</hgroup>
+		</div>
+
+		
+		<br />
+
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false">
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">#{msg['application.loading']}
+				...</label>
+		</p:dialog>
+		
+		<p:messages id="messagesvalidation" />
+		<h:outputText id="dummymsg" value="" />
+		<p:hotkey bind="ctrl+s" action="#{formViewController.doSave}"
+			update="@form"  onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" />
+		
+		<p:dialog id="wvolpanel" widgetVar="wvolpanel" >
+			<p:scrollPanel style="height:200px" >
+				<p:panelGrid style="width:200px" id="olpanelpg" >
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="2">
+								<h:outputText value="#{formViewController.uictrl.attribute.attribute}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column style="width:7%">
+								<p:commandButton icon="ui-icon-search" 
+									actionListener="#{formViewController.updateReferenceKeys}" update="olpanelpg" >
+								</p:commandButton>
+							</p:column>
+							<p:column>
+								<p:inputText value="#{formViewController.uictrl.searchKeyWords}" style="width:96%" >
+									<p:ajax event="keyup" update="@this" listener="#{formViewController.inlineReferenceChange}" />
+								</p:inputText>
+							</p:column>
+						</p:row>
+					</f:facet>
+					<c:forEach items="#{formViewController.uictrl.listReference}" var="ke">
+						<p:row>
+							<p:column style="width:7%">
+								<p:commandButton icon="ui-icon-circle-triangle-e"  
+									oncomplete="PF('wvolpanel').hide();PF('dlg2').hide();"
+									onstart="PF('dlg2').show();" 
+									actionListener="#{formViewController.autoCompleteMtmFieldSelect}" ajax="false" >
+									<f:param name="CTRL_ATT_VAL" value="#{ke.key}" />
+								</p:commandButton>
+							</p:column>
+							<p:column>
+								<h:outputText value="#{ke.value}" />
+							</p:column>
+						</p:row>
+					</c:forEach>
+				</p:panelGrid>
+			</p:scrollPanel>
+		</p:dialog>
+		
+		<p:dialog id="inlinedialog" widgetVar="inlinedialog" header="#{msg['listview.new']}" >
+			<p:panel>
+			 <p:panelGrid 
+				style="width:100%;padding:40px;background:none;border:none !important;">
+				<c:forEach var="ctline"
+					items="#{formViewController.controlToCreate.inlineControlLines.ctlines}">
+					<p:row>
+						<c:forEach var="ul" items="#{ctline.controls}">
+							<p:column styleClass="column-form-proc" style="border: 1px solid whitesmoke;">
+								<h:outputText value="#{ul.controlID}" styleClass="outputLabel-custom" />&nbsp;
+							</p:column>
+						</c:forEach>
+					</p:row>
+					
+					<p:row>
+						<c:forEach var="ul" items="#{ctline.controls}">
+							<p:column colspan="#{ul.colspan}">
+								
+								<p:inputText value="#{ul.controlValue}"
+									readonly="#{ul.attribute.calculated or ul.readOnly or ul.attribute.CAttributetype.id==7 }"
+									rendered="#{!ul.attribute.textarea and !ul.reference and !ul.ctrlDate and ul.attribute.CAttributetype.id!=5 and ul.attribute.CAttributetype.id!=9 and ul.attribute.CAttributetype.id!=6 and ul.attribute.CAttributetype.id!=12 }"
+									style="width:125px">
+									<p:ajax event="keyup"
+										listener="#{formViewController.saveTextStatus}" />
+									
+								</p:inputText>
+								<p:spacer width="3"
+									rendered="#{!ul.reference and !ul.ctrlDate and ul.attribute.CAttributetype.id!=5 and ul.attribute.CAttributetype.id!=9 and ul.attribute.CAttributetype.id!=6 and ul.attribute.CAttributetype.id!=12 }"
+									height="3" />
+								<h:outputText rendered="#{ul.money}"
+									value="#{formViewController.moneyCode}" />
+	
+								<p:inputTextarea value="#{ul.controlValue}"
+									readonly="#{ul.attribute.calculated or ul.readOnly or ul.attribute.CAttributetype.id==7 }"
+									rendered="#{ul.attribute.textarea and !ul.reference and !ul.ctrlDate and ul.attribute.CAttributetype.id!=5 and ul.attribute.CAttributetype.id!=9 and ul.attribute.CAttributetype.id!=6}"
+									onclick="this.select();" style="width:125px">
+									<p:ajax event="keyup"
+										listener="#{formViewController.saveTextStatus}" />
+								</p:inputTextarea>
+	
+								<p:selectBooleanCheckbox value="#{ul.booleanValue}" 
+									rendered="#{ul.attribute.CAttributetype.id==12}" >
+									<p:ajax event="change" listener="#{formViewController.dummyListener}" />
+								</p:selectBooleanCheckbox>
+								
+								<p:calendar pattern="#{frontController.localization.dateFormat}" locale="#{frontController.localization.langCode}" navigator="true" styleClass="calendar-style"
+									value="#{ul.dateValue}" rendered="#{ul.ctrlDate}">
+								</p:calendar>
+	
+	
+								
+								<p:inputMask value="#{ul.controlValue}"
+									rendered="#{ul.attribute.CAttributetype.id==5}"
+									mask="99:99" style="width:125px">
+								</p:inputMask>
+	
+	
+								<p:selectOneMenu value="#{ul.trueValue}" rendered="#{ul.reference}"
+									styleClass="dropdown" style="width:132px"
+									filter="#{ul.filtrable}" filterMatchMode="contains">
+									<p:ajax event="change"
+										listener="#{formViewController.inlineReferenceChange}" />
+									<f:selectItem itemLabel="" itemValue="" />
+									
+									<f:selectItems var="ke" value="#{ul.listReference}"
+										itemValue="#{ke.value}" itemLabel="#{ke.value}"></f:selectItems>
+								</p:selectOneMenu>
+	
+								
+								
+								<p:selectOneMenu value="#{ul.trueValue}"
+									rendered="#{ul.attribute.CAttributetype.id==9}"
+									styleClass="dropdown" style="width:132px">
+									<f:selectItem itemLabel="#{ul.attribute.unlockLabel}"
+										itemValue="Non" />
+									<f:selectItem itemLabel="#{ul.attribute.lockLabel}"
+										itemValue="Oui" />
+								</p:selectOneMenu>
+	
+							</p:column>
+	
+						</c:forEach>
+					</p:row>
+				</c:forEach>
+			</p:panelGrid>
+			<f:facet name="footer">
+				<p:commandButton value="#{msg['formview.save']}"
+					icon="ui-icon-check" update="@form" 
+					onstart="PF('dlg2').show();"
+					oncomplete="PF('inlinedialog').hide();PF('dlg2').hide()"
+					actionListener="#{formViewController.saveInline}" >
+				</p:commandButton>
+				
+			</f:facet>
+			</p:panel>
+		</p:dialog>
+
+		<p:panel id="parapanel"
+			rendered="#{formViewController.parameteredEntity}"
+			header="#{msg['formview.parameters']}" toggleable="true">
+			<p:panelGrid id="parapagrid" style="width:100%">
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="2">#{msg['formview.parametersmodel']}</p:column>
+					</p:row>
+				</f:facet>
+				<p:row>
+					<p:column styleClass="column-admin">
+						<h:outputText value="#{msg['formview.model']}" styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="modelParametrage"
+							value="#{formViewController.selectedComponentName}">
+							<p:ajax ecent="change"
+								listener="#{formViewController.modelParametrageChanged}"
+								update="@form" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" />
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{formViewController.parametersComponents}"
+								var="pc" itemValue="#{pc.modelName}" itemLabel="#{pc.modelName}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column styleClass="column-admin">
+						<h:outputText value="#{msg['formview.configparameters']}" styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="modelParametrageInstance"
+							value="#{formViewController.selectedInstance}">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems
+								value="#{formViewController.selectedComponent.modelInstances}"
+								var="pc" itemValue="#{pc.dbID}" itemLabel="#{pc.value}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:panel>
+		<div style="display:#{formViewController.singleMode?'':'none'}"
+			class="wrapped align-left white-gradient glossy large-box-shadow">
+
+			<p:commandButton value="#{msg['listview.new']}"
+				styleClass="button margin-right button-icon green-gradient glossy"
+				rendered="#{listViewControl.window.formId gt 0 and formViewController.singleMode}"
+				action="#{frontController.updateScreenThroughLink}" ajax="false">
+				<f:param name="screenseq" value="#{listViewControl.window.formId}" />
+				<f:param name="tonew" value="1" />
+			</p:commandButton>
+
+			<p:commandButton rendered="#{listViewControl.deleteBtn}"
+				styleClass="button margin-right button-icon red-gradient glossy"
+				value="#{msg['listview.delete']}" update="@form"
+				action="#{formViewController.doPrimeDelete}" onstart="PF('dlg2').show();"
+				oncomplete="PF('dlg2').hide();reShowActiveMenu();" />
+
+			
+		</div>
+		<details class="details margin-bottom" open="true"> 
+			<summary class="summaryDetails">
+				<h:outputText value="#{formViewController.windowTitle}" />
+				<h:outputText rendered="#{formViewController.alphaMode}" value=" (#{formViewController.alphaEntity} : #{formViewController.alphaReference})" />
+				
+				<p:commandButton ajax="false"  action="#{formViewController.backButton}" icon="ui-icon-triangle-1-w" style="position: absolute;right: 42px;" rendered="#{formViewController.navigation}" />
+				<p:commandButton ajax="false"  action="#{formViewController.nextButton}" icon="ui-icon-triangle-1-e" style="position: absolute;right: 0px;" rendered="#{formViewController.navigation}" />
+			</summary>
+				<p:panel id="panel" style="margin: 0px; padding: 0px;">
+					<p:focus context="panel" />
+					<p:panelGrid id="formgridlines" style="width:100%; padding: 0px;">
+						<c:forEach var="ctline"
+							items="#{formViewController.controlLines.ctlines}">
+							<!-- Labels -->
+							<p:row>
+								<c:forEach var="uictrl" items="#{ctline.controls}">
+									<p:column rendered="#{!uictrl.hide}" styleClass="column-admin" 
+										style="border: 1px solid whitesmoke;font-size: 13px !important;padding:5px 5px !important;">
+										<h:outputText value="#{uictrl.controlID}" />&nbsp; <p:graphicImage
+											value="img/bulb.png"
+											title="Ce champs sera calculé suite à la validation du formulaire"
+											rendered="#{uictrl.visible and uictrl.attribute.calculated}"
+											styleClass="outputLabel-custom" />
+										<p:graphicImage style="margin-bottom: 6%;margin-left: 3%; width:5px" rendered="#{uictrl.attribute.mandatory}"
+											value="/img/create#{frontController.themeVar}.png" />
+										<p:graphicImage value="img/bulb.png"
+											title="Ce champs en lecture seule vous offre plus d'informations sur les choix effectués"
+											rendered="#{uictrl.readOnly}" />
+
+									</p:column>
+									
+
+								</c:forEach>
+							</p:row>
+							<!-- Values -->
+							<p:row>
+								
+								<c:forEach var="uictrl" items="#{ctline.controls}">
+									<p:column rendered="#{!uictrl.hide}" colspan="#{uictrl.colspan}" 
+										style="border: 1px solid whitesmoke;padding: 2px 2px !important;">
+										<p:inputText 
+											value="#{uictrl.controlValue}"
+											readonly="#{uictrl.attribute.calculated or uictrl.readOnly or uictrl.attribute.CAttributetype.id==7}"
+											rendered='#{uictrl.visible and !uictrl.attribute.textarea and !uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=12 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6 and uictrl.attribute.CAttributetype.id!=10 and uictrl.attribute.CAttributetype.id!=11}'
+											onclick="this.select();" style="width:#{uictrl.attribute.fieldWidth}px !important"
+											validatorMessage="#{uictrl.attribute.regexpMessage}">
+											<f:validateRegex disabled="#{!uictrl.attribute.regular}"
+												pattern="#{uictrl.attribute.regexp}"></f:validateRegex>
+										</p:inputText>
+										<p:spacer width="3"
+											rendered="#{!uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6}"
+											height="3" />
+										<h:outputText rendered="#{uictrl.money}"
+											value="#{formViewController.moneyCode}" />
+											
+										<p:inputTextarea 
+											value="#{uictrl.controlValue}"
+											readonly="#{uictrl.attribute.calculated or uictrl.readOnly or uictrl.attribute.CAttributetype.id==7 }"
+											rendered="#{uictrl.attribute.textarea and !uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6}"
+											onclick="this.select();" cols="20" rows="3" autoResize="true">
+										</p:inputTextarea>
+
+										<!-- Boolean -->
+										<p:selectBooleanCheckbox value="#{uictrl.booleanValue}" 
+											rendered="#{uictrl.attribute.CAttributetype.id==12}" >
+										</p:selectBooleanCheckbox>
+											
+										<!-- Calendar for date values -->
+										<p:calendar pattern="#{frontController.localization.dateFormat}" locale="#{frontController.localization.langCode}" navigator="true"
+											styleClass="calendar-style"
+											value="#{uictrl.dateValue}"
+											rendered="#{uictrl.ctrlDate}">
+											
+										</p:calendar>
+
+
+										<p:inputMask 
+											value="#{uictrl.controlValue}"
+											rendered="#{uictrl.attribute.CAttributetype.id==5}"
+											mask="99:99" style="width:#{uictrl.attribute.fieldWidth}px !important">
+										</p:inputMask>
+
+										<h:panelGrid columns="2">
+										<p:commandButton icon="ui-icon-plus"  rendered="#{uictrl.reference}"
+												 styleClass="plus-btn" actionListener="#{formViewController.updateInlineForm}" update=":protogen_main:inlinedialog"
+												 onstart="PF('dlg2').show()"
+												 oncomplete="PF('inlinedialog').show();PF('dlg2').hide()" >
+												<f:param name="INSERTATT" value="#{uictrl.attribute.dataReference}" />
+												<f:param name="INSERTBLK" value="-1" />
+										</p:commandButton>
+										<p:autoComplete value="#{uictrl.trueValue}" forceSelection="true" size="#{uictrl.attribute.fieldColumns}"
+											completeMethod="#{formViewController.autocompleteMethod}" id="olprestext_#{uictrl.attribute.id}"  
+											 rendered="#{uictrl.reference}" style="width:#{uictrl.attribute.fieldWidth}px !important" >
+											<f:attribute name="CTRL" value="#{uictrl.attribute.dataReference}" />
+										</p:autoComplete>
+										</h:panelGrid>
+
+										
+										<p:selectOneMenu value="#{uictrl.trueValue}"
+											rendered="#{uictrl.attribute.CAttributetype.id==9}"
+											styleClass="dropdown" style="width:132px">
+											<f:selectItem itemLabel="#{uictrl.attribute.unlockLabel}"
+												itemValue="Non" />
+											<f:selectItem itemLabel="#{uictrl.attribute.lockLabel}"
+												itemValue="Oui" />
+										</p:selectOneMenu>
+
+										<p:fileUpload id="idfichier_#{uictrl.attribute.id}"
+											locale="#{frontController.localization.langCode}" cancelLabel="Annuler" label="Parcourir"
+											uploadLabel="Charger"
+											multiple="false"
+											auto="true"
+											fileUploadListener="#{formViewController.handleFileUpload}"
+											update="@form" mode="advanced"
+											rendered="#{uictrl.binaryContent}" />
+											
+										<p:selectOneMenu value="#{uictrl.controlValue}" rendered="#{uictrl.attribute.CAttributetype.id==10}"
+											styleClass="dropdown" style="width:132px"
+											filter="true" filterMatchMode="contains">
+											<f:selectItem itemLabel="" itemValue="" />
+											<f:selectItems var="ke" value="#{uictrl.listReference}"
+												itemValue="#{ke.key}" itemLabel="#{ke.value}"></f:selectItems>
+										</p:selectOneMenu>
+										
+										<p:selectOneMenu value="#{uictrl.controlValue}" rendered="#{uictrl.attribute.CAttributetype.id==11}"
+											styleClass="dropdown" style="width:132px"
+											filter="true" filterMatchMode="contains">
+											<f:selectItem itemLabel="" itemValue="" />
+											<f:selectItems var="ke" value="#{uictrl.listReference}"
+												itemValue="#{ke.key}" itemLabel="#{ke.value}"></f:selectItems>
+										</p:selectOneMenu>
+										
+										<br />
+
+									</p:column>
+
+								</c:forEach>
+							</p:row>
+							
+						</c:forEach>
+						<p:row rendered="#{formViewController.history.id gt 0}">
+							<p:column styleClass="column-admin" 
+									style="border: 1px solid whitesmoke;font-size: 13px !important;padding:5px 5px !important;">
+								<h:outputText value="Date de début" />
+							</p:column>
+						</p:row>
+						<p:row rendered="#{formViewController.history.id gt 0}">
+							<p:column>
+								<p:calendar styleClass="calendar-style" value="#{formViewController.histoStart}" locale="#{frontController.localization.langCode}" 
+									navigator="true" pattern="#{frontController.localization.dateFormat}" >
+									<p:ajax event="dateSelect" listener="#{formViewController.histoChange}"
+											update="@form" />
+								</p:calendar>
+							</p:column>
+						</p:row>
+						<p:row rendered="#{formViewController.uniqueRowMode}">
+							<p:column colspan="5"><h:outputText value="Par défaut" /></p:column>
+						</p:row>
+						<p:row rendered="#{formViewController.uniqueRowMode}">
+							<p:column colspan="5">
+								<p:selectBooleanCheckbox value="#{formViewController.defaultChecked}" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:panel>
+		
+		</details>
+		<p:treeTable value="#{formViewController.root}" var="org" 
+			rendered="#{formViewController.localizedMode}"
+			selection="#{formViewController.selectedOrg}" selectionMode="single" >
+			<p:ajax event="select" listener="#{formViewController.onOrgSelect}" update="@this" />
+			<p:column headerText="#{msg['formview.level']}">
+	            <h:outputText value="#{org.name}" />
+	        </p:column>
+		</p:treeTable>
+		<p:panel style="width:100%" rendered="#{formViewController.compositionMode}" header="Composition" >
+			<p:pickList id="picklistcomposition" value="#{formViewController.toCompose}" 
+			 	var="cb" itemLabel="#{cb}" itemValue="#{cb}" style="width:100%"
+			 	showSourceFilter="true" showTargetFilter="true" showSourceControls="false" showTargetControls="false" >
+			</p:pickList>
+		</p:panel>
+		<p:tabMenu activeIndex="#{formViewController.activeIndex}" rendered="#{formViewController.tabsShown}" >
+			<c:forEach var="mtmBlock" items="#{formViewController.mtmBlocks}" varStatus="loop">
+				<p:menuitem value="#{mtmBlock.entity.name}" actionListener="#{formViewController.updateActiveBlock}" 
+					ajax="false" onstart="PF('ldlg').show();" oncomplete="PF('ldlg').hide();" >
+			        <f:param name="selectedMTM" value="#{mtmBlock.entityID}" />
+			    </p:menuitem>
+			</c:forEach>
+		</p:tabMenu>
+		<p:panel id="ultimatemtm" rendered="#{formViewController.tabsShown}" style="min-height:200px;overflow:scroll" >
+			<p:panelGrid id="ultimatemtmgrid" style="width:100%; " >
+     	       		<f:facet name="header">
+     	       			<p:row>
+     	       				<c:forEach items="#{formViewController.mtmBlock.titles}" var="tt" >
+     	       					<p:column style="min-width:40px">
+     	       						<h:outputText value="#{tt}" />
+     	       					</p:column>
+     	       					
+     	       				</c:forEach>
+     	       				<p:column style="width:50px">
+     	       					</p:column>
+     	       				<p:column style="width:50px">
+     	       					</p:column>
+     	       			</p:row>
+     	       		</f:facet>
+     	       		<c:forEach items="#{formViewController.mtmBlock.lines}" var="line" varStatus="varindex" >
+     	       			<p:row>
+     	       				<c:forEach var="uictrl" items="#{line.controls}">
+     	       				
+						<p:column rendered="#{!uictrl.hide}" colspan="#{uictrl.colspan}" 
+							style="border: 1px solid whitesmoke;padding: 2px 2px !important;">
+							<center>
+							<p:inputText value="#{uictrl.controlValue}"
+								readonly="#{uictrl.attribute.calculated or uictrl.readOnly or uictrl.attribute.CAttributetype.id==7}"
+								rendered="#{!uictrl.attribute.textarea and (uictrl.attribute.CAttributetype.id==2 or uictrl.attribute.CAttributetype.id==4 
+									or uictrl.attribute.CAttributetype.id==8)}"
+								onclick="this.select();" style="width:#{uictrl.attribute.fieldWidth}px !important"
+								validatorMessage="#{uictrl.attribute.regexpMessage}">
+								<f:validateRegex disabled="#{!uictrl.attribute.regular}"
+									pattern="#{uictrl.attribute.regexp}"></f:validateRegex>
+							</p:inputText>
+							<p:spacer width="3"
+								rendered="#{!uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6}"
+								height="3" />
+							<h:outputText rendered="#{uictrl.money}"
+								value="#{formViewController.moneyCode}" />
+								
+							<p:inputTextarea value="#{uictrl.controlValue}"
+								readonly="#{uictrl.attribute.calculated or uictrl.readOnly or uictrl.attribute.CAttributetype.id==7 }"
+								rendered="#{uictrl.attribute.textarea and !uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6}"
+								onclick="this.select();" cols="20" rows="3" autoResize="true">
+							</p:inputTextarea>
+
+							<!-- Boolean -->
+							<p:selectBooleanCheckbox value="#{uictrl.booleanValue}" 
+								rendered="#{uictrl.attribute.CAttributetype.id==12}" >
+								<p:ajax event="change" listener="#{formViewController.dummyListener}" />
+							</p:selectBooleanCheckbox>
+								
+							<!-- Calendar for date values -->
+							<p:calendar pattern="#{frontController.localization.dateFormat}" locale="#{frontController.localization.langCode}" navigator="true"
+								value="#{uictrl.dateValue}" styleClass="calendar-style"
+								rendered="#{uictrl.ctrlDate}">
+								<p:ajax event="dateSelect"
+									update="#{uictrl.attribute.conditionalLayout?'dummymsg':formViewController.updatedFields}"
+									listener="#{formViewController.handleDateSelect}" />
+							</p:calendar>
+
+
+							<p:inputMask value="#{uictrl.controlValue}"
+								rendered="#{uictrl.attribute.CAttributetype.id==5}"
+								mask="99:99" style="width:#{uictrl.attribute.fieldWidth}px !important">
+								
+							</p:inputMask>
+
+							<h:panelGrid columns="2">
+							
+							<p:commandButton icon="ui-icon-plus"  rendered="#{uictrl.reference}"
+									 styleClass="plus-btn" actionListener="#{formViewController.updateInlineForm}" update=":protogen_main:inlinedialog"
+									 onstart="PF('dlg2').show()"
+									 oncomplete="PF('inlinedialog').show();PF('dlg2').hide()" >
+									<f:param name="INSERTATT" value="#{uictrl.attribute.dataReference}" />
+									<f:param name="INSERTBLK" value="#{formViewController.mtmBlock.entityID}" />
+							</p:commandButton>
+							
+							<p:autoComplete value="#{uictrl.trueValue}" forceSelection="true" size="#{uictrl.attribute.fieldColumns}"
+								completeMethod="#{formViewController.autocompleteMethod}" id="olprestext_#{uictrl.attribute.id}_#{varindex.index}"  
+								 rendered="#{uictrl.reference}" style="width:#{uictrl.attribute.fieldWidth}px !important" >
+								<f:attribute name="CTRL" value="#{uictrl.attribute.dataReference}" />
+							</p:autoComplete>
+							
+													
+							</h:panelGrid>
+							</center>
+							
+						</p:column>
+						
+					</c:forEach>
+					<p:column style="width:42px">
+	       				<p:commandButton action="#{formViewController.doValidate}"
+							icon="ui-icon-check" update="@form"
+							onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();">
+							<f:param name="LINE_INDEX" value="#{varindex.index}"></f:param>
+						</p:commandButton>
+		      		</p:column>
+		      		<p:column style="width:42px">
+	       				<p:commandButton action="#{formViewController.doDelete}"
+							icon="ui-icon-trash" update=":protogen_main:ultimatemtm" 
+							onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();">
+							<f:param name="todel" value="#{varindex.index}"></f:param>
+							<f:param name="todelBlock" value="#{formViewController.mtmBlock.entityID}"></f:param>
+						</p:commandButton>
+		      		</p:column>
+     	       			</p:row>
+     	       		
+     	       		</c:forEach>
+     	       		<f:facet name="footer">
+     	       			<p:commandButton value="#{msg['listview.new']}" actionListener="#{formViewController.newLine}"
+     	       			  update="ultimatemtm"
+     	       			 onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" >
+     	       				<f:param name="SEL_BLOCK" value="#{formViewController.mtmBlock.entityID}"></f:param>
+     	       			</p:commandButton>
+     	       		</f:facet>
+     	       	</p:panelGrid>
+		</p:panel>
+		
+		
+		
+		<p:tabView widgetVar="mtmAccordion" id="mtmAccordion" activeIndex="#{formViewController.activeIndex}" style="width:100%" >
+			<!-- =============== Onglets pour les références ======================  -->
+			<c:forEach var="mtmBlock" items="#{formViewController.refBlocks}" varStatus="loop">
+				<p:ajax event="tabChange"
+					listener="#{formViewController.onTabChange}" />
+				<p:tab id="tabid_#{mtmBlock.entityID}" titleStyleClass="tab_title">
+					<f:facet name="title">
+		               <h:outputText value="#{mtmBlock.entity.name}" styleClass="tabTitle"/>
+        	       	</f:facet>
+					<h:panelGroup styleClass="tab_content onglet_#{mtmBlock.entityID}">
+					
+						<center>
+							<p:panelGrid columns="4" style="width:100%" 
+								columnClasses="mtmcols, mtmcols, mtmcols, mtmcols">
+
+								<c:forEach items="#{mtmBlock.controls}" var="mtmControl">
+									<h:panelGrid columns="3">
+										<h:outputText value="#{mtmControl.label}" style="vertical-align: middle;"></h:outputText>
+										<p:graphicImage style="margin-bottom: 6%;margin-left: 3%; width:5px" rendered="#{mtmControl.attribute.mandatory}"
+												value="/img/create#{frontController.themeVar}.png" />
+										<p:graphicImage value="img/bulb.png"
+											title="La valeur de ce champs sera calculée de façon automatique"
+											rendered="#{mtmControl.attribute.calculated}" />
+									</h:panelGrid>
+									<h:panelGrid columns="1">
+										<p:inputText value="#{mtmControl.controlValue}"
+											readonly="#{mtmControl.attribute.calculated}"
+											styleClass="#{(!mtmControl.reference and !mtmControl.ctrlDate)?'showTextbox':'hideTextbox'}"
+											rendered="#{!mtmControl.attribute.textarea and !mtmControl.reference and !mtmControl.ctrlDate and mtmControl.attribute.CAttributetype.id!=12}"
+											style="width:#{mtmControl.attribute.fieldWidth}px !important" 
+											onclick="this.select();">
+											<p:ajax event="keyup" update="@this"></p:ajax>
+										</p:inputText>
+										
+										<p:inputTextarea value="#{mtmControl.controlValue}"
+											readonly="#{mtmControl.attribute.calculated or uictrl.readOnly or uictrl.attribute.CAttributetype.id==7 }"
+											rendered="#{mtmControl.attribute.textarea and !uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6}"
+											onclick="this.select();" cols="20" rows="3" autoResize="true">
+											
+										</p:inputTextarea>
+
+										<p:selectBooleanCheckbox value="#{mtmControl.booleanValue}" 
+											rendered="#{mtmControl.attribute.CAttributetype.id==12}" >
+											<p:ajax event="change" listener="#{formViewController.dummyListener}" update="@this" />
+										</p:selectBooleanCheckbox>
+										
+										<p:calendar pattern="#{frontController.localization.dateFormat}" locale="#{frontController.localization.langCode}" navigator="true"
+											value="#{mtmControl.dateValue}" styleClass="calendar-style" 
+											rendered="#{mtmControl.ctrlDate}">
+											<p:ajax event="keyup" update="@this"></p:ajax>
+										</p:calendar>
+
+										<h:panelGrid columns="4">
+											<p:commandButton type="button" id="olpbtn_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" 
+												icon="ui-icon-circle-triangle-s" rendered="#{mtmControl.reference}"
+												styleClass="plus-btn" />
+											<p:inputText rendered="#{mtmControl.reference}" id="olprestext_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" readonly="true" 
+												value="#{mtmControl.trueValue}" style="width:#{uictrl.attribute.fieldWidth}px !important" />
+											<p:spacer width="5" height="5" />
+											<p:commandButton icon="ui-icon-plus" styleClass="plus-btn"  type="button" rendered="#{mtmControl.reference}"
+												id="crtbtn_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" />
+											<p:overlayPanel id="crtpanel_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" 
+												 widgetVar="wvcrtpanel_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" 
+												 for="crtbtn_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" hideEffect="fade">
+												 <p:panel>
+												 <p:panelGrid 
+													style="width:100%;padding:40px;background:none;border:none !important;">
+													<c:forEach var="ctline"
+														items="#{mtmControl.inlineControlLines.ctlines}">
+														<p:row>
+															<c:forEach var="uictrl" items="#{ctline.controls}">
+																<p:column styleClass="column-form-proc" style="border: 1px solid whitesmoke;">
+																	<h:outputText value="#{uictrl.controlID}" styleClass="outputLabel-custom" />&nbsp;
+																</p:column>
+															</c:forEach>
+														</p:row>
+														
+														<p:row>
+															<c:forEach var="uictrl" items="#{ctline.controls}">
+																<p:column colspan="#{uictrl.colspan}">
+																	
+																	<p:inputText 
+																		value="#{uictrl.controlValue}"
+																		readonly="#{uictrl.attribute.calculated or uictrl.readOnly or uictrl.attribute.CAttributetype.id==7 }"
+																		rendered="#{!uictrl.attribute.textarea and !uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6 and uictrl.attribute.CAttributetype.id!=12 }"
+																		onclick="this.select();" style="width:125px"
+																		validatorMessage="#{uictrl.attribute.regexpMessage}">
+																		<p:ajax event="keyup"
+																			listener="#{formViewController.saveTextStatus}" />
+																		<f:validateRegex disabled="#{!uictrl.attribute.regular}"
+																			pattern="#{uictrl.attribute.regexp}"></f:validateRegex>
+																	</p:inputText>
+																	<p:spacer width="3"
+																		rendered="#{!uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6 and uictrl.attribute.CAttributetype.id!=12 }"
+																		height="3" />
+																	<h:outputText rendered="#{uictrl.money}"
+																		value="#{formViewController.moneyCode}" />
+									
+																	<p:inputTextarea 
+																		value="#{uictrl.controlValue}"
+																		readonly="#{uictrl.attribute.calculated or uictrl.readOnly or uictrl.attribute.CAttributetype.id==7 }"
+																		rendered="#{uictrl.attribute.textarea and !uictrl.reference and !uictrl.ctrlDate and uictrl.attribute.CAttributetype.id!=5 and uictrl.attribute.CAttributetype.id!=9 and uictrl.attribute.CAttributetype.id!=6}"
+																		onclick="this.select();" style="width:125px">
+																		
+																	</p:inputTextarea>
+									
+																	<p:selectBooleanCheckbox value="#{uictrl.booleanValue}" 
+																		rendered="#{uictrl.attribute.CAttributetype.id==12}" >
+																		<p:ajax event="change" listener="#{formViewController.dummyListener}" update="@this" />
+																	</p:selectBooleanCheckbox>
+																	
+																	<p:calendar pattern="#{frontController.localization.dateFormat}" locale="#{frontController.localization.langCode}" navigator="true"
+																		styleClass="calendar-style"
+																		value="#{uictrl.dateValue}" rendered="#{uictrl.ctrlDate}">
+																	</p:calendar>
+									
+									
+																	
+																	<p:inputMask 
+																		value="#{uictrl.controlValue}"
+																		rendered="#{uictrl.attribute.CAttributetype.id==5}"
+																		mask="99:99" style="width:125px">
+																	</p:inputMask>
+									
+									
+																	<p:selectOneMenu 
+																		value="#{uictrl.trueValue}" rendered="#{uictrl.reference}"
+																		styleClass="dropdown" style="width:132px"
+																		filter="#{uictrl.filtrable}" filterMatchMode="contains">
+																		<p:ajax event="change"
+																			listener="#{formViewController.inlineReferenceChange}" />
+																		<f:selectItem itemLabel="" itemValue="" />
+																		<f:selectItems var="ke" value="#{uictrl.listReference}"
+																			itemValue="#{ke.value}" itemLabel="#{ke.value}"></f:selectItems>
+																	</p:selectOneMenu>
+									
+																	
+																	
+																	<p:selectOneMenu 
+																		value="#{uictrl.trueValue}"
+																		rendered="#{uictrl.attribute.CAttributetype.id==9}"
+																		styleClass="dropdown" style="width:132px">
+																		<f:selectItem itemLabel="#{uictrl.attribute.unlockLabel}"
+																			itemValue="Non" />
+																		<f:selectItem itemLabel="#{uictrl.attribute.lockLabel}"
+																			itemValue="Oui" />
+																	</p:selectOneMenu>
+									
+																</p:column>
+									
+															</c:forEach>
+														</p:row>
+													</c:forEach>
+												</p:panelGrid>
+												<f:facet name="footer">
+													<p:commandButton value="Enregistrer"
+														icon="ui-icon-check" update="@form"
+														oncomplete="PF('crtpanel_#{mtmBlock.entityID}_#{mtmControl.attribute.id}').hide();"
+														actionListener="#{formViewController.saveInline}"
+														 >
+														 <f:param name="INSERTATT" value="#{mtmControl.attribute.dataReference}" />
+														 <f:param name="INSERTBLK" value="#{mtmBlock.entityID}" />
+													</p:commandButton>
+													
+												</f:facet>
+												</p:panel>
+											</p:overlayPanel>
+											
+											<p:overlayPanel id="olpanel_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" 
+												 widgetVar="wvolpanel_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" 
+												 for="olpbtn_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" hideEffect="fade">
+												<p:scrollPanel style="height:200px" >
+													<p:panelGrid style="width:200px" id="olpanelpg_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" >
+														<f:facet name="header">
+															<p:row>
+																<p:column colspan="2">
+																	<h:outputText value="#{mtmControl.attribute.attribute}" />
+																</p:column>
+															</p:row>
+															<p:row>
+																<p:column style="width:7%">
+																	<p:commandButton icon="ui-icon-search" 
+																		actionListener="#{formViewController.updateMtmReferenceKeys}" 
+																		update="olpanelpg_#{mtmBlock.entityID}_#{mtmControl.attribute.id}" >
+																		<f:param name="CTRL_ID" value="#{mtmControl.attribute.id}" />
+																		<f:param name="BLOCK_ID" value="#{mtmBlock.entityID}" />
+																	</p:commandButton>
+																</p:column>
+																<p:column>
+																	<p:inputText value="#{mtmControl.searchKeyWords}" style="width:96%" >
+																		<p:ajax event="keyup" update="@this" listener="#{formViewController.inlineReferenceChange}" />
+																	</p:inputText>
+																</p:column>
+															</p:row>
+														</f:facet>
+														<c:forEach items="#{mtmControl.listReference}" var="ke">
+															<p:row>
+																<p:column style="width:7%">
+																	<p:commandButton icon="ui-icon-circle-triangle-e"  
+																		oncomplete="PF('wvolpanel_#{mtmBlock.entityID}_#{mtmControl.attribute.id}').hide();PF('dlg2').hide();" 
+																		onstart="PF('dlg2').show();" 
+																		actionListener="#{formViewController.autoCompleteMtmFieldSelect}" update="olprestext_#{mtmBlock.entityID}_#{mtmControl.attribute.id}">
+																		<f:param name="CTRL_BLOCK_ID" value="#{mtmBlock.entityID}" />
+																		<f:param name="CTRL_ATT_ID" value="#{mtmControl.attribute.id}" />
+																		<f:param name="CTRL_ATT_VAL" value="#{ke.key}" />
+																	</p:commandButton>
+																</p:column>
+																<p:column>
+																	<h:outputText value="#{ke.value}" />
+																</p:column>
+															</p:row>
+														</c:forEach>
+													</p:panelGrid>
+												</p:scrollPanel>
+												
+												
+											</p:overlayPanel> 
+											
+											
+										</h:panelGrid>
+									</h:panelGrid>
+								</c:forEach>
+								<f:facet name="footer">
+									
+								</f:facet>
+							</p:panelGrid>
+
+						</center>
+					</h:panelGroup>
+				</p:tab>
+			</c:forEach>
+			<p:tab id="prflrls" rendered="#{formViewController.userRepresentative}">
+				<f:facet name="title">
+		        	<h:outputText value="#{msg['formview.profiles']}" styleClass="tabTitle"/>
+        	    </f:facet>
+        	    <p:panelGrid style="width:100%" columns="2">
+        	    	<h:outputText value="#{msg['formview.email']}" />
+        	    	<p:inputText value="#{formViewController.userName}" style="width:150px" readonly="#{!formViewController.insert}" >
+        	    		<p:ajax event="keyup" listener="#{formViewController.ajaxValidate}" update="@this" />
+					</p:inputText>
+        	    </p:panelGrid>
+				<p:spacer width="20" height="20" />
+				<p:panel header="Profils" style="width:100%">
+					<p:pickList id="profilspicklist" value="#{formViewController.picklistProfils}"
+						  var="prf" itemLabel="#{prf}" itemValue="#{prf}" 
+						  style="width:100%" showSourceFilter="true" showTargetFilter="true" 
+						  showSourceControls="false" showTargetControls="false"  >
+						 <p:ajax event="transfer" listener="#{formViewController.onTransfer}" update="rolespicklist" />
+					</p:pickList>
+				</p:panel>
+				<p:spacer width="20" height="20" />
+				<p:panel header="#{msg['formview.role']}" style="width:100%">
+					<p:pickList id="rolespicklist"  value="#{formViewController.picklistRoles}"  style="width:100%"
+			 			 showSourceFilter="true" showTargetFilter="true" showSourceControls="false" showTargetControls="false" 
+						 var="rl" itemLabel="#{rl}" itemValue="#{rl}" >
+						 <p:ajax event="transfer" listener="#{formViewController.onDummyTransfer}" update="@this" />
+					</p:pickList>
+				</p:panel>
+				
+			</p:tab>
+		</p:tabView>
+		
+		<table>
+		<tr>
+				<td colspan="2" class="with-padding" width="1000px" align="center"><p:commandButton
+						ajax="false" action="#{formViewController.doSave}"
+						value="#{msg['formview.save']}"
+						 
+						styleClass="button margin-right button-icon blue-gradient glossy">
+						<p:resetInput target="panel" />
+					</p:commandButton>
+					<p:commandButton
+						action="#{ frontController.updateScreenThroughLink }"
+						rendered="#{formViewController.insert}" ajax="false"
+						 value="#{msg['component.cancel']}"
+						styleClass="button margin-right button-icon red-gradient glossy">
+						<f:param name="screenseq" value="#{frontController.lastWindow.id}" />
+					</p:commandButton> <p:commandButton
+						action="#{ frontController.updateScreenThroughLink }"
+						rendered="#{!formViewController.insert}" ajax="false"
+						 value="#{msg['component.cancel']}"
+						styleClass="button margin-right button-icon red-gradient glossy">
+						<f:param name="screenseq" value="#{frontController.window.id}" />
+					</p:commandButton> <p:commandButton
+						action="#{ frontController.updateScreenThroughLink }"
+						rendered="#{!frontController.inProcess and frontController.linksAvailable and !frontController.singleLink}"
+						ajax="false" 
+						value="#{frontController.lastWindow.title}"
+						styleClass="button margin-right button-icon grey-gradient glossy">
+						<f:param name="screenseq" value="#{frontController.lastWindow.id}" />
+					</p:commandButton> <p:commandButton action="#{frontController.next}"
+						rendered="#{frontController.inProcess and formViewController.saved}"
+						ajax="false"  value="Suivant"
+						styleClass="button margin-right button-icon red-gradient glossy" />
+					<p:commandButton
+						action="#{ frontController.updateScreenThroughLink }"
+						rendered="#{!frontController.inProcess and frontController.linksAvailable and !frontController.lastWindowAvailable}"
+						ajax="false" 
+						value="#{frontController.firstLink.title}"
+						styleClass="button margin-right button-icon red-gradient glossy">
+						<f:param name="screenseq" value="#{frontController.firstLink.id}" />
+					</p:commandButton></td>
+			</tr>
+		</table>
+		
+		<iframe style="width:100%; height:600px;display:#{(formViewController.window.id eq 2182 or formViewController.window.id eq 2180)?'block':'none'}" 
+			 src="http://ns389914.ovh.net/proto_audial/audio_graphe.html" />
+		
+		<script>
+			$(document).ready(function(){
+				showTab(0);
+			});
+			function showTab(indx) {
+				var length = $(".tab_content").length;
+				if(length > 0) {
+					$(".tab_content").each(function(){
+						$(this).parents(".ui-tabs-panel:first").hide();
+					});
+					var obj = $(".tab_content")[indx];
+					$(obj).parents(".ui-tabs-panel:first").show();
+				}
+			}
+		</script>
+		
+	</ui:define>
+
+	<ui:define name="aide">
+		
+	</ui:define>
+
+</ui:composition>
+</html>

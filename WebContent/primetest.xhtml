@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+
+	</h:head>
+	
+	<h:body>
+	<p:autoComplete id="acSimple" value="#{frontController.selectedProcess}"   
+                    completeMethod="#{frontController.autocomplete}"/>
+		<p:spinner />
+		<table><tr><td>
+		<p:dashboard id="board" model="#{dashboardBean.model}" styleClass="yui3-cssreset">  
+        <p:ajax event="reorder" listener="#{dashboardBean.handleReorder}" />  
+  
+        <p:panel id="sports" header="Sports" styleClass="yui3-cssreset">  
+            <h:outputText value="Sports Content" />  
+        </p:panel>  
+  
+        <p:panel id="finance" header="Finance" styleClass="yui3-cssreset">  
+            <h:outputText value="Finance Content" />  
+        </p:panel>  
+  
+        <p:panel id="lifestyle" header="Lifestyle" styleClass="yui3-cssreset">  
+            <h:outputText value="Lifestyle Content"  />  
+        </p:panel>  
+  
+        <p:panel id="weather" header="Weather" styleClass="yui3-cssreset">  
+            <h:outputText value="Weather Content" />  
+        </p:panel>  
+  
+        <p:panel id="politics" header="Politics" styleClass="yui3-cssreset">  
+            <h:outputText value="Politics Content" />  
+        </p:panel>  
+    </p:dashboard>  	
+    </td></tr></table>
+		
+	</h:body>
+</html>

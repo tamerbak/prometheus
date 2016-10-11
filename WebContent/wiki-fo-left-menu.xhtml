@@ -1,0 +1,55 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+<ul class="nav" id="side-menu">
+                     
+		   <li class="sidebar-search ">
+                   <div class="input-group custom-search-form collapse">
+                   
+                <p:autoComplete id="autocompleteInput" value="#{articleManager.searchTags}" effect="blind" forceSelection="#{articleManager.autocompletion?'true':'false'}" immediate="true" 
+		completeMethod="#{articleManager.autoCompleteQuestion}"  
+		/>
+		<!-- <p:inputText id="searchInput" value="#{articleManager.searchTags}" styleClass="form-control search-input" placeholder="Recherche..." /> -->
+		
+                        <span class="input-group-btn">
+                         <p:commandLink action="#{articleManager.searchByTags}"  styleClass="btn btn-gps" ajax="false">
+                             <i class="fa fa-search white"></i>
+                         </p:commandLink>
+                    	</span>
+                   </div>
+                   <div class="sidebar-search">
+					<p:selectBooleanCheckbox value="#{articleManager.autocompletion}" >
+						<p:ajax update="autocompleteInput"/>
+					</p:selectBooleanCheckbox>
+					<h:outputText value=" Autocomplétion" />
+                   </div>
+                   <!-- /input-group -->
+               </li>
+                      
+                      <ui:repeat var="parent" value="#{articleManager.menuTree}" varStatus="status">
+						<li class="#{status.index eq articleManager.selectedMenuId? (articleManager.selectedChildId eq -1? 'active second-active' : 'active' ) : ''}">
+
+						<p:commandLink action="#{articleManager.navigateToMenu}" update="@form">
+							<f:param name="MENUINDEX" value="#{status.index}" />
+                              <i class="fa fa-folder-open-o fa-fw menu-margin"></i>#{parent.title}<h:outputText rendered="#{not empty parent.childs}"><span class="fa arrow"></span></h:outputText>
+                          </p:commandLink>	
+                          	<h:outputText rendered="#{parent.childs ne null}">
+                          		<ul class="nav nav-second-level">
+                           	 	<ui:repeat var="child" value="#{parent.childs}" varStatus="statusC">
+                           	 		<li class="#{statusC.index eq articleManager.selectedChildId? 'active second-active' : ''}">
+                                  			<p:commandLink action="#{articleManager.navigateToMenu}" update="@form">
+			 								<f:param name="MENUINDEX" value="#{status.index}-#{statusC.index}" />
+			                                <i class="fa fa-file-o fa-fw menu-margin"></i>#{child.title}
+			                            </p:commandLink>	
+                             		    </li>
+                           	 	</ui:repeat>
+                          	 	</ul>
+                          	</h:outputText>
+					 </li>
+          			</ui:repeat>
+</ul>
+</ui:composition>

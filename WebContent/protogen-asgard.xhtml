@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	<h1 style="padding-left: 10px;">Arbre de pilotage</h1>
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false" resizable="false" dynamic="false" > 
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative;bottom: 10px;">Chargement ...</label>
+		</p:dialog> 
+		
+		<p:wizard id="wiz" widgetVar="wiz" backLabel="Précédent" nextLabel="Suivant" showStepStatus="false" flowListener="#{asgardControl.onFlowProcess}">
+			<p:tab id="repreval" title="Valeur représentée" >
+				<p:panelGrid columns="2" style="width:100%">
+					<f:facet name="header">Sélection de la valeur à représenter</f:facet>
+					<p:outputLabel for="valentity" value="Table" />
+					<p:selectOneMenu id="valentity" value="#{asgardControl.selectedValEntityId}" filter="true" filterMatchMode="contains" style="width:200px" >
+						<p:ajax event="change" listener="#{asgardControl.selectedValEntityChange}" update="wiz" />
+						<f:selectItems value="#{asgardControl.valEntities}" var="ent" itemLabel="#{ent.name}" itemValue="#{ent.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel for="valattribute" value="Valeur" />
+					<p:selectOneMenu id="valattribute" value="#{asgardControl.selectedValAttributeId}" filter="true" filterMatchMode="contains" style="width:200px" >
+						<p:ajax event="change" listener="#{asgardControl.selectedValAttributeChange}" update="wiz" />
+						<f:selectItems value="#{asgardControl.valAttributes}" var="ent" itemLabel="#{ent.attribute}" itemValue="#{ent.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel for="valagregation" value="Agrégation" />
+					<p:selectOneMenu id="valagregation" value="#{asgardControl.selectedValAgregation}" filter="true" filterMatchMode="contains" style="width:200px" >
+						<f:selectItem itemLabel="Valeur" itemValue="NONE" />
+						<f:selectItem itemLabel="Décompte" itemValue="COUNT" />
+						<f:selectItem itemLabel="Somme" itemValue="SUM" />
+						<f:selectItem itemLabel="Produit" itemValue="PROD" />
+						<f:selectItem itemLabel="Moyenne" itemValue="AVG" />
+						<f:selectItem itemLabel="Formule" itemValue="CUSTOM" />
+					</p:selectOneMenu>
+					<p:outputLabel for="valagregationformula" value="Formule" />
+					<p:inputTextarea id="valagregationformula" autoResize="false" cols="30" value="#{asgardControl.selectedValAgregationFormula}" style="width:200px"  />
+				</p:panelGrid>
+			</p:tab>
+			
+			<p:tab id="visitdimensions" title="Définir les dimensions d'analyse">
+				<p:panel header="Définir les dimensions d'analyse">
+					<p:pickList style="width:100%" value="#{asgardControl.dimensionsAttributes}" var="att" itemLabel="#{att.attribute}" itemValue="#{att}"
+						showSourceControls="true" showTargetControls="true" converter="attributeConverter" />
+				</p:panel>
+			</p:tab>
+			
+			<p:tab id="hyperdimensions" title="Simulation">
+				<p:panel header="Simulation">
+				<p:panelGrid style="width:100%">
+					<f:facet name="header">
+						<p:row>
+							<c:forEach items="#{asgardControl.titles}" var="tit">
+								<p:column>#{tit}</p:column>
+							</c:forEach>
+						</p:row>
+					</f:facet>
+					<c:forEach items="#{asgardControl.simulationData}" var="datum">
+						<p:row>
+							<c:forEach items="#{datum.list}" var="dcell">
+								<p:column>
+								#{dcell}
+								</p:column>
+							</c:forEach>
+						</p:row>
+					</c:forEach>
+				</p:panelGrid>
+				</p:panel>
+			
+			</p:tab>
+			
+		</p:wizard>
+		
+	</ui:define>
+	
+	<ui:define name="aide">
+		<p:panel closable="true" rendered="#{frontController.showRightPanel}" toggleable="true" collapsed="true" style="width:100%" >
+		<f:facet name="header">Aide</f:facet>
+		<p>
+			&nbps;L'arbre de pilotag permet la création d'un tableau de bord personnalisé
+		</p>
+		<p>
+		La création du tableau de bord se fait sous forme d'étapes, et l'assistant vous permettra d'identifier les différents paramétres pour
+		définir le tableau de bord</p>
+		</p:panel>
+	</ui:define>
+	
+
+</ui:composition>
+</html>

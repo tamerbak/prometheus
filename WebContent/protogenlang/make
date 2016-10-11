@@ -1,0 +1,7 @@
+#!/bin/bash
+
+bison -dv protolang.y
+gcc -c protolang.tab.c
+flex protolang.lex
+gcc -c lex.yy.c
+gcc -o plc protolang.tab.o lex.yy.o

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Proto Audial</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/diagram.css">
+	<link rel="stylesheet" href="css/audio_graphe.css">
+</head>
+<body>
+	<div id="palette" style="width:200px" >
+		<ul>
+			<li>
+				<ul>
+					<li><a href="#" class="type-graphe" data-type="circle" style="color:red"><i class="fa fa-circle">&nbsp;Appareil externe</i></a></li>
+					<li><a href="#" class="type-graphe" data-type="square"><i class="fa fa-square">&nbsp;Appareil interne</i></a></li>
+				</ul>
+				<!-- <a href="#" id="dg-nodes" class="title" >Nodes</a>
+				<div>
+					<div class="form-horizontal">
+						<input id="node_key" type="hidden" />
+						<div class="form-group">
+							<label for="" class="control-label col-sm-3">Title</label>
+							<div class="col-sm-9">
+								<input type="text" name="title" id="node_title" class="form-control input-sm">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="control-label col-sm-3">Message</label>
+							<div class="col-sm-9">
+								<textarea name="message" id="node_message" cols="30" rows="4" class="form-control input-sm"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="node_action">
+						<ul class="create">
+							<li><a href="#" class="add-node btn btn-request" data-type="request">Request</a></li>
+							<li><a href="#" class="add-node btn btn-infos" data-type="infos">Info</a></li>
+							<li><a href="#" class="add-node btn btn-screen" data-type="screen">Screen</a></li>
+							<li><a href="#" class="add-node btn btn-answer" data-type="answer">Answer</a></li>
+							<li><a href="#" class="add-node btn btn-choice" data-type="choice">Choice</a></li>
+						</ul>
+						<div class="save" style="display:none">
+							<button id="save-node" class="btn btn-primary" >Save</button>
+							<button id="delete-node" class="btn btn-primary" >Delete</button>
+						</div>
+					</div>
+				</div> -->
+			</li>
+			<li >
+				<!-- <a href="#" id="dg-transition" class="title" >Transition</a> -->
+				<div id="class-assoc" class="form-horizontal" >
+					<!-- <input type="hidden" id="trans_key" />
+					<div class="form-group">
+						<label for="" class="control-label col-sm-3">Title</label>
+						<div class="col-sm-9">
+							<input type="text" name="title" id="trans_title" class="form-control input-sm">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label col-sm-3">Auto</label>
+						<div class="col-sm-9">
+							<input type="checkbox" name="auto" id="trans_auto" class="">
+						</div>
+					</div>
+					<div id="div-slct1" class="form-group">
+						<label for="" class="control-label col-sm-3">from</label>
+						<div class="col-sm-9">
+							<select id="slct1" class="form-control input-sm">
+							</select>
+						</div>
+					</div>
+					<div id="div-slct2" class="form-group">
+						<label for="" class="control-label col-sm-3">to</label>
+						<div class="col-sm-9">
+							<select id="slct2" class="form-control input-sm"></select>
+						</div>
+					</div>
+					<div class="transition_action">
+						<button id="add-transition" class="btn btn-primary" >Create</button>
+						<button id="update-transition" class="btn btn-primary" style="display:none">Update</button>
+						<button id="delete-transition" class="btn btn-primary" style="display:none">Delete</button>
+
+					</div> -->
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div id="canvas-container">
+		<div id="canvas"></div>
+	</div>
+
+	<!-- ============================== scripts ============================== -->
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/raphael.js"></script>
+	<script type="text/javascript" src="js/audio-graphe.js"></script>
+</body>
+</html>

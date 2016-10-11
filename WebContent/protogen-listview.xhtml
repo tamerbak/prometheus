@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+	<ui:define name="contenu">
+		<p:poll interval="600" id="mypoll" widgetVar="mypoll" immediate="true"
+			listener="#{frontController.pollWorkflows}" update="growl" />
+		<p:growl id="growl" showDetail="true"  sticky="true" />
+
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">
+				<h:outputText value="#{listViewControl.windowTitle}"></h:outputText>
+			</h1>
+			</hgroup>
+		</div>
+
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false" >
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">#{msg['application.loading']} ...</label>
+
+		</p:dialog>
+		<div class="with-padding">
+			<!-- FILTRE AVANCEE DE DONNEES -->
+			<center>
+
+				<p:panel id="fsfiltres" rendered="#{listViewControl.filtersEnabled}"
+					header="#{msg['listview.search']}" toggleable="true"
+					styleClass="panelfiltre"
+					collapsed="#{listViewControl.window.forcedFilter}">
+
+					<p:panelGrid rendered="false" columns="2" style="width:100%">
+						<f:facet name="header">#{msg['listview.researchfilters']}</f:facet>
+						<p:outputLabel for="listfiltres" value="Filtre" />
+						<p:selectOneMenu id="listfiltres" vlue="#{listViewControl.selectedFiltreId}" >
+							<p:ajax event="change" listener="#{listViewControl.selectedFilterChanged}" update="@form" />
+							<f:selectItems value="#{listViewControl.filtersControls}" var="fl"
+								itemLabel="#{fl.controlID}" itemValue="#{fl.controlID}" />
+						</p:selectOneMenu>
+						<f:facet name="footer">
+							<p:commandButton value="#{msg['application.add']}" actionListener="#{listViewControl.addFilterToGrid}"
+								ajax="false" />
+						</f:facet>
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4" style="width:100%;">
+
+							<c:forEach items="#{listViewControl.filtersControls}" var="fctrl">
+									<p:column rendered="#{fctrl.activated}" styleClass="column-admin">
+										<h:outputText value="#{fctrl.controlID}"
+											styleClass="outputLabel-custom" />										
+									</p:column>
+									
+									<p:column rendered="#{fctrl.activated}">
+											<p:inputText rendered="#{fctrl.reference or fctrl.multiple}" id="olprestext_#{fctrl.attribute.id}"  
+												value="#{fctrl.trueValue}" style="width:169px"  >
+												<p:ajax event="blur" update="@this"></p:ajax>
+											</p:inputText>
+											<p:commandButton rendered="#{fctrl.reference or fctrl.multiple}" icon="ui-icon-search" 
+												immediate="true" id="searchbtn_#{fctrl.attribute.id}"
+												actionListener="#{listViewControl.autocompleteFilter}" 
+												update="data_#{fctrl.attribute.id}" >
+												<f:param name="ACT_FILTER" value="#{fctrl.attribute.id}" />
+											</p:commandButton>
+											<p:overlayPanel id="listdata_#{fctrl.attribute.id}" 
+												for="searchbtn_#{fctrl.attribute.id}" widgetVar="listdata_#{fctrl.attribute.id}">
+												<p:selectOneListbox id="data_#{fctrl.attribute.id}" value="#{fctrl.controlValue}">
+													<p:ajax event="change" update="olprestext_#{fctrl.attribute.id}"
+														listener="#{listViewControl.dataListChanged}"
+														oncomplete="PF('listdata_#{fctrl.attribute.id}').hide();" >
+														<f:setPropertyActionListener target="#{listViewControl.lastFilter}" value="#{fctrl}"/>
+													</p:ajax>
+													<f:selectItems value="#{fctrl.listReference}" var="pkv"
+														itemLabel="#{pkv.value}" itemValue="#{pkv.key}" />
+												</p:selectOneListbox>
+											</p:overlayPanel>
+										
+										<!-- Type boolean -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											style="width:95%;" columns="2">
+											<p:selectBooleanCheckbox rendered="#{fctrl.attribute.CAttributetype.id==12}" value="#{fctrl.booleanValue}" />
+										</h:panelGrid>
+										
+										<!-- Type Number -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==4 or fctrl.attribute.CAttributetype.id==8}"
+											style="width:95%" columns="2">
+											<p:inputText value="#{fctrl.lthan}" style="width:200px" />
+											
+										</h:panelGrid>
+
+										<!-- Type String -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==2}"
+											style="width:95%" columns="2">
+											<p:inputText value="#{fctrl.lthan}"
+												rendered="#{fctrl.attribute.CAttributetype.id==2}"
+												style="width:200px" />
+											
+										</h:panelGrid>
+										<!-- Type date -->
+										<h:panelGrid border="0" columnClasses="fstitle,fsvalue"
+											rendered="#{fctrl.attribute.CAttributetype.id==3}"
+											style="width:95%" columns="2">
+											<p:calendar value="#{fctrl.bdateValue}" locale="#{frontController.localization.langCode}"
+												rendered="#{fctrl.attribute.CAttributetype.id==3}" />
+											
+										</h:panelGrid>
+									
+									</p:column>
+							</c:forEach>
+					</p:panelGrid>
+
+					<table class="tableHederFooter">
+						<tr>
+							<!-- <td class="background-cell"></td> -->
+							<td colspan="2"><p:commandButton value="#{msg['application.submit']}"
+									styleClass="button white-gradient glossy float-right tableButton"
+									action="#{listViewControl.doFilter}"
+									ajax="false" onstart="PF('dlg2').show();"
+									oncomplete="PF('dlg2').hide();" /></td>
+						</tr>
+					</table>
+
+				</p:panel>
+
+				<!-- FIN FILTRE -->
+				<br />
+
+				<p:dialog id="subvdlg" widgetVar="subvdlg" closable="true"
+					header="Visualisation des données">
+					<p:panelGrid style="width:95%">
+						<f:facet name="header">
+							<p:row>
+								<c:forEach items="#{listViewControl.titles}" var="t">
+									<p:column>#{t.value}</p:column>
+								</c:forEach>
+							</p:row>
+						</f:facet>
+						<c:forEach items="#{listViewControl.subviewValues}" var="t">
+							<p:row>
+								<c:forEach items="#{t}" var="tt">
+									<p:column>#{tt}</p:column>
+								</c:forEach>
+							</p:row>
+						</c:forEach>
+					</p:panelGrid>
+					<f:facet name="footer">
+						<p:commandButton value="#{msg['application.close']}" type="button"
+							onclick="subvdlg.hide();" />
+					</f:facet>
+				</p:dialog>
+
+				<p:contextMenu for="listViewTable" id="camenu">
+					<p:menuitem value="#{msg['listview.modify']}" icon="ui-icon-pencil"
+						action="#{listViewControl.doPrimeUpdate}" onstart="PF('dlg2').show();"
+						oncomplete="PF('dlg2').hide();" rendered="#{listViewControl.updateBtn}" />
+					<p:menuitem value="#{msg['listview.delete']}" icon="ui-icon-trash" update="@form"
+						action="#{listViewControl.doPrimeDelete}" onstart="PF('dlg2').show();"
+						oncomplete="PF('dlg2').hide();" rendered="#{listViewControl.deleteBtn}" />
+					<c:forEach items="#{listViewControl.validationAttributes}"
+						var="lcatt">
+						<p:menuitem value="#{lcatt.lockLabel}"
+							rendered="#{lcatt.lockState}" onstart="PF('dlg2').show();"
+							oncomplete="PF('dlg2').hide();" icon="ui-icon-gear"
+							action="#{listViewControl.lockRow}" ajax="false">
+							<f:param name="rtlock" value="#{lcatt.id}" />
+						</p:menuitem>
+						<p:menuitem value="#{lcatt.unlockLabel}"
+							rendered="#{!lcatt.lockState}" onstart="PF('dlg2').show();"
+							oncomplete="PF('dlg2').hide();" icon="ui-icon-gear"
+							action="#{listViewControl.unlockRow}" ajax="false">
+							<f:param name="rtunlock" value="#{lcatt.id}" />
+						</p:menuitem>
+
+
+					</c:forEach>
+				</p:contextMenu>
+
+				<!-- MENU BUTTONS -->
+				<p:hotkey bind="F5" rendered="#{listViewControl.window.formId gt 0}"
+						action="#{frontController.updateScreenThroughLink}" ajax="false">
+					<f:param name="screenseq" value="#{listViewControl.window.formId}" />
+					<f:param name="tonew" value="1" />
+				</p:hotkey>
+				<p:hotkey bind="F6" action="#{listViewControl.exportExcel}" ajax="false" ></p:hotkey>
+				<div
+					class="wrapped align-left white-gradient glossy large-box-shadow">
+
+					<p:commandButton value="#{msg['listview.new']}"
+						styleClass="button margin-right button-icon green-gradient glossy"
+						rendered="#{listViewControl.window.formId gt 0}"
+						action="#{frontController.updateScreenThroughLink}" ajax="false">
+						<f:param name="screenseq" value="#{listViewControl.window.formId}" />
+						<f:param name="tonew" value="1" />
+					</p:commandButton>
+
+					<p:commandButton
+						styleClass="button margin-right button-icon blue-gradient glossy"
+						value="#{msg['listview.modify']}" rendered="#{listViewControl.updateBtn}"
+						action="#{listViewControl.doPrimeUpdate}" ajax="false" />
+
+					<p:commandButton rendered="#{listViewControl.deleteBtn}"
+						styleClass="button margin-right button-icon red-gradient glossy"
+						value="#{msg['listview.delete']}" update="@form"
+						action="#{listViewControl.doPrimeDelete}" onstart="PF('dlg2').show();"
+						oncomplete="PF('dlg2').hide();reShowActiveMenu();" />
+
+					<p:commandButton value="#{msg['listview.details']}"
+						styleClass="button margin-right button-icon green-gradient glossy"
+						rendered="#{listViewControl.subviewButton}"
+						actionListener="#{listViewControl.subViewShow}" update="subvdlg"
+						oncomplete="subvdlg.show();" />
+						
+					<p:commandButton value="Excel"
+						icon="excel-icon"
+						action="#{listViewControl.exportExcel}" ajax="false" />
+
+					<p:commandButton value="#{msg['listview.digital']}" action="#{listViewControl.versionMaterielle}" rendered="#{listViewControl.ocrised}" ajax="false" />
+					
+					<p:menuButton value="#{msg['listview.views']}" rendered="#{listViewControl.anyViews}">
+						<c:forEach var="vw" items="#{listViewControl.views}" >
+							<p:menuitem style="width:100%; text-align:left"
+								value="#{vw.title}"
+								id="view_pbtn_#{vw.id}"
+								action="#{listViewControl.loadView}"
+								ajax="false" rendered="#{listViewControl.anyViews}">
+								<f:param name="SEL_VIEW" value="#{vw.id}"></f:param>
+							</p:menuitem>
+						</c:forEach>
+					</p:menuButton>
+					
+					<p:menuButton value="#{msg['listview.actions']}"
+						rendered="#{listViewControl.actAvailable}">
+						<c:forEach var="btn"
+							items="#{frontController.window.CActionbuttons}">
+							<p:menuitem style="width:100%; text-align:left"
+								value="#{btn.title}" title="#{btn.description}"
+								id="act_pbtn_#{btn.id}"
+								actionListener="#{listViewControl.prepareParameters}"
+								onstart="PF('fdlg').show();" oncomplete="PF('pardlg.show()');PF('fdlg').hide();"
+								ajax="false" rendered="#{btn.parametered and btn.visible}">
+								<f:param name="actionParID" value="#{btn.id}"></f:param>
+							</p:menuitem>
+							<p:menuitem style="width:100%; text-align:left"
+								value="#{btn.title}" title="#{btn.description}"
+								id="act_btn_#{btn.id}"
+								actionListener="#{listViewControl.doCalculus}" update="@form"
+								onstart="PF('fdlg').show();" oncomplete="PF('fdlg').hide();"
+								rendered="#{!btn.parametered and btn.visible}">
+
+								<f:param name="actionID" value="#{btn.id}"></f:param>
+							</p:menuitem>
+
+						</c:forEach>
+						<c:forEach var="btn" items="#{listViewControl.batches}">
+							<p:menuitem style="width:100%; text-align:left"
+								value="#{btn.title}" title="#{btn.description}"
+								actionListener="#{listViewControl.prepareBatchParameters}"
+								onstart="PF('fdlg').show();" oncomplete="PF('parbdlg').show();PF('fdlg').hide();"
+								update="@form" rendered="#{btn.parametered}">
+								<f:param name="batchParID" value="#{btn.title}"></f:param>
+							</p:menuitem>
+							<p:menuitem style="width:100%; text-align:left"
+								value="#{btn.title}" title="#{btn.description}"
+								actionListener="#{listViewControl.doBatchCalculus}"
+								update="@form" onstart="PF('fdlg').show();" oncomplete="PF('fdlg').hide();"
+								rendered="#{!btn.parametered}">
+
+								<f:param name="batchID" value="#{btn.title}"></f:param>
+							</p:menuitem>
+						</c:forEach>
+					</p:menuButton>
+
+					
+					<!-- 		WORKFLOWS		 -->
+					<p:menuButton value="#{msg['listview.workflows']}"
+						rendered="#{listViewControl.wfAvailable}">
+
+						<c:forEach var="btn" items="#{listViewControl.workflows}">
+							<p:menuitem style="width:100%; text-align:left"
+								value="#{btn.title}" title="#{btn.description}"
+								icon="ui-icon-triangle-1-e"
+								action="#{listViewControl.launchWorkflow}" ajax="false"
+								onstart="fdlg.show();" oncomplete="fdlg.hide();">
+								<f:param name="wfID" value="#{btn.id}"></f:param>
+							</p:menuitem>
+						</c:forEach>
+					</p:menuButton>
+
+					<!-- 		Documents					 -->
+					<p:menuButton value="#{msg['listview.documents']}" id="document-menu-btn"
+						rendered="#{listViewControl.docAvailable}">
+
+						<c:forEach var="dbtn"
+							items="#{frontController.window.CDocumentbuttons}">
+							<p:menuitem icon="acrobat-icon" style="width:100%; text-align:left"
+								value="#{dbtn.title}" title="#{dbtn.description}"
+								action="#{listViewControl.docPrint}" ajax="false"
+								onstart="fdlg.show();" oncomplete="fdlg.hide();">
+								<f:param name="docID" value="#{dbtn.id}"></f:param>
+							</p:menuitem>
+						</c:forEach>
+						<c:forEach var="bound" title="#{bound.description}"
+							items="#{frontController.boundButtons}">
+							<p:menuitem icon="acrobat-icon" style="width:100%; text-align:left"
+								value="#{bound.title}" title="#{bound.description}"
+								action="#{listViewControl.docPrint}" ajax="false"
+								onstart="fdlg.show();" oncomplete="fdlg.hide();">
+								<f:param name="docID" value="#{bound.id}"></f:param>
+							</p:menuitem>
+						</c:forEach>
+					</p:menuButton>
+
+
+					<!-- 		Attachements 				-->
+					<p:menuButton value="#{msg['listview.attachments']}"
+						rendered="#{listViewControl.bndAvailable}">
+						<c:forEach var="fca" items="#{frontController.fcas}">
+							<p:menuitem style="width:100%; text-align:left"
+								value="#{fca.attribute}"
+								action="#{listViewControl.downloadContentAttribute}"
+								ajax="false" onstart="fdlg.show();" oncomplete="fdlg.hide();">
+								<f:param name="fcaID" value="#{fca.id}"></f:param>
+							</p:menuitem>
+						</c:forEach>
+					</p:menuButton>
+					<p:spacer height="5" width="20" />
+					<p:menuButton value="#{msg['listview.lock']}"
+						rendered="#{not empty listViewControl.validationAttributes}">
+						<c:forEach items="#{listViewControl.validationAttributes}"
+							var="lcatt">
+							<p:menuitem value="#{lcatt.lockLabel}"
+								rendered="#{!lcatt.lockState}" onstart="PF('dlg2').show();"
+								oncomplete="PF('dlg2').hide();" icon="ui-icon-gear"
+								action="#{listViewControl.lockRow}" update="@form">
+								<f:param name="rtlock" value="#{lcatt.id}" />
+							</p:menuitem>
+
+							<p:menuitem value="#{lcatt.unlockLabel}"
+								rendered="#{lcatt.lockState}" onstart="PF('dlg2').show();"
+								oncomplete="PF('dlg2').hide();" icon="ui-icon-gear"
+								action="#{listViewControl.unlockRow}" update="@form">
+								<f:param name="rtunlock" value="#{lcatt.id}" />
+							</p:menuitem>
+
+						</c:forEach>
+					</p:menuButton>
+					
+					<p:menuButton value="Fonctions additionnelles">
+						<c:forEach var="btn" items="#{listViewControl.callouts}">
+							<p:menuitem id="callout_#{btn.id}" value="#{btn.callout.nom}" action="#{listViewControl.calloutExecution}" ajax="false">
+								<f:param name="COUTID" value="#{btn.id}"></f:param>
+							</p:menuitem>
+						</c:forEach>
+					</p:menuButton>
+
+					<!-- LINKS -->
+					<h:outputLabel
+						rendered="#{!frontController.inProcess and frontController.linksAvailable and !frontController.singleLink}" styleClass="linkBlue">
+						<h:commandLink action="#{frontController.updateScreenThroughLink}"
+							rendered="#{!frontController.inProcess and frontController.linksAvailable and !frontController.singleLink}"
+							ajax="false" immediate="true"
+							value="#{frontController.lastWindow.title}" styleClass="button margin-right float-right linkLayout"
+							style="color: black !important;	">
+							<span class="button-icon right-side anthracite-gradient glossy"><span
+								class="icon-link"></span></span>
+							<f:param name="screenseq"  value="#{frontController.lastWindow.id}"/>
+						</h:commandLink>
+					</h:outputLabel>
+					
+					<h:outputLabel
+						rendered="#{!frontController.inProcess and frontController.linksAvailable and !frontController.lastWindowAvailable}" styleClass="linkBlue">
+						<h:commandLink action="#{frontController.updateScreenThroughLink}"
+							rendered="#{!frontController.inProcess and frontController.linksAvailable and !frontController.lastWindowAvailable}"
+							ajax="false" immediate="true"
+							value="#{frontController.firstLink.title}" styleClass="button margin-right float-right linkLayout"
+							style="color: black !important;	">
+							<span class="button-icon right-side anthracite-gradient glossy"><span
+								class="icon-link"></span></span>
+							<f:param name="screenseq" value="#{frontController.firstLink.id}"
+								 />
+						</h:commandLink>
+					</h:outputLabel>
+					
+					<h:outputLabel rendered="#{listViewControl.inProcess}" styleClass="linkBlue">
+						<h:commandLink action="#{frontController.next}"
+							rendered="#{listViewControl.inProcess}" immediate="true"
+							ajax="false" value="Suivant" styleClass="button margin-right float-right linkLayout"
+							style="color: black !important;	">
+							<span class="button-icon right-side anthracite-gradient glossy"><span
+								class="icon-link"></span></span>
+							<f:param name="screenseq"
+								value="#{frontController.lastWindow.id}" />
+						</h:commandLink>
+					</h:outputLabel>
+				</div>
+				<br />
+
+
+ 
+				<!-- DATA TABLE -->
+				<h:panelGrid rendered="#{listViewControl.voidData}" styleClass="list-view-table">
+					<h:outputText style="padding-left:35%;font-size:x-large;font-family:monospace" value="#{msg['listview.nodata']}"/>
+					<h:outputText style="padding-left:10%;font-family:monospace" rendered="#{listViewControl.window.formId gt 0}"
+						value="#{msg['listview.emptynew']}"/>
+				</h:panelGrid>
+				<h:panelGrid rendered="#{!listViewControl.voidData}" columnClasses="#{listViewControl.styleAffichage}" columns="2" styleClass="list-view-table" >
+					<p:dataTable id="listViewTable" var="tableLine" widgetVar="listViewTable"
+						value="#{listViewControl.values}"
+						emptyMessage="#{msg['listview.nodata']}"
+						selection="#{listViewControl.selectedRow}"
+						selectionMode="multiple" rowKey="#{tableLine.dbID}"
+						rowStyleClass="#{tableLine.theme}"
+						scrollable="true" frozenColumns="#{listViewControl.fixedCols}" >
+
+						<p:ajax event="rowDblselect" onstart="PF('dlg2').show();"
+							oncomplete="PF('dlg2').hide();"
+							listener="#{listViewControl.onRowDblClckSelect}" update="@form" />
+						<p:ajax event="rowSelect" onstart="PF('dlg2').show();"
+							oncomplete="PF('dlg2').hide();updateMails();"
+							listener="#{listViewControl.rowSelected}"
+							update=":protogen_main:camenu, :protogen_main:mtmvalues, :protogen_main:synth_panel, :protogen_main:cms_panel" />
+						
+						<p:column width="#{listViewControl.alphaStyle}"
+							sortBy="#{tableLine.alphaReference}" headerText="#{listViewControl.alphaEntity}" >
+							
+							<h:outputText value="#{tableLine.alphaReference}" />
+						</p:column>
+						
+						<p:columns value="#{listViewControl.titles}" width="#{listViewControl.colStyles[indexVar]}"
+							rendered="#{elementColumn.visible}" var="elementColumn"
+							columnIndexVar="indexVar" sortBy="#{tableLine.value[indexVar]}"
+							headerText="#{elementColumn.value}" >
+							
+							<h:outputText title="#{tableLine.roundValue[indexVar]}" style="margin:5px 5px !important;display:block"
+								value="#{fn:substring(tableLine.roundValue[indexVar],0,70)}">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+	    					</h:outputText>
+							<h:outputText 
+								rendered="#{fn:length(tableLine.roundValue[indexVar]) gt 69}"
+								value="..." />
+						</p:columns>
+						<f:facet name="footer">
+							<h:outputText value="Page" />
+							<p:spacer width="5" height="5" />
+							
+							<h:selectOneMenu value="#{listViewControl.currentPage}" style="bottom: -6px;">
+								<f:selectItems value="#{listViewControl.allPages}" var="pg" itemLabel="#{pg}" itemValue="#{pg}" />
+							</h:selectOneMenu>
+							<p:spacer width="5" height="5" />
+							<p:commandButton icon="ui-icon-search" style="bottom: 2px;" 
+								actionListener="#{listViewControl.gotoPage}" ajax="false" />
+						</f:facet>
+					</p:dataTable>
+					<h:panelGrid columns="3" style="width:100%" rendered="#{listViewControl.showDirections}">
+						<p:spacer width="5"/>
+						<p:spacer width="5"/>
+						<h:outputText value="#{msg['listview.shortcuts']}" style="font-weight : bold" />
+						
+						<p:spacer width="5"/>
+						<h:outputText value="F5" style="font-weight : bold" />
+						<h:outputText value="#{msg['listview.newrow']}" />
+						
+						<p:spacer width="5"/>
+						<h:outputText value="F6" style="font-weight : bold" />
+						<h:outputText value="Excel" />
+												
+					</h:panelGrid>
+				</h:panelGrid>
+				
+				<script>
+					function updateMails(){
+						try{
+							PF('mails_table').filter();
+						}catch(error){
+							
+						}
+					}
+				</script>
+				<p:spacer width="20" height="20"/>
+				<p:tabView id="mtmvalues" rendered="#{!listViewControl.voidData}" widgetVar="mtmvalues" activeIndex="#{listViewControl.activeIndex}" >
+					<p:ajax event="tabChange" listener="#{listViewControl.activeIndexChanged}" update="mtmvalues"/>
+					<c:forEach var="mtmBlock" items="#{listViewControl.otoBlocks}" varStatus="loop">
+						<p:tab id="tabid_#{mtmBlock.entityID}" titleStyleClass="tab_title">
+							<f:facet name="title">
+				               <h:outputText value="#{mtmBlock.entity.name}" styleClass="tabTitle"/>
+		        	       	</f:facet>
+							<p:panelGrid style="width:100%" columns="4">
+								<c:forEach items="#{mtmBlock.controls}" var="ctrl" >
+									<h:outputText styleClass="detailsTitreTable" style="font-weight: bold" value="#{ctrl.attribute.attribute}"/>
+									<h:outputText styleClass="detailsValeurTable" value="#{ctrl.controlValue}"/>
+								</c:forEach>
+							</p:panelGrid>
+						</p:tab>
+					</c:forEach>
+					<c:forEach var="mtmBlock" items="#{listViewControl.mtmBlocks}" varStatus="loop">
+						<p:tab id="tabid_#{mtmBlock.entityID}" titleStyleClass="tab_title">
+							<f:facet name="title">
+				               <h:outputText value="#{mtmBlock.entity.name}" styleClass="tabTitle"/>
+		        	       	</f:facet>
+							<h:panelGroup styleClass="tab_content">
+							<p:scrollPanel style="height: 200px;">
+									<p:dataTable value="#{mtmBlock.lines}" var="lin" emptyMessage="" 
+										style="width:#{mtmBlock.widthSize}" styleClass="emailtable"   >
+										<p:columns value="#{mtmBlock.titles}" var="cl" 
+											columnIndexVar="iv" headerText="#{cl}">
+											<h:outputText value="#{lin.values[iv].value}" />
+										</p:columns>
+									</p:dataTable>
+							</p:scrollPanel>
+		
+							</h:panelGroup>
+						</p:tab>
+					</c:forEach>
+					<p:tab id="store_tab" titleStyleClass="tab_title" rendered="#{listViewControl.storable}">
+						<f:facet name="title">
+				              <h:outputText value="#{msg['listview.repository']}" styleClass="tabTitle"/>
+		        	  	</f:facet>
+						<p:panel>
+							
+							<p:dataTable value="#{listViewControl.storedFiles}" var="fl" emptyMessage="Aucun fichier attaché" 
+								style="width:100%" id="filesDataList" widgetVar="filesDataListWV" rows="5" paginator="true" >
+								<p:column headerText="#{msg['listview.document']}">
+									#{fl.libelle}
+								</p:column>
+								<p:column headerText="#{msg['listview.description']}">
+									#{fl.description}
+								</p:column>
+								<p:column headerText="#{msg['listview.type']}">
+									#{fl.type.libelle}
+								</p:column>
+								<p:column>
+									<p:commandLink action="#{listViewControl.previewFile}" ajax="false" target="_blank"
+										style="color:#000000 !important" >
+										<f:param name="FILE_NAME" value="#{fl.fileName}" />
+										<h:outputText value="#{msg['listview.open']}" />
+									</p:commandLink>
+								</p:column>
+								<p:column style="width:5%">
+									<p:commandButton icon="ui-icon-trash" update="@form" actionListener="#{listViewControl.deleteStoredFile}" >
+										<f:param name="FILE_ID" value="#{fl.id}"/>
+									</p:commandButton>
+								</p:column>
+								
+							</p:dataTable>
+							<p:spacer width="20" height="5" />
+							<p:panelGrid columns="2" style="width:100%">
+								<f:facet name="header">#{msg['listview.newdoc']}</f:facet>
+								<h:outputText value="#{msg['listview.document']}"/>
+								<p:inputText value="#{listViewControl.storedFile.libelle}" style="width: 365px;" >
+									<p:ajax event="blur" update="@this" />
+								</p:inputText>
+								<h:outputText value="#{msg['listview.description']}"/>
+								<p:inputTextarea value="#{listViewControl.storedFile.description}" cols="50" autoResize="false" >
+									<p:ajax event="keyup" />
+								</p:inputTextarea>
+								<h:outputText value="#{msg['listview.type']}"/>
+								<p:selectOneMenu value="#{listViewControl.selectedFileType}" style="width: 375px;" >
+									<p:ajax event="change" update="@this" />
+									<f:selectItems value="#{listViewControl.storedFileTypes}" var="sft"
+										itemLabel="#{sft.libelle}" itemValue="#{sft.id}" />
+								</p:selectOneMenu>
+								<h:outputText value="#{msg['listview.public']}"/>
+								<p:selectBooleanCheckbox value="#{listViewControl.storedFile.privateFile}" />
+							</p:panelGrid>
+							<p:fileUpload fileUploadListener="#{listViewControl.handleFileUpload}" mode="advanced" dragDropSupport="true"
+ 			                 multiple="false" update="@form" sizeLimit="2000000" fileLimit="10" allowTypes="/(\.|\/)(pdf)$/"
+ 			                 cancelLabel="#{msg['component.cancel']}" fileLimitMessage="#{msg['component.sizeexcess']}" label="#{msg['component.browse']}"
+ 			                 uploadLabel="#{msg['component.upload']}" />
+ 						</p:panel>
+					</p:tab>
+					<p:tab id="mail_store" titleStyleClass="tab_title" rendered="#{listViewControl.mailWindow}" >
+						<f:facet name="title">
+				              <h:outputText value="Email" styleClass="tabTitle"/>
+		        	  	</f:facet>
+		        	  	<p:panelGrid style="width:99%" >
+		        	  		<p:row>
+		        	  		<p:column style="width:50%" >
+		        	  		
+		        	  		<p:dataTable styleClass="emailtable" widgetVar="mails_table"  value="#{listViewControl.mails}" var="ml" emptyMessage=""
+		        	  			selection="#{listViewControl.tableMail}" selectionMode="single" rowKey="#{ml.id}"
+		        	  			filteredValue="#{listViewControl.filteredMails}">
+		        	  			<p:ajax event="rowSelect" update=":protogen_main:mtmvalues:mail_store" listener="#{listViewControl.mailSelectListener}" />
+		        	  			<p:column style="width:15%">
+		        	  				<p:graphicImage value="/images/icons/in_mail.png" rendered="#{ml.inBox}" />
+		        	  				<p:graphicImage value="/images/icons/out_mail.png" rendered="#{!ml.inBox}" />
+		        	  			</p:column>
+		        	  			<p:column headerText="#{msg['listview.subject']}" filterBy="#{ml.title}" filterMatchMode="contains">
+		        	  				<h:outputText value="#{ml.title}" />
+		        	  			</p:column>
+		        	  		</p:dataTable>
+		        	  		
+		        	  		</p:column>
+		        	  		
+		        	  		<p:column style="width:50%" >
+		        	  			<p:panelGrid columns="1" style="width:100%">
+		        	  				<h:outputText value="#{listViewControl.mail.correspondant}" />
+		        	  				<h:outputText value="#{listViewControl.mail.sentOn}" >
+		        	  					<f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+		        	  				</h:outputText>
+		        	  				<h:outputText value="#{listViewControl.mail.title}" />
+		        	  				<p:inputTextarea value="#{listViewControl.mail.content}" autoResize="false" cols="70" rows="20" readonly="true" />
+		        	  			</p:panelGrid>
+		        	  		</p:column>
+		        	  		</p:row>
+		        	  	</p:panelGrid>
+					</p:tab>
+				</p:tabView>
+				
+			</center>
+			<p:panel id="synth_panel" widgetVar="synth_panel" rendered="#{listViewControl.synthView}" style="width:100%" header="#{listViewControl.synthesisModel.libelle}">
+				<h:outputText escape="false" value="#{listViewControl.synthesisTab.htmlContent}" /> 
+			</p:panel>
+			<br />
+			<p:panel id="cms_panel" widgetVar="cms_panel" rendered="#{listViewControl.cmsMode}" style="widt:100%" header="Documents">
+				<p:panelGrid style="width:100%">
+					<p:row>
+						<p:column style="width:300px" >
+							<p:tree value="#{listViewControl.rootNode}" var="nde" selection="#{listViewControl.selectedNode}" selectionMode="single"
+								style="width:300px; min-height:300px" >
+								<p:ajax event="select" update=":protogen_main:cms_panel" listener="#{listViewControl.onNodeSelect}" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" />
+								<p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed" >
+									<h:outputText value="#{nde.name}" />
+								</p:treeNode>
+								<p:treeNode type="file" icon="ui-icon-document" >
+									<h:outputText value="#{nde.name}" />
+								</p:treeNode>
+							</p:tree>
+							
+						</p:column>
+						<p:column>
+							<p:panel id="cms_content_panel" style="width:100%; min-height:300px">
+								<p:toolbar>
+									<p:toolbarGroup align="left" >
+										<p:commandButton icon="ui-icon-arrowthickstop-1-s" value="Télécharger" title="Télécharger" action="#{listViewControl.downloadCMSDocument}"
+											ajax="false" />
+										
+										<p:commandButton icon="ui-icon-document-b" type="button" title="Commenter" />
+									</p:toolbarGroup>
+									<p:toolbarGroup align="right">
+										<h:outputText value="#{listViewControl.cmsFileName} - #{listViewControl.cmsCreationDate}"  />
+									</p:toolbarGroup>
+								</p:toolbar>
+								<div style="width:100%; min-height:300px; overflow:scroll; padding : 3px">
+									<h:outputText escape="false" value="#{listViewControl.htmlCMS}" />
+								</div>
+							</p:panel>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</div>
+	</ui:define>
+
+	<ui:define name="aide">
+		
+
+	</ui:define>
+</ui:composition>
+</html>

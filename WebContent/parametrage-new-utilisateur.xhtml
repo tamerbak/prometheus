@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="#{frontController.masterPage}">
+	<ui:define name="contenu">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false">
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">Chargement
+				...</label>
+		</p:dialog>
+		
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">Utilisateurs</h1>
+			</hgroup>
+		</div>
+		
+		<center>
+			<h:panelGrid style="text-align:center" columns="6">
+				<h:panelGrid columns="1" style="text-align:center;margin-right:20px">
+					<p:commandLink action="protogen-administration">
+						<p:graphicImage value="img/adminicon/utilisateur.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="protogen-administration" value="Utilisateur" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-right:20px;margin-left:20px">
+					<p:commandLink action="parametrage-profils" ajax="false">
+						<p:graphicImage value="img/adminicon/roles.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="parametrage-profils" value="Habilitations" ajax="false" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-left:20px">
+					<p:commandLink action="protogen-events">
+						<p:graphicImage value="img/adminicon/evenements.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="protogen-events" value="Evénements" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-left:20px">
+					<p:commandLink action="protogen-organisation" ajax="false">
+						<p:graphicImage value="img/adminicon/organisation.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="protogen-organisation" value="Organisation" ajax="false" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-left:20px">
+					<p:commandLink action="protogen-manage-dashboard" ajax="false">
+						<p:graphicImage value="img/adminicon/dashboar-manager.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="protogen-manage-dashboard" value="Tableau de board" ajax="false" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-left:20px">
+					
+						<p:graphicImage value="assets/img/wiki-article.png" style="height: 70px;cursor:pointer;" onclick="window.open('wiki-ArticleList.xhtml');"/>
+					
+					<a id="articles_bo_url" style="color: black !important;font-weight:bold"  target="_blank"
+						href="wiki-ArticleList.xhtml">Gestion des articles</a>
+				</h:panelGrid>
+			</h:panelGrid>
+		</center>
+		
+		
+		<p:menubar style="width:100%">
+			<p:menuitem icon="ui-icon-calculator" value="Profils et rôles" action="parametrage-profils" ajax="false" />
+			<p:menuitem icon="ui-icon-document" value="Nouveau profil" action="parametrage-new-profil" ajax="false" />
+			<p:menuitem icon="ui-icon-document" value="Nouveau Rôle" action="parametrage-new-role" ajax="false" />
+			<p:menuitem icon="ui-icon-person" value="Utilisateurs" action="parametrage-utilisateurs" ajax="false" />
+			<p:menuitem icon="ui-icon-person" value="Nouvel utilisateur" action="#{administrationControl.toNewUser}" ajax="false" />
+		</p:menubar>
+		<p:spacer width="20" height="20" />		
+		<details class="details margin-bottom" open="true" >
+			<summary class="summaryDetails">Utilisateurs</summary>
+			<p:panelGrid
+				style="width:100%;padding:40px;background:none;border:none !important;"
+				id="newusergrid">
+
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="numail" value="E-Mail"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="numail"
+							value="#{administrationControl.nucreatingUser.login}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nunom" value="Nom"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="nunom"
+							value="#{administrationControl.nucreatingUser.lastName}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nuprenom" value="Prénom"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="nuprenom"
+							value="#{administrationControl.nucreatingUser.firstName}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nuutel" value="Téléphone"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputText id="nuutel"
+							value="#{administrationControl.nucreatingUser.tel}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nuadrss" value="Adresse"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:inputTextarea id="nuadrss"
+							value="#{administrationControl.nucreatingUser.adress}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nuthm" value="Thème visuel"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="nuthm"
+							value="#{administrationControl.nuselectedTheme}"
+							style="width:263px;">
+							<f:selectItem itemLabel="DEVELOPR" itemValue="THEME:DEVELOPR" />
+							<f:selectItem itemLabel="Thème bleu" itemValue="THEME:BLEU" />
+							<f:selectItem itemLabel="Thème rouge" itemValue="THEME:ROUGE" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nuprofil" value="Profil utilisateur"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="nuroleprofil"
+							value="#{administrationControl.selectedProfilId}"
+							style="width:263px;">
+							<p:ajax event="change"
+								listener="#{administrationControl.selectedProfileChanged}"
+								update="nuprofil" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" />
+							<f:selectItem itemLabel="" itemValue="0" />
+							<f:selectItems value="#{administrationControl.profils}"
+								var="prfl" itemLabel="#{prfl.libelle}" itemValue="#{prfl.id}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nuprofil" value="Rôle utilisateur"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="nuprofil"
+							value="#{administrationControl.nuselectedProfil}"
+							style="width:263px;">
+							<p:ajax event="change"
+								listener="#{administrationControl.profileChanged}"
+								update="nubound" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" />
+							<f:selectItems value="#{administrationControl.nuprofiles}"
+								var="prfl" itemLabel="#{prfl.role}" itemValue="#{prfl.id}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nuorganization" value="Organisation"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="nuorganization"
+							value="#{administrationControl.nuselectedOrg}"
+							style="width:263px;">
+							<f:selectItems value="#{administrationControl.organizations}"
+								var="org" itemLabel="#{org.value}" itemValue="#{org.key}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nuentity" value="Affectation"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="nuentity"
+							value="#{administrationControl.nuselectedOrgInstance}"
+							style="width:263px;">
+							<f:selectItems value="#{administrationControl.instances}"
+								var="org" itemLabel="#{org.value}" itemValue="#{org.key}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nubound" value="Entité"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="nubound"
+							value="#{administrationControl.nuselectedEntity}"
+							style="width:263px;">
+							<f:selectItem itemLabel="Faites votre choix" itemValue="0" />
+							<f:selectItems value="#{administrationControl.entities}" var="org"
+								itemLabel="#{org.value}" itemValue="#{org.key}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nunewpwd" value="Nouveau mot de passe"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:password id="nunewpwd"
+							value="#{administrationControl.nunewPassword}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+	
+				<p:row>
+					<p:column styleClass="column-admin">
+						<p:outputLabel for="nucpwd" value="Confirmation"
+							styleClass="outputLabel-custom" />
+					</p:column>
+					<p:column>
+						<p:password id="nucpwd"
+							value="#{administrationControl.nuconfirmPassword}"
+							styleClass="input input-width-2" />
+					</p:column>
+				</p:row>
+	
+			</p:panelGrid>
+			
+			<p:panel header="Profils" style="width:100%">
+			<p:selectCheckboxMenu value="#{administrationControl.selectedProfilsId}"  label="Profils" 
+				filter="true" filterMatchMode="contains" >
+				<p:ajax event="change" update="liste_cb_roles" listener="#{administrationControl.transferProfils}" />
+				<f:selectItems value="#{administrationControl.allProfils}" var="elt" itemLabel="#{elt.libelle}" 
+					itemValue="#{elt.id}" />
+			</p:selectCheckboxMenu>
+			
+			<p:spacer whidth="20" height="10" />
+			
+			<p:dataTable id="liste_cb_roles" value="#{administrationControl.profileRoles}" var="elt" 
+				selection="#{administrationControl.selectedRolesTable}"  emptyMessage=""
+				rowKey="#{elt.id}" selectionMode="multiple" >
+				<p:ajax event="rowSelect" listener="#{administrationControl.transferRoles}" />
+				<p:column headerText="Rôle">
+					<h:outputText value="#{elt.role}" />
+				</p:column>
+			</p:dataTable>
+			
+
+			
+				
+			</p:panel>	
+			<table>
+				<tr>
+					<td></td>
+					<td align="right" class="with-padding" style="width: 100%;"><p:commandButton
+							value="Ajouter"
+							actionListener="#{administrationControl.createUserInstance}"
+							ajax="false" onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();"
+							styleClass="button glossy float-right login-button" /></td>
+				</tr>
+			</table>
+		</details>
+		
+	</ui:define>	
+</ui:composition>
+</html>

@@ -1,0 +1,146 @@
+.ui-widget-content {
+	border: 0px solid #a8a8a8;
+	border-bottom: 1px solid #e0e0e0;
+	background: transparent;
+}
+
+.label-wizard{
+	font-size: 13px;
+}
+
+.input-wizard{
+	width: 310px;
+	margin-right: 100px;
+}
+
+.fieldset-wizard{
+	padding:0px !important;
+	padding-left: 0px !important;
+	padding-right: 0px !important;	
+}
+
+.column-wizard{
+	background: transparent !important;
+	width: 200px !important;
+}
+
+.ui-wizard-navbar {
+	margin: 20px;
+}
+
+.ui-wizard-nav-next {
+	background-image: -webkit-linear-gradient(top, rgb(101, 178, 221), rgb(4, 90, 178) 50%, rgb(0, 73, 149) 50%, rgb(10, 93, 184));
+	border-bottom-color: rgb(0, 71, 149);
+	border-left-color: rgb(0, 71, 149);
+	border-right-color: rgb(0, 71, 149);
+	border-top-color: rgb(0, 71, 149);
+	box-sizing: content-box;
+	color: rgb(255, 255, 255);
+	height: 28px;
+	margin-right: 16px;
+	padding-left: 11px;
+	padding-right: 11px;
+	text-shadow: none;
+}
+
+.ui-wizard-nav-back {
+	background-image: -webkit-linear-gradient(top, rgb(101, 178, 221), rgb(4, 90, 178) 50%, rgb(0, 73, 149) 50%, rgb(10, 93, 184));
+	border-bottom-color: rgb(0, 71, 149);
+	border-left-color: rgb(0, 71, 149);
+	border-right-color: rgb(0, 71, 149);
+	border-top-color: rgb(0, 71, 149);
+	box-sizing: content-box;
+	color: rgb(255, 255, 255);
+	height: 28px;
+	margin-right: 16px;
+	padding-left: 11px;
+	padding-right: 11px;
+	text-shadow: none;
+}
+
+.ui-wizard-step-titles{
+	background: -webkit-linear-gradient(top, #565656, #404040);
+	border-color: #282e36;
+	color: white;
+	list-style-type: none;
+	padding: 0;
+	height: 40px;
+	border-width: 1px;
+	border-style: solid;
+	text-align: center;
+	margin: 0 -1px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.ui-wizard-step-title {
+	font-size: 15px;
+	margin: 3px 10px 0px 10px;
+	border-radius: 0px;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-list {
+	background: whitesmoke;
+}
+
+.selectonemenu-wizard{
+	color:black !important; 
+	width: 330px !important;
+}
+
+.ui-selectonemenu-filter-container{
+	background: whitesmoke;
+	width: 320px;
+}
+
+.ui-icon {
+	right: 20px !important;
+}
+
+.ui-selectcheckboxmenu-items-wrapper {
+	background: whitesmoke !important;
+}
+
+.ui-selectcheckboxmenu-label {
+	color: rgb(95, 95, 95) !important;
+}
+
+.button-register-wizard {
+	background-image: -webkit-linear-gradient(top, #DDDDDD, #B6B8B5 50%, #929291 50%, #BEC2BA) !important;
+	border-bottom-color: rgb(146, 146, 145) !important;
+	border-left-color: rgb(150, 151, 149) !important;
+	border-right-color: rgb(157, 158, 157) !important;
+	border-top-color: rgb(148, 148, 148) !important;
+	box-sizing: content-box !important;
+	color: white !important;
+	height: 28px !important;
+	margin-right: 16px !important;
+	padding-left: 11px !important;
+	padding-right: 11px !important;
+	text-shadow: none !important;
+}
+
+.ui-autocomplete-panel{
+	background: whitesmoke !important;
+}
+/*logo*/
+#login-title h1.login-title-image {
+	background: url(../img/standard/GPS-Suite_logiciel_gestion_entreprise.png) no-repeat center center;
+	/* overflow: hidden;
+			height: 55px;
+			text-align: left;
+			text-indent: -3000px; */
+	height: 100px;
+}
+
+#login-title h1.login-insurance-title-image {
+	background: url(../logo/logo.png) no-repeat center center;
+	/* overflow: hidden;
+			height: 55px;
+			text-align: left;
+			text-indent: -3000px; */
+	height: 100px;
+}
+
+#login-title {
+	text-align: center;
+}

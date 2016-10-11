@@ -1,0 +1,19 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+<ul class="nav" id="side-menu">
+                     
+            <li>
+                <p:commandLink style="display:none;" action="#{articleManager.toNewArticlePage}"><a href="wiki-AddArticle.xhtml"><i class="fa fa-dashboard fa-fw"></i>Article</a></p:commandLink>
+            </li>
+            <li>
+                <a href="wiki-ArticleList.xhtml"><i class="fa fa-dashboard fa-fw"></i>Liste des articles</a>
+            </li>
+                        
+                           
+</ul>
+</ui:composition>

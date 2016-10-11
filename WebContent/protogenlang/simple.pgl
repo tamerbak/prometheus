@@ -1,0 +1,7 @@
+soit
+	entier n.
+dans
+	lire n;
+	n := 2*n;
+	ecrire n;
+fin

@@ -1,0 +1,23 @@
+#canvas-container {
+	border:1px solid #ccc;
+	/*padding:20px;*/
+	float:left;
+	margin:10px;
+}
+#canvas  {
+	border: transparent;
+	/*background-color:#ff0;*/
+	/*float:right;*/
+	padding:0px;
+	width:900px;
+	height:500px;
+	background:#fff url(../img/BG-tableau.jpg) no-repeat;
+	overflow: hidden;
+}
+.type-graphe {
+	color:#000;
+	margin-left:15px;
+}
+
+
+

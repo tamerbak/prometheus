@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>GENERIUM</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+
+<link rel="stylesheet" href="#{frontController.styletheme}" id="style"/>
+	<link rel="stylesheet" href="#{frontController.colortheme}" id="color"/>
+	
+
+</h:head>
+<h:body style="#{frontController.uniformPageBodyStyle}">
+	<f:view>
+		<p:growl id="logingrowl" showDetail="false" sticky="false" />
+
+		<div class="linen">
+			<center>
+				<h:outputText value="#{communicationControl.comm.title}"
+					style="font: 24px/25px verdana,sans-serif;color: white;margin: 0 0 4px 0;padding-bottom: 20px;" />
+				<br />
+				<h:outputText value="#{communicationControl.comm.description}"
+					style="font: 15px/16px verdana,sans-serif;color: white;margin: 0 0 4px 0;padding-bottom: 20px;" />
+
+				<br /> <br />
+				<p:panelGrid columns="2">
+					<f:facet name="header">Appel Google Hangouts</f:facet>
+					<form id="formphangout" action="https://plus.google.com/hangouts/_"
+						method="get">
+						<br /> <input type="hidden" name="gid" value="802512396042" /> <input
+							style="width: 150px;" type="submit" value="Hangout" name="gd" />
+						<br />
+					</form>
+				</p:panelGrid>
+				<br /> <br /> <br />
+			</center>
+		</div>
+
+	</f:view>
+</h:body>
+</html>

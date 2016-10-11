@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="#{frontController.masterPage}">
+	<ui:define name="contenu">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		
+		<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false"
+			resizable="false" dynamic="false">
+			<p:graphicImage value="/images/loading.gif" />
+			<p:spacer width="20" height="10" />
+			<label style="position: relative; bottom: 10px;">Chargement
+				...</label>
+		</p:dialog>
+		
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">Gestion des habilitations</h1>
+			</hgroup>
+		</div>
+		
+		<center>
+			<h:panelGrid style="text-align:center" columns="6">
+				<h:panelGrid columns="1" style="text-align:center;margin-right:20px">
+					<p:commandLink action="protogen-administration">
+						<p:graphicImage value="img/adminicon/utilisateur.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="protogen-administration" value="Utilisateur" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-right:20px;margin-left:20px">
+					<p:commandLink action="parametrage-profils" ajax="false">
+						<p:graphicImage value="img/adminicon/roles.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="parametrage-profils" value="Habilitations" ajax="false" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-left:20px">
+					<p:commandLink action="protogen-events">
+						<p:graphicImage value="img/adminicon/evenements.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="protogen-events" value="Evénements" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-left:20px">
+					<p:commandLink action="protogen-organisation" ajax="false">
+						<p:graphicImage value="img/adminicon/organisation.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="protogen-organisation" value="Organisation" ajax="false" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-left:20px">
+					<p:commandLink action="protogen-manage-dashboard" ajax="false">
+						<p:graphicImage value="img/adminicon/dashboar-manager.png" style="height: 70px;" />
+					</p:commandLink>
+					<p:commandLink style="color: black !important;font-weight:bold" 
+						action="protogen-manage-dashboard" value="Tableau de board" ajax="false" />
+				</h:panelGrid>
+				<h:panelGrid columns="1" style="text-align:center;margin-left:20px">
+					
+						<p:graphicImage value="assets/img/wiki-article.png" style="height: 70px;cursor:pointer;" onclick="window.open('wiki-ArticleList.xhtml');"/>
+					
+					<a id="articles_bo_url" style="color: black !important;font-weight:bold"  target="_blank"
+						href="wiki-ArticleList.xhtml">Gestion des articles</a>
+				</h:panelGrid>
+			</h:panelGrid>
+		</center>
+		
+		
+		<p:menubar style="width:100%">
+			<p:menuitem icon="ui-icon-calculator" value="Profils et rôles" action="parametrage-profils" ajax="false" />
+			<p:menuitem icon="ui-icon-document" value="Nouveau profil" action="parametrage-new-profil" ajax="false" />
+			<p:menuitem icon="ui-icon-document" value="Nouveau Rôle" action="parametrage-new-role" ajax="false" />
+			<p:menuitem icon="ui-icon-person" value="Utilisateurs" action="parametrage-utilisateurs" ajax="false" />
+			<p:menuitem icon="ui-icon-person" value="Nouvel utilisateur" action="#{administrationControl.toNewUser}" ajax="false" />
+		</p:menubar>
+		<p:spacer width="20" height="20" />		
+		<p:panelGrid style="width:100%" columns="2">
+			<f:facet name="header">Nouveau profil</f:facet>
+			<h:outputText value="Profil" /> 
+			<p:inputText value="#{profilControl.profilToCreate.libelle}" />
+			<h:outputText value="Description" /> 
+			<p:inputText value="#{profilControl.profilToCreate.description}" />
+			<f:facet name="footer">
+				<p:commandButton value="Enregistrer" icon="ui-icon-disk" actionListener="#{profilControl.saveNewProfil}"
+					onstart="PF('dlg2').show();" oncomplete="PF('dlg2').hide();" update="@form" />
+			</f:facet>
+		</p:panelGrid>
+		
+	</ui:define>	
+</ui:composition>
+</html>

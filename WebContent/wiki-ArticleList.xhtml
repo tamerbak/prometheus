@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="wiki-layout.xhtml">
+	
+	<ui:define name="left-menu">
+		<ui:include src="wiki-bo-left-menu.xhtml" />
+	</ui:define>
+	<ui:define name="content">		
+		<center>
+			<h2 class="page_title">Liste des articles</h2>
+		</center>
+		<h:form id="articleListForm">
+		<div class="input-group custom-search-form collapse" style="width:100% !important;margin-bottom:15px;">
+		     
+		     	<p:panelGrid style="width:100%;">
+		     		<p:row>
+			     		<p:column style="width:45%;">
+			     			<p:inputText id="searchArticle" value="#{articleManager.articleListName}"  styleClass="form-control search-input" />
+		             		<p:watermark for="searchArticle" value="Recherche par article..." id="searchArticleWatermark" />
+			     		</p:column>
+			     		<p:column style="max-width:70px;">
+			     			<p:selectOneMenu id="articleListSearchType" value="#{articleManager.articleListSearchType}" style="height:28px;max-width:100%;" >
+			             		<f:selectItem itemLabel="ET" itemValue="1"/>
+			             		<f:selectItem itemLabel="OU" itemValue="2"/>
+			             	</p:selectOneMenu>
+			     		</p:column>
+			     		<p:column style="width:45%">
+			     			<p:inputText id="searchContent" value="#{articleManager.articleListContent}" styleClass="form-control search-input" />
+			        		<p:watermark for="searchContent" value="Recherche par contenu..." id="searchContentWatermark" />
+			     		</p:column>
+				     		
+			     	 <p:column style="width:5%;">
+				         <span class="input-group-btn">
+			                         <p:commandLink action="#{articleManager.searchArticleList}" style="margin-left: 10%;width: 90%;" styleClass="btn btn-gps" ajax="false" update="@form">
+			                             <i class="fa fa-search white"></i>
+			                         </p:commandLink>
+			              </span>
+			              <span class="input-group-btn">
+			                         <p:commandLink action="#{articleManager.resetSearchArticleList}" style="margin-left: 10%;width: 90%;" styleClass="btn btn-gps" ajax="false" update="@form">
+			                             <i class="fa fa-eraser white"></i>
+			                         </p:commandLink>
+			              </span>
+		              </p:column>
+	              
+      				</p:row>
+	         </p:panelGrid>
+             		
+	       
+	        
+        </div>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<p:dataTable var="menu" id="articleList" value="#{articleManager.menus}" emptyMessage="Aucun article">
+		    <p:column headerText="Titre">
+		        #{menu.article.title}
+		    </p:column>
+		 
+		 	<p:column headerText="Contenu" >
+		        #{menu.article.shortContent}
+		    </p:column>
+		   	
+		   	<p:column headerText="Menu">
+		        #{menu.title}
+		    </p:column>
+		    
+		    <p:column headerText="URL">
+		    	#{menu.article.video}
+		        
+		    </p:column>
+		    
+		    <p:column headerText="Mots-clés">
+		        #{menu.article.formattedTags}
+		    </p:column>
+		 	
+		 	<p:column headerText="Actions" style="width:120px;text-align:center;">
+		 		<span >
+		 			<p:commandButton actionListener="#{articleManager.modifyArticle}"  alt="Editer #{menu.article.title}" title="Editer #{menu.article.title}" icon="ui-icon-pencil" >
+		 				<f:attribute name="menuToModify" value="#{menu}" />
+		 			</p:commandButton>
+		 		</span>
+		 		<span >
+		 			<p:commandButton  onclick="confirmation#{menu.article.articleId}.show()" type="button"  alt="Supprimer #{menu.article.title}" title="Supprimer #{menu.article.title}"   icon="ui-icon-trash">
+		 			</p:commandButton>
+		 			<p:dialog position="center" resizable="false" draggable="false" closable="true"  hideEffect="explode" 
+                					 header="Confirmation de la suppression" widgetVar="confirmation#{menu.article.articleId}">  
+                  			<div style="margin-bottom:15px;">
+                  				Êtes-vous sûr de vouloir supprimer l'article #{menu.article.title}?
+                  			</div>
+					        <div style="float:right;">
+					        	<p:commandButton value="Oui" oncomplete="confirmation#{menu.article.articleId}.hide()" update="@form"  
+					                    actionListener="#{articleManager.deleteArticle}" >
+					               <f:attribute name="menuToDelete" value="#{menu}" />
+					        	</p:commandButton>  
+					        	<p:commandButton value="Non" onclick="confirmation#{menu.article.articleId}.hide()" type="button" />   
+	                  		</div>
+  		  			</p:dialog>
+		 		</span>
+		 	</p:column>
+
+
+		</p:dataTable>
+		
+			
+   		</h:form>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			//$("#articleListForm\\:articleListSearchType").find(".ui-selectonemenu:first").css("width","5% !important;")
+			$(".ui-selectonemenu-label").css("width","40px")
+		});
+			
+		</script>
+	</ui:define>
+	
+</ui:composition>
+</html>

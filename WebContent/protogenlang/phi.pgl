@@ -1,0 +1,13 @@
+soit
+	nombre limit, x1, x2, temp.
+dans
+	lire limit;
+	x1 := 1;
+	x2 := 1;
+	tantque x2<limit faire
+		temp := x2;
+		x2 := x1 + x2;
+		x1 := temp;
+		ecrire x1;
+	fin;
+fin

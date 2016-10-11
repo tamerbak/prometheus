@@ -1,0 +1,1066 @@
+ /* @Abdoulaye BA.
+    Fichier : Style2.css
+    Fichier CSS contenant le second type de design de l'applicatiion  Gestion salarié.
+ */
+ 
+ 
+ /* --------------------------------------  Général   ----------------------------*/
+html {
+    overflow:  -moz-scrollbars-vertical;
+    width: 100%;
+}
+*{
+ 	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width:1024px;
+	margin:auto;
+	text-align: center;
+/*	background-color: #F1F1F1;*/
+	
+}
+ /* -------------------------------------- Fin  Général   ----------------------------*/
+
+ /* --------------------------------------  Content   ----------------------------*/
+ 
+#content{
+	position:absolute;
+	width: 980px;
+	height: 650px;
+	border-bottom: solid 5px #eae9e9;
+	padding-bottom: 20px;
+	left: 50%; 
+	top: 5%;
+	margin-left: -490px;
+	margin-top: -32px;
+	background-color: white;
+}
+
+.wizardButtonLancerRechercheFine{
+	/*float: right;*/
+    background: url(../images/boutonLR.JPG) no-repeat;
+    color: #FFFFFF;
+    width: 147px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px ;
+    padding-bottom: 12px;
+}
+
+.input_select_Align{
+  color:black; 
+  background-color:white; 
+  font-weight:bolder;
+  margin-left: 5px;
+  width: 190px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.lib_textMPanelsUser{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25x;
+	text-align: center;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.ash2{
+	float : left;
+    color:red;
+    font-variant: small-caps;
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    font: bold;
+    letter-spacing:3px;
+    background:none;
+	
+}
+
+
+.lib_textAbsence{
+	
+	display : block;
+	font-size: 14px;
+	height: 25x;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+	}
+
+.wizardButtonFine{
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 35px;
+    border: none;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px ;
+    padding-bottom: 12px;
+    
+}
+
+.wizardButtonProfil{
+	float: none;
+    background: url(../images/boutonValider.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+.wizardButtonRedProfil{
+	float: none;
+    background: url(../images/boutonRed.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+#contentAbsence{
+	position:absolute;
+	width: 980px;
+	border-bottom: solid 5px #eae9e9;
+	padding-bottom: 40px;
+	left: 50%; 
+	margin-left: -490px;
+	background-color: #F6F6F6;
+}
+
+#contentLarge{
+	position:absolute;
+	width: 80%;
+	border-bottom: solid 5px #eae9e9;
+	padding-bottom: 80px; 
+	/*top: 5%;*/
+	/*margin-top: -45px;*/
+	background-color: #F6F6F6;
+}
+
+h1 {
+	font-variant: small-caps;
+	margin-bottom: 8px;
+	margin-top: 4px;
+	max-width: 80%;
+	padding-bottom: 3px;
+	padding-left: 30px;
+	color: #1b3f8a;
+	font-size: 1.2em;
+	font-weight: 90;
+	max-width: 80%;
+}
+/* @Abdoulaye BA, 
+    Pour modifier certain partie de la balise h1 avec un span.
+   */
+h1 .crud{
+    color:green;
+}/*Fin*/
+h1 .crud_sup{
+    color:red;
+}
+
+h2{
+    float : left;
+    color: #749def;
+    font-variant: small-caps;
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    font: bold;
+    letter-spacing:3px;
+   /* width: 300px;*/
+    background:none;
+}
+h3 {
+	padding-left: 3px;
+	font-variant: normal;
+	border: solid 1px #eae9e9;
+	margin-bottom: 0px;
+	padding-bottom: 3px;
+	margin-top : 4px;
+	color: white;
+	background-color: green;
+}
+h4{
+	padding-left: 10px;
+	font-variant: small-caps;
+	margin-bottom: 2px;
+	padding-bottom: 2px;
+	margin-top : 4px;
+	color: red;
+}
+.lib_textFM{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	padding-bottom: 10px;
+	color: #004B74;
+    font-weight: normal;
+}
+.lib_textFunct{
+	display : block;
+	font-size: 14px;
+	width: 30px;
+	height: 25x;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.txtArea{
+	
+	
+	border-color : gray;
+	border-spacing : 10px;
+	font-size: 0.8em;
+	height: 90px;
+	width: 235px;
+	padding-top: 5px;
+	margin-left: 50px;	
+	margin-bottom: 10px,
+	}
+
+.lib_text{
+	display : block;
+	font-size: 14px;
+	width : 100%;
+	height: 15x;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #1b3f8a;
+    font-weight: normal;
+}
+.lib_text_longS{
+	display : block;
+	font-size: 14px;
+	height: 25px;
+	width : 100%;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: green;
+    font-weight: normal;
+}
+/*@Author : Badr DRAIFI : class pour input utilisé dans Remuneration creation */
+.lib_text_minmax{
+	display : block;
+	font-size: 14px;
+	width: 100%;
+	height: 25x;
+	text-align: center;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+ /*
+   @Author : Abdoualaye BA,
+   avec l'introduction certain classe ont été changé.
+   ceci a été appliqué dans numéros, création de contrat, clause spécifique.
+ */
+.lib_text_cl_spe{
+	font-size: 14px;
+	margin-left:10px;
+	height: 25x;
+	vertical-align: middle;
+	color: #004B74;
+    font-weight: normal;
+}/* Fin*/
+
+.lib_text_long{
+	display : block;
+	font-size: 14px;
+	height: 25x;
+	width : 100%;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #1b3f8a;
+    font-weight: normal;
+}
+.lib_text_long_Panels{
+	display : block;
+	font-size: 8px;
+	height: 10px;
+	width : 100%;
+	text-align: right;
+	vertical-align: baseline;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+.wizardButtonFunc{
+	float: right;
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px ;
+    padding: 0px 0px 0px 0px ;
+}
+    /*Classe pour donner une couleur de fond vert au bouton valide*/
+.wizardButtonValide{
+	float: right;
+    background: url(../images/boutonValider.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+
+	/*Classe pour donner une couleur de fond bleu au bouton suivant et retour*/
+.wizardButtonPS{
+	float: right;
+    background: url(../images/boutonPS.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+.wizardButtonAS{
+	float: right;
+    background: url(../images/boutonSynthese.gif) no-repeat;
+    color: green;
+    width: 133px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+
+.wizardButtonLancerRecherche{
+	float: right;
+    background: url(../images/boutonLR.JPG) no-repeat;
+    color: #FFFFFF;
+    width: 147px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+.wizardButtonRole{
+	float: none;
+    background: url(../images/boutonRetour_yellow.gif) no-repeat;
+    color: #FFFFFF;
+    width: 210px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px ;
+    padding: 0px 0px 0px 0px ;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.lib_textRole{
+	display : block;
+	font-size: 14px;
+	width: 130px;
+	height: 25x;
+	text-align: left;
+	vertical-align: middle;
+	padding-bottom:10px;
+	color: #004B74;
+    font-weight: normal;
+}
+.lib_text_long_Rubriques{
+	display : block;
+	font-size: 14px;
+	height: 25px;
+	width : 100%;
+	text-align: left;
+	vertical-align: middle;
+	padding-left: 0px;
+	color: #004B74;
+    font-weight: normal;
+}
+
+.input_text {
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 250px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+  /*Classe utlisée dans les parties de recherche dans le cas ou un resultat est trouvé*/
+.input_text_result{
+	background: url(../images/input_text_result.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 100%;
+	width: 150px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left : 2px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	color: white;
+	font-weight: bold;
+}
+.input_text_nbr{
+  	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 100px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+
+.input_text_moyen
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 190px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+
+.input_text_moyen_result
+{
+	border:none;
+	background: url(../images/input_text_result.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 100%;
+	width: 190px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left : 2px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	color: white;
+	font-weight: bold;
+}
+  /*Mise en forme intégrée dans la partie Autres Rémunérations*/
+.input_text_AutrRem_result
+{
+	background: url(../images/input_text_result.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 100%;
+	width: 210px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left : 2px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+	color: white;
+	font-weight: bold;
+}
+.input_text_AutrRem
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 210px;
+	padding-top: 5px;
+	margin-left: 8px;	
+	margin-right: 0px;	
+	margin-bottom: 10px;
+}
+.input_select_moyen_Panles{
+  color:black; 
+  font-size: 0.4em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 3px;
+  width: 90px;
+  margin-bottom: 5px;
+}
+.input_select_AutrRem{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 8px;
+  width: 215px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+.input_select_moyenRole{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  padding-left: 0px;
+  width: 130px;
+  margin-bottom: 10px;
+  text-align: left;
+  vertical-align: middle;
+  
+}
+.input_text_120{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.9em;
+	height: 100%;
+	width: 120px;
+	margin: 0px;
+}
+.input_text_130{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.9em;
+	height: 100%;
+	width: 130px;
+	margin: 0px;
+}
+.input_select_165{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 165px;
+  margin-bottom: 3px;
+}
+.input_select_130{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 130x;
+  margin: 0px;
+}
+  /*Fin*/
+  
+/*@author Badr DRAIFI : Class pour l'image de recherche dans Modification Grille salaire*/
+.styleSearch{
+	
+}
+
+	
+/*Class utilisé dans la dataTable Grille pour la rendre blanc*/	
+.footerWhiteDataTable{
+	
+	background-color: white;
+	
+	}	
+
+.styleSearch:HOVER{
+	
+	cursor: pointer;
+}
+
+.styleMenuGauch{
+
+}
+.styleMenuGauch:ACTIVE{
+	
+	background-color: #004b74;	
+}	
+
+/*FIN*/
+/*@Author : Badr DRAIFI : class pour input utilisé dans Remuneration creation */
+.input_text_moyen_minmax
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 190px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+.input_text_moyen_Panels
+{
+	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.4em;
+	height: 10px;
+	width: 90px;
+	padding-top: 2px;
+	margin-left: 2px;	
+	margin-bottom: 5px;
+}
+.input_text_jma{
+  	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 50px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+
+.input_txt_hidden{
+    background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 150px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+.input_txt_GA{
+    background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+
+  /*
+    @Author : Abdoulaye BA.
+    Deign d'input adapté au date de format :jj/MM/aaaa
+  */
+.input_text_date{
+  	background: url(../images/input_text.gif) no-repeat;
+	border:none;
+	font-size: 0.8em;
+	height: 20px;
+	width: 75px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+} /*Fin*/
+
+
+.error_txt{
+    color: red;
+    font: bold;
+    font-size: 10px;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input_select{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 130px;
+  margin-bottom: 10px;
+}
+
+/*
+  @Author : Abdoulaye BA.
+  changement de design coté gestion absence, Après introduction des templates.
+*/
+.input_select_GA{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+} /* Fin */
+
+
+.input_select_moyen{
+  color:black; 
+  font-size: 0.8em;
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 190px;
+  margin-bottom: 10px;
+}
+
+.input_select_jma{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.input_select_search{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 215px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.select_prime{
+  color:black; 
+  background-color:white; 
+  font:bolder;
+  margin-left: 5px;
+  width: 300px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+/* mise en forme des texarea */
+.text_area{
+   /* background: url(../images/input_text.gif) no-repeat;*/
+	border:none;
+	font-size: 0.8em;
+	height: 50px;
+	width: 350px;
+	padding-top: 5px;
+	margin-left: 5px;	
+	margin-bottom: 10px;
+}
+.panel_marg{
+ margin-bottom: 15px; 
+ margin-top: 10px;
+}
+/*Author Badr DRAIFI : WizardButton modifié pour la gestion grille Salaire*/
+.wizardButtonGrille{
+	float: right;
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    /**margin: 1px 1px 0 0 ;*/
+    padding-right: 1px;
+    padding-left: 1px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+.spacing{
+	width: 80px;
+}
+.space{
+	
+}	
+/*FIN*/
+
+.wizardButton{
+	float: right;
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+.wizardButtonRubriques{
+	float: right;
+    background: url(../images/bouton.gif) no-repeat;
+    color: green;
+    width: 30px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+}
+.wizardButtonAction{
+	/*float: right;*/
+    background: url(../images/bouton.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+    text-align: center;
+}
+.wizardButtonFile{
+	/*float: right;*/
+    background: url(../images/boutonDwnload.GIF) no-repeat;
+    color: green;
+    width: 213px;
+    height: 22px;
+    border: none;
+    font-size: 15px;
+    margin: 5px 5px 0 0 ;
+    text-align: center;
+}
+.wizardButtonRetour{
+	/*float: center;*/
+    background: url(../images/boutonRetour_yellow.gif) no-repeat;
+    color: green;
+    width: 210px;
+    height: 22px;
+    border: none;
+    font-size: 15px;
+    margin: 5px 5px 0 0 ;
+    text-align: center;
+}
+.wizardButtonRetourDisable{
+	/*float: center;*/
+    background: url(../images/boutonRetourDisabled_gray.gif) no-repeat;
+    color: green;
+    width: 210px;
+    height: 22px;
+    border: none;
+    font-size: 15px;
+    margin: 5px 5px 0 0 ;
+    text-align: center;
+}
+.wizardButtonRed{
+	float: right;
+    background: url(../images/boutonRed.gif) no-repeat;
+    color: #FFFFFF;
+    width: 81px;
+    height: 22px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+/*@Author Badr DRAIFI, exploité pour la date debut et fin pour les justificatifs*/
+.dateJustificatifs{
+	
+	color:#749def;
+    font-variant: small-caps;
+    font-size: 11px;
+    letter-spacing:3px;
+    background:none;
+    
+}
+	
+a.data_tab_link
+{
+	color: #1b3f8a;
+	font:bolder;
+    margin-left: 5px;
+    width: 215px;
+    font-size: 12px;
+}
+
+a.data_tab_link:HOVER
+{
+	text-decoration: underline;
+	background-color: white;
+	color: #1b3f8a;
+}
+
+a{
+ text-decoration: none;
+ color: black;
+}
+
+.msgConfirm{
+	color: green;
+    font: bold;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+ /*Mise en forme lié à la partie d'authentification de l'utilistateur*/
+.pgAuthentificationPresentation
+{
+	margin-top: 40px; 
+	margin-left: 290px; 
+	margin-right: 50px;
+}
+.pgAuthentification{ 
+  margin-top: 70px;
+  margin-left: 290px; 
+  margin-right: 50px;
+}
+  /*Fin*/
+    /*Modal Panel : confirmation Box */
+.buttonOfconfirm
+{
+/*	float: right;*/
+    background: gray;
+    color: black;
+    width: 40px;
+    height: 20px;
+    border: none;
+    font-size: 12px;
+    margin: 5px 5px 0 0 ;
+}
+
+ /* -------------------------------------- Fin  Content   ----------------------------*/
+ 
+ /*-------------------------Gestion Personnel dans le Menu Principale-----------*/
+ 
+ .asMenuPrincipal
+ {
+	color: #1b3f8a;
+	font-family: TrebuchetMS, "Trebuchet MS", Verdana, Tahoma, sans-serif;
+	border-radius: 8px;
+	-moz-border-radius :8px;
+	webkit-border-radius : 8px;
+	background-color: #1b3f8a;
+	color: white;
+	font-size: 14px;
+ }
+ .asMenuPrincipal:HOVER
+ {
+ 	background-color: white;
+    border-width : 2px;
+    color: #1b3f8a;
+    font-size: 14px;
+ }
+ 
+ /*--------------------------FIN------------------------------------------------*/
+ 
+
+/* ----------     Menu principal     -------*/
+
+#bar
+{
+ background-image: url();
+ background-color: #F1F1F1;
+}
+
+#bar .rich-ddmenu-label
+{
+	color: #1b3f8a;
+	font-family: TrebuchetMS, "Trebuchet MS", Verdana, Tahoma, sans-serif;
+	border-radius: 8px;
+	-moz-border-radius :8px;
+	webkit-border-radius : 8px;
+	background-color: #1b3f8a;
+	color: white;
+	font-size: 14px;
+}
+
+#bar .rich-ddmenu-label-select{
+	
+    background-color: white;
+    border-width : 2px;
+    color: #1b3f8a;
+    font-size: 14px;
+
+}
+
+#bar .rich-menu-item
+{
+	background-image: url();
+	background-color:#ECECEC;
+}
+#bar .rich-menu-item:HOVER
+{
+	background-image: url();
+	background-color:#1b3f8a;
+	color: white;
+	border-color: #1b3f8a;
+    border-width : 2px;
+}
+
+#bar .rich-menu-item-label, #bar .linkMenuPrincipal
+{
+	color : #1b3f8a;
+	background-image: url();
+}
+
+#bar .rich-menu-item-label-selected, #bar .linkMenuPrincipal:HOVER
+{
+	background-image: url();
+	background-color:  #004b74;
+    border-color: #004b74;
+    border-width : 2px;
+    color: white;
+}
+
+
+/*Partie liée à la mise en forme de l'authentification*/
+#barLogin
+{
+ background-image: url();
+ background-color: #1b3f8a;
+}
+
+/*Fin*/
+/* ---------- Fin    Menu principal     -------*/
+
+
+/* ----------    Menu vertical (Gauche/Droite)     -------*/
+.rich-pmenu-group{
+	
+	background-image: url();
+    background-color: #1b3f8a;
+    color: white;
+	font-family: Verdana;
+	height: 30px;
+	border-top: red;
+	font-size: 13px;
+}
+
+.menuVertical .rich-pmenu
+{
+
+}
+.menuVertical .rich-pmenu-item{
+   height: 28px;
+   font-size : 12px;
+   text-align: left;
+   vertical-align: middle;
+   font-weight: normal;
+   font: bold;
+   border-width : 1px;
+   border-color: #1b3f8a;
+}
+
+.menuVertical .rich-pmenu-hovered-element, a:HOVER {
+
+      background-color: #749def;
+      font-size: 12px;
+      font: bold;
+      color: white;
+}
+
+.rich-pmenu-selected-element{
+  background-color: #749def;
+}
+
+/* ---------- Fin    Menu vertical (Gauche/Droite)   -------*/
+
+/**************************************** FOOTER ****************************/
+
+#footer{
+	margin-top: 10px;
+	background: url(../images/footer_bgB.gif) repeat-x bottom;
+	width: 980px;
+	height: 50px;
+	font-size: 0.7em;
+	-margin-bottom:10px;
+	bottom: 0px;
+	position: absolute;
+	color: #999999;
+
+}
+
+
+
+/**************************************** Fin  FOOTER ****************************/
+
+

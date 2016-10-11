@@ -1,0 +1,1073 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+
+<ui:define name="contenu">
+	<p:dialog id="dlg2" closable="false" widgetVar="dlg2" modal="false" resizable="false" dynamic="false" > 
+		<p:graphicImage value="/images/loading.gif" />
+		<p:spacer width="20" height="10" />
+		<label style="position: relative;bottom: 10px;">Chargement ...</label>
+	</p:dialog>
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	<h1 style="padding-left: 10px;">Business Plan</h1>
+	
+	<p:menubar>
+		<p:submenu icon="ui-icon-disk" label="Sauvegarder">
+			<p:menuitem value="Enregistrer" />
+			<p:menuitem value="Enregistrer dans un nouveau modèle" />
+		</p:submenu>
+		<p:menuitem icon="ui-icon-folder-open" value="Charger" />
+		<p:menuitem value="Paramétrage" icon="ui-icon-carat-2-e-w" onclick="bpwiz.loadStep (bpwiz.cfg.steps [0], true)" update="bpwiz" />
+		<p:menuitem value="Financement" icon="ui-icon-carat-2-e-w" onclick="bpwiz.loadStep (bpwiz.cfg.steps [1], true)" update="bpwiz" />
+		<p:menuitem value="Compte d'exploitation" icon="ui-icon-carat-2-e-w" onclick="bpwiz.loadStep (bpwiz.cfg.steps [2], true)" update="bpwiz" />
+		<p:menuitem value="Trésorerie" icon="ui-icon-carat-2-e-w" onclick="bpwiz.loadStep (bpwiz.cfg.steps [3], true)" update="bpwiz" />
+		<p:menuitem value="BFR" icon="ui-icon-carat-2-e-w" onclick="bpwiz.loadStep (bpwiz.cfg.steps [4], true)" update="bpwiz" />
+	</p:menubar>
+	
+	<p:wizard id="bpwiz" showStepStatus="false" widgetVar="bpwiz" backLabel="Précédent" nextLabel="Suivant" 
+		flowListener="#{businessPlanControl.onFlowProcess}" >
+		
+		<p:tab id="parametrebp" title="Paramètres">
+			<h:panelGrid style="width:98%"><h2>Paramétrage du Business Plan</h2></h:panelGrid>
+			<p:panelGrid columns="2" style="width:100%">
+			<f:facet name="header">Paramétrage</f:facet>
+				<p:outputLabel for="typePlan" value="Type de plan" />
+				<p:selectOneMenu id="typePlan" value="#{businessPlanControl.selectedTypePlan}" style="width:250px" >
+					<f:selectItem itemLabel="Entreprise en croissance" itemValue="CROISSANCE" />
+					<f:selectItem itemLabel="Entreprise en crise" itemValue="CRISE" />
+					<f:selectItem itemLabel="Entreprise en création" itemValue="CREATION" />
+				</p:selectOneMenu>
+				<p:outputLabel for="showPlanComptable" value="Plan comptable" />
+				<p:selectOneMenu id="showPlanComptable" value="#{businessPlanControl.showPlanComptable}" style="width:250px" >
+					<f:selectItem itemLabel="Avec Plan Comptable" itemValue="1" />
+					<f:selectItem itemLabel="Sans Plan Comptable" itemValue="0" />
+				</p:selectOneMenu>
+				<p:outputLabel for="coefficientCroissance" value="Coefficient de croissance" />
+				<p:inputText id="coefficientCroissance" value="#{businessPlanControl.coefficientCroissance}" style="width:250px" />
+				<p:outputLabel for="anneeDemarrage" value="Année de démarrage" />
+				<p:spinner id="anneeDemarrage" value="#{businessPlanControl.anneeDemarrage}" max="2013" min="2010" style="width:250px" />
+				<p:outputLabel for="typeInterval" value="Granularité" />
+				<p:selectOneMenu id="typeInterval" value="#{businessPlanControl.typeInterval}" style="width:250px" >
+					<f:selectItem itemLabel="Par an" itemValue="1" />
+					<f:selectItem itemLabel="Par mois" itemValue="0" />
+				</p:selectOneMenu>
+				<p:outputLabel for="nombreAnnee" value="Nombre d'années" />
+				<p:spinner id="nombreAnnee" value="#{businessPlanControl.nombreAnnee}" min="2" max="5" style="width:250px" />
+				<p:outputLabel for="optionsAvancees" value="Options avancées" />
+				<p:selectCheckboxMenu id="optionsAvancees" label="Options Avancées" value="#{businessPlanControl.selectionOptionsAvancees}" filter="true" filterText="Filter" filterMatchMode="contains" panelStyle="width:250px" style="width:250px" >
+					<f:selectItems value="#{businessPlanControl.optionsAvancees}" var="oav" itemLabel="#{oav.label}" itemValue="#{oav.id}" />
+				</p:selectCheckboxMenu>
+			</p:panelGrid>
+			
+		</p:tab>
+		
+		<c:forEach items="#{businessPlanControl.tabs}" var="tb">
+			<p:tab id="bp_tb_#{tb.id}" title="#{tb.title}">
+			<h:panelGrid style="width:98%"><h2>Préparation du Business Plan</h2></h:panelGrid>
+				<p:panel header="#{tb.title}" style="width:98%">
+				<p:panelGrid style="width:98%" >
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="2">&nbsp;</p:column>
+							<c:forEach items="#{tb.titles}" var="title">
+								<p:column>
+									#{title}
+								</p:column>
+							</c:forEach>
+						</p:row>
+					</f:facet>
+					
+					<c:forEach items="#{tb.tabs}" var="ttab">
+						<p:row>
+							<p:column colspan="2"><strong>#{ttab.title}</strong></p:column>
+							<c:forEach items="#{ttab.total}" var="tot">
+								<p:column></p:column>
+							</c:forEach>
+						</p:row>
+						
+						
+						<c:forEach items="#{ttab.parentLignes}" var="bpl">
+						<p:row>
+							<p:column rendered="#{bpl.existChild}" >
+								<p:commandButton  icon="#{bpl.childrenVisible?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideChildren}" update="bpwiz">
+									<f:param name="PARENTID" value="#{bpl.id}"/>
+								</p:commandButton> 
+							</p:column>
+							<p:column colspan="#{bpl.existChild?1:2}">
+								#{bpl.label}
+							</p:column>
+							<c:forEach items="#{bpl.values}" var="bpv">
+								<p:column>
+									<p:inputText id="bpval_#{ttab.id}_#{bpl.id}_#{bpv.year.year}" value="#{bpv.value}" >
+										<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+									</p:inputText>
+								</p:column>
+							</c:forEach>
+						</p:row>
+						<c:forEach items="#{bpl.children}" var="cld" >
+						<p:row rendered="#{bpl.childrenVisible}">
+							<p:column>&nbsp;</p:column>
+							<p:column>#{cld.label}</p:column>
+							<c:forEach items="#{cld.values}" var="bpv">
+								<p:column>
+									<p:inputText id="bpval_#{ttab.id}_#{cld.id}_#{bpv.year.year}" value="#{bpv.value}" >
+										<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+									</p:inputText>
+								</p:column>
+							</c:forEach>
+						</p:row>
+						</c:forEach>
+					</c:forEach>
+						
+						
+						
+						
+						<p:row>
+							<p:column colspan="2"><strong>#{ttab.footer}</strong></p:column>
+							<c:forEach items="#{ttab.total}" var="tot">
+								<p:column><strong><h:outputText value="#{tot}">
+									<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+								</h:outputText>
+								</strong></p:column>
+							</c:forEach>
+						</p:row>
+					
+					</c:forEach>
+					
+					
+					<c:forEach items="#{tb.variables}" var="pvr">
+						<p:row>
+							<p:column colspan="2"> <strong><h:outputText escape="false" value="#{pvr.title}" /></strong></p:column>
+							<c:forEach items="#{pvr.values}" var="pvv">
+								<p:column><strong><h:outputText value="#{pvv}">
+									<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+								</h:outputText></strong></p:column>
+							</c:forEach>
+						</p:row>
+					</c:forEach>			
+				</p:panelGrid>
+				</p:panel>
+			</p:tab>
+		
+		</c:forEach>
+		
+		<p:tab id="cptprod" title="Compte d'exploitation">
+		<p:toolbar >
+			<p:toolbarGroup align="left">
+				<p:commandButton value="Ventes" icon="ui-icon-carat-2-e-w" onclick="bpwiz.loadStep (bpwiz.cfg.steps [5], true)" update="bpwiz"/>
+			</p:toolbarGroup>
+		</p:toolbar>
+		<h:panelGrid style="width:98%"><h2>Préparation du Business Plan</h2></h:panelGrid>
+			<p:panelGrid style="width:100%">
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="5">Compte d'exploitation</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2" ></p:column>
+						<p:column>2013</p:column>
+						<p:column>2014</p:column>
+						<p:column>2015</p:column>
+					</p:row>
+				</f:facet>
+				<p:row>
+					<p:column><p:commandButton  icon="#{businessPlanControl.ca?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideCA}" update="bpwiz"/></p:column>
+					<p:column>Chiffre d'affaires</p:column>
+					<p:column><center><p:inputText value="122 040"/></center></p:column>
+					<p:column><center><p:inputText value="287 280"/></center></p:column>
+					<p:column><center><p:inputText value="475 560"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Ventes de produits fabriqués, prestations de services, marchandises</p:column>
+					<p:column><center><p:inputText value="110 000"/></center></p:column>
+					<p:column><center><p:inputText value="260 000"/></center></p:column>
+					<p:column><center><p:inputText value="370 400"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Production stockée (ou déstockage)</p:column>
+					<p:column><center><p:inputText value="12 040"/></center></p:column>
+					<p:column><center><p:inputText value="27 280"/></center></p:column>
+					<p:column><center><p:inputText value="205 160"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Production immobilisée</p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Subventions d'exploitation</p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Autres produits de gestion courante</p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Produits financiers</p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Produits exceptionnels</p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Reprises sur amortissements, dépréciations et provisions</p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.ca}">
+					<p:column></p:column>
+					<p:column>Transferts de charges</p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+					<p:column><center><p:inputText value=""/></center></p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column colspan="2" ><strong>TOTAL PRODUITS</strong></p:column>
+					<p:column><center><strong>122 040</strong></center></p:column>
+					<p:column><center><strong> 287 280</strong></center></p:column>
+					<p:column><center><strong>574 560</strong></center></p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column colspan="2" >Achats</p:column>
+					<p:column><center><p:inputText value="-"/></center></p:column>
+					<p:column><center><p:inputText value="-"/></center></p:column>
+					<p:column><center><p:inputText value="-"/></center></p:column>
+				</p:row>
+				
+				
+				<p:row>
+					<p:column><p:commandButton  icon="#{businessPlanControl.serviceExt?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideServiceExt}" update="bpwiz"/></p:column>
+					<p:column>Services Extérieurs</p:column>
+					<p:column><center><p:inputText value="36 780"/></center></p:column>
+					<p:column><center><p:inputText value="47 453"/></center></p:column>
+					<p:column><center><p:inputText value="58 428"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.serviceExt}">
+					<p:column></p:column>
+					<p:column>Services extérieurs</p:column>
+					<p:column><center><p:inputText value="30 080"/></center></p:column>
+					<p:column><center><p:inputText value="74 453"/></center></p:column>
+					<p:column><center><p:inputText value="58 428"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.serviceExt}">
+					<p:column></p:column>
+					<p:column>Autres services extérieurs</p:column>
+					<p:column><center><p:inputText value="6 700"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column><p:commandButton  icon="#{businessPlanControl.impotsTaxes?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideImpotsTaxes}" update="bpwiz"/></p:column>
+					<p:column >Impôts et taxes</p:column>
+					<p:column><center><p:inputText value="500"/></center></p:column>
+					<p:column><center><p:inputText value="550"/></center></p:column>
+					<p:column><center><p:inputText value="605"/></center></p:column>
+				</p:row>
+				
+				
+				<p:row rendered="#{businessPlanControl.impotsTaxes}">
+					<p:column></p:column>
+					<p:column> Impôts, taxes et versements assimilés <br/>sur rémunérations (administrations des impôts) </p:column>
+					<p:column><center><p:inputText value="200"/></center></p:column>
+					<p:column><center><p:inputText value="240"/></center></p:column>
+					<p:column><center><p:inputText value="288"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.impotsTaxes}">
+					<p:column></p:column>
+					<p:column> Impôts, taxes et versements assimilés sur <br/>rémunérations (autres organismes)</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.impotsTaxes}">
+					<p:column></p:column>
+					<p:column> Autres impôts, taxes et versements <br/>assimilés (administrations des impôts) </p:column>
+					<p:column><center><p:inputText value="300"/></center></p:column>
+					<p:column><center><p:inputText value="310"/></center></p:column>
+					<p:column><center><p:inputText value="317"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.impotsTaxes}">
+					<p:column></p:column>
+					<p:column> Autres impôts, taxes et versements <br/>assimilés (autres organismes) </p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column><p:commandButton  icon="#{businessPlanControl.fraisPersonnel?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideFraisPersonnel}" update="bpwiz"/></p:column>
+					<p:column>Frais de personnel</p:column>
+					<p:column><center><p:inputText value="75 600"/></center></p:column>
+					<p:column><center><p:inputText value="168 000"/></center></p:column>
+					<p:column><center><p:inputText value="226 800"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.fraisPersonnel}">
+					<p:column></p:column>
+					<p:column>Rémunérations du personnel</p:column>
+					<p:column><center><p:inputText value="30 240"/></center></p:column>
+					<p:column><center><p:inputText value="67 200"/></center></p:column>
+					<p:column><center><p:inputText value="90 720"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.fraisPersonnel}">
+					<p:column></p:column>
+					<p:column>Rémunération du travail de l'exploitant</p:column>
+					<p:column><center><p:inputText value="30 240"/></center></p:column>
+					<p:column><center><p:inputText value="67 200"/></center></p:column>
+					<p:column><center><p:inputText value="90 720"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.fraisPersonnel}">
+					<p:column></p:column>
+					<p:column>Charges de sécurité sociale et de prévoyance</p:column>
+					<p:column><center><p:inputText value="15 120"/></center></p:column>
+					<p:column><center><p:inputText value="33 600"/></center></p:column>
+					<p:column><center><p:inputText value="45 360"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.fraisPersonnel}">
+					<p:column></p:column>
+					<p:column>Cotisations sociales personnelles de l'exploitant</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.fraisPersonnel}">
+					<p:column></p:column>
+					<p:column>Autres charges sociales</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.fraisPersonnel}">
+					<p:column></p:column>
+					<p:column>Autres charges de personnel</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				
+				
+				
+				<p:row>
+					<p:column><p:commandButton  icon="#{businessPlanControl.dotations?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideDotations}" update="bpwiz"/></p:column>
+					<p:column>Dotations aux amortissements</p:column>
+					<p:column><center><p:inputText value="6 500"/></center></p:column>
+					<p:column><center><p:inputText value="6 500"/></center></p:column>
+					<p:column><center><p:inputText value="6 500"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.dotations}">
+					<p:column></p:column>
+					<p:column> Dotations aux amortissements, aux dépréciations <br/>et aux provisions - Charges d'exploitation</p:column>
+					<p:column><center><p:inputText value="3 000"/></center></p:column>
+					<p:column><center><p:inputText value="3 000"/></center></p:column>
+					<p:column><center><p:inputText value="3 000"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.dotations}">
+					<p:column></p:column>
+					<p:column>Dotations aux amortissements, aux dépréciations <br/>et aux provisions - Charges financières</p:column>
+					<p:column><center><p:inputText value="2 000"/></center></p:column>
+					<p:column><center><p:inputText value="2 000"/></center></p:column>
+					<p:column><center><p:inputText value="2 000"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.dotations}">
+					<p:column></p:column>
+					<p:column>Dotations aux amortissements, aux dépréciations <br/>et aux provisions - Charges exceptionnelles</p:column>
+					<p:column><center><p:inputText value="1 500"/></center></p:column>
+					<p:column><center><p:inputText value="1 500"/></center></p:column>
+					<p:column><center><p:inputText value="1 500"/></center></p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column><p:commandButton  icon="#{businessPlanControl.chargesfin?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideChargesfin}" update="bpwiz"/></p:column>
+					<p:column>Charges financières</p:column>
+					<p:column><center><p:inputText value="792"/></center></p:column>
+					<p:column><center><p:inputText value="685"/></center></p:column>
+					<p:column><center><p:inputText value="572"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.chargesfin}">
+					<p:column></p:column>
+					<p:column>Charges d'intérêts</p:column>
+					<p:column><center><p:inputText value="792"/></center></p:column>
+					<p:column><center><p:inputText value="685"/></center></p:column>
+					<p:column><center><p:inputText value="572"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.chargesfin}">
+					<p:column></p:column>
+					<p:column>Pertes sur créances liées à des participations</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.chargesfin}">
+					<p:column></p:column>
+					<p:column>Escomptes accordés</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.chargesfin}">
+					<p:column></p:column>
+					<p:column>Pertes de change</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.chargesfin}">
+					<p:column></p:column>
+					<p:column>Charges nettes sur cessions de valeurs <br/>mobilières de placement</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.chargesfin}">
+					<p:column></p:column>
+					<p:column>Autres charges financières</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				
+				
+				<p:row>
+					<p:column><p:commandButton  icon="#{businessPlanControl.autres?'ui-icon-minus':'ui-icon-plus'}" actionListener="#{businessPlanControl.showHideAutres}" update="bpwiz"/></p:column>
+					<p:column>Autres charges</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.autres}">
+					<p:column></p:column>
+					<p:column>Charges exceptionnelles</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				<p:row rendered="#{businessPlanControl.autres}">
+					<p:column></p:column>
+					<p:column>Participation des salariés -<br/>Impôts sur les bénéfices et assimilés</p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+					<p:column><center><p:inputText value="0"/></center></p:column>
+				</p:row>
+				
+				
+				<p:row>
+					<p:column colspan="2" ><strong>TOTAL CHARGES</strong></p:column>
+					<p:column><center><strong>120 172</strong></center></p:column>
+					<p:column><center><strong>223 187</strong></center></p:column>
+					<p:column><center><strong>292 906</strong></center></p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" ><strong>RESULTATS AVANT IMPOTS</strong></p:column>
+					<p:column><center><strong>1 868</strong></center></p:column>
+					<p:column><center><strong>64 093</strong></center></p:column>
+					<p:column><center><strong>281 654</strong></center></p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" >Impôt sur les bénéfices</p:column>
+					<p:column><center><strong>280</strong></center></p:column>
+					<p:column><center><strong>14 374</strong></center></p:column>
+					<p:column><center><strong>86 888</strong></center></p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" ><strong>RESULTATS APRES IMPOTS</strong></p:column>
+					<p:column><center><strong>1 587</strong></center></p:column>
+					<p:column><center><strong>49 718</strong></center></p:column>
+					<p:column><center><strong>194 766</strong></center></p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" ><strong>CAPACITE D'AUTOFINANCEMENT</strong></p:column>
+					<p:column><center><strong>8 087</strong></center></p:column>
+					<p:column><center><strong>56 218</strong></center></p:column>
+					<p:column><center><strong>201 266</strong></center></p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:tab>
+		
+		<p:tab id="treso" title="Trésorerie">
+		<h:panelGrid style="width:98%"><h2>Préparation du Business Plan</h2></h:panelGrid>
+			<p:scrollPanel style="width:98%;height:100%">
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<p:commandButton id="tresodownload" value="Export Excel" ajax="false" icon="ui-icon-arrowthick-1-s" action="#{businessPlanControl.tresorDownload}" ></p:commandButton>
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:spacer width="5" height="20"/>
+				<p:panelGrid style="width:100%;">
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="10" ><h:outputText style="float : left;" value="Tresorerie" /></p:column>
+						</p:row>
+						<p:row>
+							<p:column></p:column>
+							<p:column>Mois 1</p:column>
+							<p:column>Mois 2</p:column>
+							<p:column>Mois 3</p:column>
+							<p:column>Mois 4</p:column>
+							<p:column>Mois 5</p:column>
+							<p:column>Mois 6</p:column>
+							<p:column>Mois 7</p:column>
+							<p:column>Mois 8</p:column>
+							<p:column>Mois 9</p:column>
+						</p:row>
+					</f:facet>
+						<p:row>
+							<p:column>Capital libéré</p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column>Comptes courants versés</p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column>Emprunts versés</p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column><strong>TOTAL</strong></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column>Achat Immobilisations incorporelles</p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column>Achat Immobilisations corporelles
+							</p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column>Versement Immobilisations financières
+							</p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+							<p:column><center><p:inputText value=""/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column><strong>TOTAL
+							</strong></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+							<p:column><center><p:inputText value=" - €"/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column></p:column>
+							<p:column><center><p:inputText value="6%"/></center></p:column>
+							<p:column><center><p:inputText value="9%"/></center></p:column>
+							<p:column><center><p:inputText value="9%"/></center></p:column>
+							<p:column><center><p:inputText value="9%"/></center></p:column>
+							<p:column><center><p:inputText value="9%"/></center></p:column>
+							<p:column><center><p:inputText value="9%"/></center></p:column>
+							<p:column><center><p:inputText value="9%"/></center></p:column>
+							<p:column><center><p:inputText value="10%"/></center></p:column>
+							<p:column><center><p:inputText value="10%"/></center></p:column>
+						</p:row>
+						<p:row>
+							<p:column>Ventilation du CA mensuel facturé H.T.
+							</p:column>
+							<p:column><center><p:inputText value=" 7 322 €"/></center></p:column>
+							<p:column><center><p:inputText value=" 10 984 €"/></center></p:column>
+							<p:column><center><p:inputText value=" 10 984 €"/></center></p:column>
+							<p:column><center><p:inputText value=" 10 984 €"/></center></p:column>
+							<p:column><center><p:inputText value=" 10 984 €"/></center></p:column>
+							<p:column><center><p:inputText value=" 10 984 €"/></center></p:column>
+							<p:column><center><p:inputText value=" 10 984 €"/></center></p:column>
+							<p:column><center><p:inputText value=" 12 204 €"/></center></p:column>
+							<p:column><center><p:inputText value=" 12 204 €"/></center></p:column>
+						</p:row>
+				</p:panelGrid>
+				
+			</p:scrollPanel>
+		</p:tab>
+		<p:tab id="bfrtab" title="BFR">
+		<h:panelGrid style="width:98%"><h2>Préparation du Business Plan</h2></h:panelGrid>
+			<p:panel header="BFR" style="width:98%"  >
+				<p:panelGrid style="width:100%">
+					<f:facet name="header">
+						<p:row><p:column colspan="4">I -  Constitution du besoin en fonds de roulement (BFR) du 1er exercice</p:column></p:row>
+						<p:row>
+							<p:column></p:column>
+							<p:column>Total 1er exercice</p:column>
+							<p:column>Estimation</p:column>
+							<p:column></p:column>
+						</p:row>
+						<p:row>
+							<p:column>Estimation des charges d'exploitation :</p:column>
+							<p:column>12</p:column>
+							<p:column>Nb de mois</p:column>
+							<p:column>Besoin à financer</p:column>
+						</p:row>
+					</f:facet>
+					<p:row>
+						<p:column>1 -  Charges externes + sous -traitance</p:column>
+						<p:column>3 065 €</p:column>
+						<p:column>3,0</p:column>
+						<p:column>9 195 €</p:column>
+					</p:row>
+					<p:row>
+						<p:column>2 -  Matières premières + marchandises</p:column>
+						<p:column> -   €</p:column>
+						<p:column>3,0</p:column>
+						<p:column> -   €</p:column>
+					</p:row>
+					<p:row>
+						<p:column>3 -  Délais de paiement clients</p:column>
+						<p:column> 12 163 € </p:column>
+						<p:column>0,5</p:column>
+						<p:column> 5 998 €</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="3">4 -  Autres besoins à financer (préciser...)</p:column>
+						<p:column><p:inputText value="-   €"/></p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="3"><strong>Constitution du BFR du 1er Exercice</strong></p:column>
+						<p:column><strong> 15 193 € </strong></p:column>
+					</p:row>
+				</p:panelGrid>
+				<p:spacer height="30" width="50" />
+				<p:panelGrid style="width:100%">
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="4">II -  Calcul théorique du BFR des 2ème et 3ème exercices</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2"></p:column>
+							<p:column>2ème Exercice</p:column>
+							<p:column>3ème Exercice</p:column>
+						</p:row>
+						
+					</f:facet>
+					<p:row>
+						<p:column colspan="2"><center><strong>EMPLOIS</strong></center></p:column>
+						<p:column colspan="2"></p:column>
+					</p:row>
+					<p:row>
+						<p:column>Crédits clients</p:column>
+						<p:column>15,0</p:column>
+						<p:column> 14 120 €</p:column>
+						<p:column> 28 240 €</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Stocks de matières premières</p:column>
+						<p:column></p:column>
+						<p:column></p:column>
+						<p:column></p:column>
+					</p:row>
+					<p:row>
+						<p:column>Stocks d'en-cours</p:column>
+						<p:column></p:column>
+						<p:column></p:column>
+						<p:column></p:column>
+					</p:row>
+					<p:row>
+						<p:column>Stocks de produits finis</p:column>
+						<p:column>5</p:column>
+						<p:column> 3 935 €</p:column>
+						<p:column> 7 871 €</p:column>
+					</p:row>
+					<p:row>
+						<p:column>...</p:column>
+						<p:column></p:column>
+						<p:column><p:inputText value=""/></p:column>
+						<p:column><p:inputText value=""/></p:column>
+					</p:row>
+					<p:row>
+						<p:column></p:column>
+						<p:column><strong>Total Emplois</strong></p:column>
+						<p:column><strong> 18 055 €</strong></p:column>
+						<p:column><strong> 36 111 €</strong></p:column>
+					</p:row>
+					
+					
+					
+					<p:row>
+						<p:column colspan="2"><center><strong>RESSOURCES</strong></center></p:column>
+						<p:column colspan="2"></p:column>
+					</p:row>
+					<p:row>
+						<p:column>Dettes fournisseurs</p:column>
+						<p:column>0</p:column>
+						<p:column> - €</p:column>
+						<p:column> - €</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Dettes sous-traitants</p:column>
+						<p:column></p:column>
+						<p:column></p:column>
+						<p:column></p:column>
+					</p:row>
+					<p:row>
+						<p:column>Autres dettes ( fiscales, sociales...)</p:column>
+						<p:column>45</p:column>
+						<p:column> 4 068 €</p:column>
+						<p:column> 4 438 €</p:column>
+					</p:row>
+					<p:row>
+						<p:column>...</p:column>
+						<p:column></p:column>
+						<p:column><p:inputText value=""/></p:column>
+						<p:column><p:inputText value=""/></p:column>
+					</p:row>
+					<p:row>
+						<p:column></p:column>
+						<p:column><strong>Total Ressources</strong></p:column>
+						<p:column><strong> 4 068 €</strong></p:column>
+						<p:column><strong> 4 438 €</strong></p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="2"><center><strong>Besoins en fonds de roulement</strong></center></p:column>
+						<p:column colspan="2"></p:column>
+					</p:row>
+					<p:row>
+						<p:column></p:column>
+						<p:column><strong>BFR</strong></p:column>
+						<p:column><strong> 13 987 €</strong></p:column>
+						<p:column><strong> 31 672 €</strong></p:column>
+					</p:row>
+					
+				</p:panelGrid>
+			</p:panel>
+		</p:tab>
+		<p:tab id="ventetab" title="Ventes">
+		<h:panelGrid style="width:98%"><h2>Préparation du Business Plan</h2></h:panelGrid>
+			<p:panel style="width:98%" header="Vente">
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<p:menuButton icon="ui-icon-calendar" value="Période">
+							<p:menuitem value="Menuselle" icon="ui-icon-check" />
+							<p:menuitem value="Annuelle" icon="ui-icon-minus" /> 
+						</p:menuButton>
+						<p:menuButton icon="ui-icon-flag" value="Secteur géographique">
+							<p:menuitem value="Nouveau secteur" icon="ui-icon-plus" />
+							<p:menuitem value="Séléction des secteurs" icon="ui-icon-folder-open" /> 
+						</p:menuButton>
+						<p:menuButton icon="ui-icon-person" value="Commeriaux">
+							<p:menuitem value="Nouveau commercial" icon="ui-icon-plus" />
+							<p:menuitem value="Séléction des commerciaux" icon="ui-icon-folder-open" /> 
+						</p:menuButton>
+						<p:separator />
+						<p:commandButton id="downloadLink" value="Export Excel" ajax="false" icon="ui-icon-arrowthick-1-s" action="#{businessPlanControl.venteDownload}" ></p:commandButton>
+					    
+					</p:toolbarGroup>
+					<p:toolbarGroup style="padding-top: 9px;" align="right">
+						<h:outputText value="Croissance annuelle linéaire 12%" />
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:spacer height="30" width="50" />
+				<p:scrollPanel style="width:98%;height:100%">
+				<p:panelGrid style="width:100%">
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="5" ></p:column>
+							<p:column>Période<br/> mensuelle</p:column>
+							<p:column>Capacité</p:column>
+							<p:column>8%</p:column>
+							<p:column>Capacité</p:column>
+							<p:column>8%</p:column>
+							<p:column>Capacité</p:column>
+							<p:column>8%</p:column>
+							<p:column>Capacité</p:column>
+							<p:column>8%</p:column>
+							<p:column>Capacité</p:column>
+							<p:column>8%</p:column>
+							<p:column>Capacité</p:column>
+							<p:column>8%</p:column>
+							<p:column>Capacité</p:column>
+							<p:column>8%</p:column>
+						</p:row>
+						<p:row>
+							<p:column>Secteur géographique</p:column>
+							<p:column>Commerciaux</p:column>
+							<p:column>Produit</p:column>
+							<p:column>Ventes sur<br/> Année référence</p:column>
+							<p:column>Année+1</p:column>
+							<p:column></p:column>
+							<p:column>Vente</p:column>
+							<p:column>Mois 1</p:column>
+							<p:column>Vente</p:column>
+							<p:column>Mois 2</p:column>
+							<p:column>Vente</p:column>
+							<p:column>Mois 3</p:column>
+							<p:column>Vente</p:column>
+							<p:column>Mois 4</p:column>
+							<p:column>Vente</p:column>
+							<p:column>Mois 5</p:column>
+							<p:column>Vente</p:column>
+							<p:column>Mois 6</p:column>
+							<p:column>Vente</p:column>
+							<p:column>Mois 7</p:column>
+						</p:row>
+					</f:facet>
+					<p:row>
+						<p:column rowspan="4">Nord</p:column>
+						<p:column></p:column>
+						<p:column>Total Nord</p:column>
+						<p:column>250</p:column>
+						<p:column>270,833</p:column>
+						<p:column></p:column>
+						<p:column>100%</p:column>
+						<p:column>22,569</p:column>
+						<p:column>100%</p:column>
+						<p:column>22,569</p:column>
+						<p:column>100%</p:column>
+						<p:column>22,569</p:column>
+						<p:column>100%</p:column>
+						<p:column>22,569</p:column>
+						<p:column>100%</p:column>
+						<p:column>22,569</p:column>
+						<p:column>100%</p:column>
+						<p:column>22,569</p:column>
+						<p:column>100%</p:column>
+						<p:column>22,569</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Commercial 1</p:column>
+						<p:column>Produit 1</p:column>
+						<p:column>100</p:column>
+						<p:column>108,333</p:column>
+						<p:column></p:column>
+						<p:column>100%</p:column>
+						<p:column>9,028</p:column>
+						<p:column>100%</p:column>
+						<p:column>9,028</p:column>
+						<p:column>100%</p:column>
+						<p:column>9,028</p:column>
+						<p:column>100%</p:column>
+						<p:column>9,028</p:column>
+						<p:column>100%</p:column>
+						<p:column>9,028</p:column>
+						<p:column>100%</p:column>
+						<p:column>9,028</p:column>
+						<p:column>100%</p:column>
+						<p:column>9,028</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Commercial 1</p:column>
+						<p:column>Produit 2</p:column>
+						<p:column>60</p:column>
+						<p:column>65,000</p:column>
+						<p:column></p:column>
+						<p:column>100%</p:column>
+						<p:column>5,417</p:column>
+						<p:column>100%</p:column>
+						<p:column>5,417</p:column>
+						<p:column>100%</p:column>
+						<p:column>5,417</p:column>
+						<p:column>100%</p:column>
+						<p:column>5,417</p:column>
+						<p:column>100%</p:column>
+						<p:column>5,417</p:column>
+						<p:column>100%</p:column>
+						<p:column>5,417</p:column>
+						<p:column>100%</p:column>
+						<p:column>5,417</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Commercial 2</p:column>
+						<p:column>Produit 1</p:column>
+						<p:column>90</p:column>
+						<p:column>97,500</p:column>
+						<p:column></p:column>
+						<p:column>100%</p:column>
+						<p:column>8,125</p:column>
+						<p:column>100%</p:column>
+						<p:column>8,125</p:column>
+						<p:column>100%</p:column>
+						<p:column>8,125</p:column>
+						<p:column>100%</p:column>
+						<p:column>8,125</p:column>
+						<p:column>100%</p:column>
+						<p:column>8,125</p:column>
+						<p:column>100%</p:column>
+						<p:column>8,125</p:column>
+						<p:column>100%</p:column>
+						<p:column>8,125</p:column>
+					</p:row>
+					<p:row>
+						<p:column rowspan="4">Sud</p:column>
+						<p:column></p:column>
+						<p:column>Total Sud</p:column>
+						<p:column>200</p:column>
+						<p:column>216,667</p:column>
+						<p:column></p:column>
+						<p:column>100%</p:column>
+						<p:column>18,056</p:column>
+						<p:column>100%</p:column>
+						<p:column>18,056</p:column>
+						<p:column>100%</p:column>
+						<p:column>18,056</p:column>
+						<p:column>100%</p:column>
+						<p:column>18,056</p:column>
+						<p:column>100%</p:column>
+						<p:column>18,056</p:column>
+						<p:column>100%</p:column>
+						<p:column>18,056</p:column>
+						<p:column>100%</p:column>
+						<p:column>18,056</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Commercial 3</p:column>
+						<p:column>Produit 1</p:column>
+						<p:column>70</p:column>
+						<p:column>75,833</p:column>
+						<p:column></p:column>
+						<p:column>100%</p:column>
+						<p:column>6,319</p:column>
+						<p:column>100%</p:column>
+						<p:column>6,319</p:column>
+						<p:column>100%</p:column>
+						<p:column>6,319</p:column>
+						<p:column>100%</p:column>
+						<p:column>6,319</p:column>
+						<p:column>100%</p:column>
+						<p:column>6,319</p:column>
+						<p:column>100%</p:column>
+						<p:column>6,319</p:column>
+						<p:column>100%</p:column>
+						<p:column>6,319</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Commercial 5</p:column>
+						<p:column>Produit 1</p:column>
+						<p:column>80</p:column>
+						<p:column>86,667</p:column>
+						<p:column></p:column>
+						<p:column>100%</p:column>
+						<p:column>7,222</p:column>
+						<p:column>100%</p:column>
+						<p:column>7,222</p:column>
+						<p:column>100%</p:column>
+						<p:column>7,222</p:column>
+						<p:column>100%</p:column>
+						<p:column>7,222</p:column>
+						<p:column>100%</p:column>
+						<p:column>7,222</p:column>
+						<p:column>100%</p:column>
+						<p:column>7,222</p:column>
+						<p:column>100%</p:column>
+						<p:column>7,222</p:column>
+					</p:row>
+					<p:row>
+						<p:column>Commercial 9</p:column>
+						<p:column>Produit 2</p:column>
+						<p:column>50</p:column>
+						<p:column>54,167</p:column>
+						<p:column></p:column>
+						<p:column>100%</p:column>
+						<p:column>4,514</p:column>
+						<p:column>100%</p:column>
+						<p:column>4,514</p:column>
+						<p:column>100%</p:column>
+						<p:column>4,514</p:column>
+						<p:column>100%</p:column>
+						<p:column>4,514</p:column>
+						<p:column>100%</p:column>
+						<p:column>4,514</p:column>
+						<p:column>100%</p:column>
+						<p:column>4,514</p:column>
+						<p:column>100%</p:column>
+						<p:column>4,514</p:column>
+					</p:row>
+				</p:panelGrid>
+				<p:spacer width="50" height="30"/>
+				
+				</p:scrollPanel>
+				
+			</p:panel>
+		</p:tab>
+	</p:wizard>	
+	
+</ui:define>
+	
+<ui:define name="aide">
+	
+</ui:define>
+
+</ui:composition>
+</html>

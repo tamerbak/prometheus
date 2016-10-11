@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fr.protogen.connector.model.DataModel>
+	<entity>user_client</entity>
+	<dataMap></dataMap>
+	<rows>
+		<fr.protogen.connector.model.DataRow>
+			<dataRow>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Raison sociale / Nom PrÃ©nom</label>
+					<attributeReference>raison_sociale___nom_prenom
+					</attributeReference>
+					<type>TEXT</type>
+					<value><![CDATA[do]]></value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>SIRET</label>
+					<attributeReference>siret</attributeReference>
+					<type>NUMBER</type>
+					<value>26876</value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>NumÃ©ro de compte comptable</label>
+					<attributeReference>numero_de_compte_comptable</attributeReference>
+					<type>NUMBER</type>
+					<value>6847368</value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>RÃ©fÃ©rence TVA</label>
+					<attributeReference>reference_tva</attributeReference>
+					<type>NUMBER</type>
+					<value>8764762</value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Taux remise par dÃ©faut</label>
+					<attributeReference>fk_user_taux_de_remise</attributeReference>
+					<type>NUMBER</type>
+					<value>0</value>
+				</fr.protogen.connector.model.DataEntry>
+				<fr.protogen.connector.model.DataEntry>
+					<label>Mode rÃ¨glement par dÃ©faut</label>
+					<attributeReference>fk_user_mode_reglement</attributeReference>
+					<type>NUMBER</type>
+					<value>0</value>
+				</fr.protogen.connector.model.DataEntry>
+			</dataRow>
+		</fr.protogen.connector.model.DataRow>
+	</rows>
+	<token>
+		<username>
+		</username>
+		<password>
+		</password>
+		<appId>FRZ48GAR4561FGD456T4E</appId>
+		<sessionId>26c692aa-efcf-4e7c-9aff-148812ace6c1</sessionId>
+	</token>
+	<operation>PUT</operation>
+</fr.protogen.connector.model.DataModel>

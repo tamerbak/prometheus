@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+
+	<ui:define name="contenu">
+		<p:growl id="messages" showDetail="false" sticky="false" />
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">Agenda</h1>
+			</hgroup>
+		</div>
+		<p:fieldset id="updatedialog" widgetVar="updatedialog"
+			legend="Modification" toggleable="true"
+			rendered="#{communicationControl.insertMode}">
+			<p:panelGrid id="updateEventDetails" columns="2">
+				<h:outputLabel for="title" value="Titre" />
+				<p:inputText id="title" value="#{communicationControl.title}" />
+				<h:outputLabel for="description" value="Description" />
+				<p:inputTextarea id="description"
+					value="#{communicationControl.description}" />
+				<h:outputLabel for="from" value="Début" />
+				<p:calendar locale="#{frontController.localization.langCode}" id="from"
+					value="#{communicationControl.startAt}" mask="true" pattern="dd/MM/yyyy HH:mm:ss" />
+				<h:outputLabel for="to" value="Fin" />
+				<p:calendar locale="#{frontController.localization.langCode}" id="to"
+					value="#{communicationControl.endAt}" mask="true" pattern="dd/MM/yyyy HH:mm:ss"  />
+				<h:outputLabel for="rappel" value="Rappel" />
+				<p:selectBooleanCheckbox id="rappel"
+					value="#{communicationControl.rappel}" />
+				<h:outputLabel for="rappelat" value="Date de rappel" />
+				<p:calendar locale="#{frontController.localization.langCode}" id="rappelat"
+					value="#{communicationControl.rappelAt}" mask="true" pattern="dd/MM/yyyy HH:mm:ss"  />
+				<h:outputLabel for="priorite" value="Priorité" />
+				<p:selectOneRadio id="priorite"
+					value="#{communicationControl.priority}">
+					<f:selectItem itemLabel="Non prioritaire" itemValue="1" />
+					<f:selectItem itemLabel="Prioritaire" itemValue="2" />
+					<f:selectItem itemLabel="Hautement prioritaire" itemValue="3" />
+				</p:selectOneRadio>
+				<p:commandButton value="Valider" icon="ui-icon-check"
+					action="#{communicationControl.updateEntry}" ajax="false" />
+			</p:panelGrid>
+		</p:fieldset>
+		<p:commandButton id="newevent" icon="ui-icon-plus" iconPos="center"
+			type="button" />
+		<p:overlayPanel for="newevent" id="insertdialog"
+			widgetVar="insertdialog">
+			<p:panelGrid id="insertEventDetails" columns="2">
+				<h:outputLabel for="ititle" value="Titre" />
+				<p:inputText id="ititle" value="#{communicationControl.title}" />
+				<h:outputLabel for="idescription" value="Description" />
+				<p:inputTextarea id="idescription"
+					value="#{communicationControl.description}" />
+				<h:outputLabel for="ifrom" value="Début" />
+				<p:calendar locale="#{frontController.localization.langCode}" id="ifrom"
+					value="#{communicationControl.startAt}" mask="true" pattern="dd/MM/yyyy HH:mm:ss" />
+				<h:outputLabel for="ito" value="Fin" />
+				<p:calendar locale="#{frontController.localization.langCode}" id="ito"
+					value="#{communicationControl.endAt}" mask="true" pattern="dd/MM/yyyy HH:mm:ss" />
+				<h:outputLabel for="irappel" value="Rappel" />
+				<p:selectBooleanCheckbox id="irappel"
+					value="#{communicationControl.rappel}" />
+				<h:outputLabel for="irappelat" value="Date de rappel" />
+				<p:calendar locale="#{frontController.localization.langCode}" id="irappelat"
+					value="#{communicationControl.rappelAt}" mask="true" pattern="dd/MM/yyyy HH:mm:ss" />
+				<h:outputLabel for="ipriorite" value="Priorité" />
+				<p:selectOneRadio id="ipriorite"
+					value="#{communicationControl.priority}">
+					<f:selectItem itemLabel="Non prioritaire" itemValue="1" />
+					<f:selectItem itemLabel="Prioritaire" itemValue="2" />
+					<f:selectItem itemLabel="Hautement prioritaire" itemValue="3" />
+				</p:selectOneRadio>
+				<p:commandButton value="Valider" icon="ui-icon-check"
+					action="#{communicationControl.insertEntry}" ajax="false" />
+			</p:panelGrid>
+		</p:overlayPanel>
+		<p:schedule id="myschedule" value="#{communicationControl.eventModel}"
+			locale="#{frontController.localization.langCode}" widgetVar="myschedule">
+			<p:ajax event="eventSelect"
+				listener="#{communicationControl.selectEventChange}" update="@form" />
+			<p:ajax event="eventMove"
+				listener="#{communicationControl.onEventMove}" update="messages" />
+			<p:ajax event="eventResize"
+				listener="#{communicationControl.onEventResize}" update="messages" />
+		</p:schedule>
+
+
+
+
+
+
+	</ui:define>
+
+	<ui:define name="aide">
+
+	</ui:define>
+
+</ui:composition>
+</html>

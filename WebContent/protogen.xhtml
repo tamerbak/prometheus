@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="#{frontController.masterPage}">
+
+	<ui:define name="contenu">
+		<p:poll interval="300" id="mypoll" widgetVar="mypoll"
+			listener="#{frontController.pollTurn}" update="brd" />
+
+		<p:growl id="dbgr" widgetVar="dbgr" showDetail="true" />
+		<div class="index-center">
+			<hgroup id="main-title" class="thin">
+			<h1 class="titleH1">#{msg['application.dashboard']}</h1>
+			</hgroup>
+		</div>
+		<div class="with-padding">
+			<center>
+				<p:dialog widgetVar="eventDialog" header="#{frontController.detailedEntity}" >
+					<p:panelGrid columns="2" id="eventDetails" >
+						<c:forEach items="#{frontController.scheduleDetails}" var="dtl">
+							<h:outputText value="#{dtl.key}" />
+							<p:inputText readonly="true" value="#{dtl.value}" />
+						</c:forEach>
+					</p:panelGrid>
+				</p:dialog>
+				<p:panel header="#{msg['application.calendar']}" toggleable="true">
+				<p:schedule value="#{frontController.scheduleModel}" locale="#{frontController.localization.langCode}" draggable="false" >
+					<p:ajax event="eventSelect" listener="#{frontController.onEventSelect}" update="eventDetails" 
+						oncomplete="PF('eventDialog').show();" />
+				</p:schedule>
+				</p:panel>
+				<p:dashboard id="brd"
+					model="#{dashboardBean.model}" binding="#{dashboardBean.dashboard}">
+				</p:dashboard>
+			</center>
+ 
+		</div>
+
+	</ui:define>
+
+	<ui:define name="aide">
+		
+	</ui:define>
+
+</ui:composition>
+</html>

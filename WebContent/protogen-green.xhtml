@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"  xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>GENERIUM</title>
+
+<link href="#{facesContext.externalContext.requestContextPath}/css/style1.css" rel="alternate stylesheet" type="text/css"  title="style 1" media="screen" />
+<link href="#{facesContext.externalContext.requestContextPath}/css/panel_right.css" rel="entral" type="text/css"  title="style 3" media="screen" />
+<link href="#{facesContext.externalContext.requestContextPath}/css/common.css" rel="stylesheet" type="text/css" media="screen" title="common"/>
+<link  href="#{frontController.colortheme}" rel="stylesheet" type="text/css" id="admin"/>
+
+<script type="text/javascript" language="Javascript" src="./js/scripts.js" />
+<script type="text/javascript" language="Javascript" >
+PrimeFaces.locales ['fr'] = {
+	    closeText: 'Fermer',
+	    prevText: 'Précédent',
+	    nextText: 'Suivant',
+	    monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+	    monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc' ],
+	    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+	    dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+	    dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+	    weekHeader: 'Semaine',
+	    firstDay: 1,
+	    isRTL: false,
+	    showMonthAfterYear: false,
+	    yearSuffix:'',
+	    timeOnlyTitle: 'Choisir l\'heure',
+	    timeText: 'Heure',
+	    hourText: 'Heures',
+	    minuteText: 'Minutes',
+	    secondText: 'Secondes',
+	    currentText: 'Maintenant',
+	    ampm: false,
+	    month: 'Mois',
+	    week: 'Semaine',
+	    day: 'Jour',
+	    allDayText: 'Toute la journée'
+	};
+</script>
+</h:head>
+<h:body onload="procsessiondlg!=null?procsessiondlg.show():'';">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = &quot;//connect.facebook.net/en_US/all.js#xfbml=1&amp;appId=#{frontController.papp.fbID}&quot;;
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+<f:event listener="#{frontController.checkForSession}" type="preRenderView" />
+<f:view>
+<h:form id="protogen_main" >
+	
+	<!-- 		Reprise de session des procédures		 -->
+	<p:dialog id="procsessiondlg" widgetVar="procsessiondlg"
+		closable="false" modal="false" resizable="false" 
+		rendered="#{frontController.interruptedProcess}">
+		<center>Lors de votre dernière session, vous avez interrompu le processus<br/>
+		<b><h:outputText value="#{frontController.inprocLabel}"/></b><br/>
+		à l'étape <br/>
+		<b><h:outputText value="#{frontController.inprocAtom}"/></b><br/>
+		Voulez-vous reprendre à partir de ce point ?
+		</center>
+		<f:facet name="footer">
+			<p:commandButton icon="ui-icon-circle-check" value="Oui" action="#{frontController.loadInterruptedProcess}" oncomplete="procsessiondlg.hide();"  /> 
+			<p:commandButton icon="ui-icon-circle-close" value="Non" action="#{frontController.deleteInterruptedProcess}" oncomplete="procsessiondlg.hide();" style="float:right" />
+		</f:facet>
+	</p:dialog>
+	
+	
+    <div id="main">
+        <div id="header"> 
+            <a href="#" class="logo"><img src="img/logomini.png" width="260" height="72" alt="" /></a>
+            <p:dialog id="pardlg" widgetVar="pardlg" style="vertical-align:middle" closable="true" modal="false" resizable="false" dynamic="true">
+            	<p:panelGrid columns="2">
+            	<c:forEach items="#{listViewControl.parsToShow}" var="pr">
+            			<p:outputLabel value="#{pr.title}"/> 
+            			<p:inputText value="#{pr.value}" rendered="#{!pr.reference}" />
+            			<p:selectOneMenu value="#{pr.value}" rendered="#{pr.reference}">
+            				<f:selectItem itemLabel="" itemValue="" />
+            				<f:selectItems value="#{pr.elements}" var="elt" itemLabel="#{elt.value}" itemValue="#{elt.key}" />
+            			</p:selectOneMenu>
+            	</c:forEach>
+            	<f:facet name="footer">
+            		<p:commandButton style="width:100%; text-align:left" value="Lancer le traitement" actionListener="#{listViewControl.doCalculus}" update="@form" onstart="fdlg.show();" oncomplete="fdlg.hide();pardlg.hide();"/>
+            	</f:facet>
+            	</p:panelGrid>
+            	
+            </p:dialog>
+            
+            <p:dialog id="parbdlg" widgetVar="parbdlg" style="vertical-align:middle" closable="true" modal="false" resizable="false" dynamic="true">
+            	<p:panelGrid columns="2">
+            	<c:forEach items="#{listViewControl.parsToShow}" var="pr">
+            			<p:outputLabel value="#{pr.title}"/> 
+            			<p:inputText value="#{pr.value}" rendered="#{!pr.reference}" />
+            			<p:selectOneMenu value="#{pr.value}" rendered="#{pr.reference}">
+            				<f:selectItems value="#{pr.elements}" var="elt" itemLabel="#{elt.value}" itemValue="#{elt.key}" />
+            			</p:selectOneMenu>
+            	</c:forEach>
+            	<f:facet name="footer">
+            		<p:commandButton style="width:100%; text-align:left" value="Lancer le traitement" actionListener="#{listViewControl.doBatchCalculus}" update="@form" onstart="fdlg.show();" oncomplete="fdlg.hide();pardlg.hide();"/>
+            	</f:facet>
+            	</p:panelGrid>
+            	
+            </p:dialog>
+            
+            <p:dialog id="fdlg" style="vertical-align:middle" closable="false" widgetVar="fdlg" modal="false" resizable="false" dynamic="false" > 
+				<p:graphicImage value="/images/loading.gif" />
+				<p:spacer width="20" height="10" />
+				<label style="position: relative;bottom: 10px;">Chargement ...</label>
+			</p:dialog> 
+			
+			<div class="slidewrapper" >
+				
+				<div id="slider">
+					<img src="img/slideopen.png" width="60" height="60" alt="" />
+					 <p:commandLink styleClass="compicto"  id="mailbtn" action="protogen-sendmail" immediate="true" ajax="false">
+				    	<p:graphicImage id="mail" alt="The image could not be found."   value="/img/mail.png"   />
+				  	</p:commandLink>
+				  	<p:tooltip for="mailbtn">Composez et envoyez votre courrier électronique</p:tooltip>
+				  	&nbsp;
+				
+      				<p:commandLink styleClass="compicto" id="btnfax" action="protogen-sendfax" immediate="true" ajax="false"> 
+					    <h:graphicImage id="print" alt="The image could not be found."   value="/img/fax.png"  ></h:graphicImage>
+					  </p:commandLink>
+					  <p:tooltip for="btnfax">Envoi de fax sous forme de pièce jointe</p:tooltip>
+					    &nbsp; 
+					    
+			        <p:commandLink styleClass="compicto" id="btnvoip" onclick="window.open('protogen-sendappel.xhtml','selectWindow','status,width=800,height=600');" immediate="true" ajax="false" >
+					    <h:graphicImage id="tel" alt="The image could not be found."   value="/img/voip.png"   ></h:graphicImage>
+						  </p:commandLink>
+						  <p:tooltip for="btnvoip">Appel téléphonique </p:tooltip>
+					    &nbsp;
+					    
+					    <p:commandLink styleClass="compicto" id="btnhng" onclick="window.open('hangout.xhtml','selectWindow','status,width=800,height=600');" immediate="true" ajax="false"> 
+					    <h:graphicImage id="conf_img" alt="The image could not be found."   value="/img/hangout.png"  ></h:graphicImage>
+						</p:commandLink>
+						<p:tooltip for="btnhng">Lancement d'un appel de conférence<br/>
+							Pour y parvenir vous devez avoir un compte Google
+						</p:tooltip>
+					    &nbsp;
+					    
+					    <p:commandLink styleClass="compicto" id="smsbtn" action="protogen-sendsms" immediate="true" ajax="false">
+					    <h:graphicImage id="sms" alt="The image could not be found."   value="/img/sms.png"  ></h:graphicImage>
+					  	</p:commandLink>
+					  	<p:tooltip for="smsbtn">Composez et envoyez un SMS à un numéro de téléphone</p:tooltip>
+					    &nbsp;
+					    
+					    	
+					    	<h:commandLink styleClass="compicto" action="#{frontController.logout}" immediate="true" ajax="false">
+												<h:graphicImage value="/img/logoutBlue.png" />
+							</h:commandLink>
+					  
+					    &nbsp;
+			    </div>
+			</div>
+        </div>
+        <div id="middle">
+            <div id="left-column">
+            	
+                <h3 class="titlemenu">Menu</h3>
+                
+				<p:hotkey bind="F2" immediate="true" action="protogen-alerts" ajax="false" rendered="#{frontController.alertsAvailable}" />
+				<p:hotkey bind="F3" immediate="true" action="protogen.xhtml" ajax="false"/>
+				<p:hotkey bind="F4" immediate="true" action="protogen-schedule.xhtml" ajax="false"/>
+				<p:hotkey bind="F5" immediate="true" action="protogen-administration" ajax="false" />
+				<p:hotkey bind="F6" immediate="true" action="protogen-dataload" ajax="false" />
+				<p:hotkey bind="F7" immediate="true" action="protogen-asgard" ajax="false" />
+				<p:hotkey bind="F8" immediate="true" action="#{frontController.logout}" ajax="false" />
+				<!-- 		Insertion du menu		 -->
+                <p:accordionPanel activeIndex="#{frontController.accIndex}" id="angramenu" widgetVar="angrawidget" style="padding : 0px !important;" >
+                	
+                	<c:forEach var="uimenu" items="#{frontController.angramainyu}">
+                		<p:tab style="padding: 0em 0em !important;" title="#{uimenu.titre}"  rendered="#{frontController.showWholeMenu and !uimenu.oneColumne}">
+                			<p:commandButton style="width:100%; text-align:left" value="Tableau de bord" immediate="true" title="Tableau de bord" action="protogen.xhtml" ajax="false" styleClass="myitem" rendered="#{frontController.showWholeMenu and uimenu.pilotage}" />
+                			<p:commandButton style="width:100%; text-align:left" value="Agenda" immediate="true" title="Agenda" action="protogen-schedule.xhtml" ajax="false" styleClass="myitem" rendered="#{frontController.showWholeMenu and uimenu.pilotage}" />
+                			<c:forEach var="subzero" items="#{uimenu.items}" >
+                				<p:accordionPanel activeIndex="-1">
+                					<p:tab title="#{subzero.title}">
+                						<p:selectOneMenu value="#{frontController.filteredMenuItem}" style="width:100%" effect="fade"
+											filter="true" filterMatchMode="contains"> 
+											<p:ajax event="change"   listener="#{frontController.gotoMenu}" update="@form" />
+											<f:selectItem itemLabel="Recherche" itemValue="0" />  
+					            			<f:selectItems value="#{subzero.subs}" var="sb" itemLabel="#{sb.title}" itemValue="#{sb.id}"/>
+										</p:selectOneMenu>
+                						<c:forEach var="sbm" items="#{subzero.subs}">
+                							<p:commandButton value="#{ sbm.title }" style="width:100%; text-align:left" action="#{ frontController.updateScreen }" ajax="false" immediate="true" >
+												<f:param name="screenseq" value="#{sbm.id}" />
+											</p:commandButton>
+                						</c:forEach>
+                					</p:tab>
+                				</p:accordionPanel>
+	                			
+                			</c:forEach>
+                			
+                		</p:tab>
+                		<p:tab style="padding: 0em 0em !important;" title="#{uimenu.titre}"  rendered="#{frontController.showWholeMenu and uimenu.oneColumne}">
+                					<p:selectOneMenu value="#{frontController.filteredMenuItem}" style="width:100%" effect="fade"
+											filter="true" filterMatchMode="contains"> 
+										<p:ajax event="change"   listener="#{frontController.gotoMenu}" update="@form" />
+										<f:selectItem itemLabel="Recherche" itemValue="0" />  
+				            			<f:selectItems value="#{uimenu.items}" var="sb" itemLabel="#{sb.title}" itemValue="#{sb.id}"/>
+									</p:selectOneMenu>
+                			<c:forEach var="sbm" items="#{uimenu.items}" >
+                				<p:commandButton value="#{ sbm.title }" style="width:100%; text-align:left" action="#{ frontController.updateScreen }" ajax="false" immediate="true" >
+									<f:param name="screenseq" value="#{sbm.id}" />
+								</p:commandButton>
+                			</c:forEach>
+                		</p:tab>
+                	</c:forEach>
+                	<p:tab style="padding: 0em 0em !important;" title="Pilotage"  rendered="#{frontController.showWholeMenu}">
+               			<p:commandButton value="Business plan" icon="ui-icon-clock" style="width:100%; text-align:left" immediate="true" title="Business plan" action="protogen-bpwizard" ajax="false"  styleClass="myitem"  />
+               			<p:commandButton value="Analyse des écarts" icon="ui-icon-clock" style="width:100%; text-align:left" immediate="true" title="Analyse des écarts" action="protogen-asgardecart" ajax="false"  styleClass="myitem"  />
+               			<p:commandButton value="Arbre de pilotage" icon="ui-icon-clock" style="width:100%; text-align:left" immediate="true" title="Arbre de pilotage" action="protogen-asgard" ajax="false"  styleClass="myitem"  />
+               		</p:tab>
+               		
+                	<!-- 		Links to windows			 -->
+					<p:tab title="Raccourcis"  rendered="#{!frontController.showWholeMenu and frontController.linksAvailable}">
+					<c:forEach var="lin" items="#{frontController.window.links}">
+					
+						<p:commandButton style="width:100%; text-align:left" value="#{ lin.title }" action="#{ frontController.updateScreenThroughLink }" ajax="false"  immediate="true" rendered="#{!frontController.showWholeMenu}" >
+							<f:param name="screenseq" value="#{lin.id}" />
+						</p:commandButton>
+					
+					</c:forEach>
+					</p:tab>
+					
+                </p:accordionPanel>
+                
+				<p:commandButton id="dynaButton" value="Configuration" icon="ui-icon-gear" style="text-align:left;width:100%;font-size: 1em;margin-top: 10px;" type="button"/> 
+				<p:menu id="supraangra" widgetVar="supraangra" overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:14%" >
+					<p:menuitem icon="ui-icon-alert" style=" text-align:left;width:96%" immediate="true" title="Alertes (F2)" value="Alertes" action="protogen-alerts" ajax="false" styleClass="myitem" rendered="#{frontController.alertsAvailable}" />
+					<p:menuitem icon="ui-icon-signal" style="text-align:left;width:96%" immediate="true" title="Tableau de bord (F3)" value="Tableau de bord" action="protogen.xhtml" ajax="false" styleClass="myitem"  />
+					<p:menuitem icon="ui-icon-calendar" style=" text-align:left;width:96%" immediate="true" title="Agenda (F4)" value="Calendrier" action="protogen-schedule.xhtml" ajax="false" styleClass="myitem"  />
+					<p:menuitem icon="ui-icon-person" style="text-align:left;width:96%" immediate="true" title="Profil  (F5)" value="Profil utilisateur" action="protogen-administration" ajax="false"  styleClass="myitem"  />
+					<p:menuitem icon="ui-icon-disk" style="text-align:left;width:96%" immediate="true" title="Chargement des données  (F6)" value="Chargement des données" action="protogen-dataload" ajax="false"  styleClass="myitem"  />
+					<p:menuitem icon="ui-icon-folder-collapsed" style="text-align:left" immediate="true" title="Archive numérique" value="Archive numérique" action="protogen-datahistory" ajax="false"  styleClass="myitem"  />
+					<p:menuitem icon="ui-icon-power" style="text-align:left;width:96%" immediate="true" title="Déconnexion  (F8)" value="Déconnexion" action="#{frontController.logout}" ajax="false"  styleClass="myitem"  />
+				</p:menu>            
+                
+				
+            </div>
+            <div id="center-column">
+            <ui:insert name="contenu" />
+             
+            </div>
+            <div id="right-column">
+            	 
+            	<!-- <strong class="h">Description</strong>
+                <div class="box">This is your admin home page. It will give you access to all things within the back end system that you will need to facilitate a smooth operation.</div>
+                 -->
+            	<h3 class="titlemenu">Procédures</h3>
+            	<center>
+	         	<p:autoComplete  id="acProcedure" title="Procédures : Saissez des mots clès pour accèder à une procédure (Exemple : entreprise, embauche)" widgetVar="acProcedure" binding="#{acProcedure}" value="#{frontController.selectedProcess}" completeMethod="#{frontController.completeProcedure}" styleClass="proceduresearch"  >
+					<p:ajax event="itemSelect" listener="#{frontController.selChanged}" ></p:ajax>
+				</p:autoComplete>
+				</center>
+                
+<div class="greenprocedure" style="margin-bottom:5px;visibility:#{frontController.inProcess?'visible':'hidden'}">
+<table  border="0" style="visibility:#{frontController.inProcess?'visible':'hidden'}">
+	
+	<tr >
+		<td><img src="img/prc-previous-red.png"/></td>
+	   <td style="width:200px;text-align : left; color:#2E6E9E;padding-top: 7px;">
+	   <p:contextMenu for="previoussteplabelpanel" rendered="#{frontController.previousFound}">
+			<c:forEach items="#{frontController.previousAtoms}" var="patom">
+				<p:menuitem value="#{patom.title}" icon="#{patom.done?'ui-icon-check':'ui-icon-close'}" action="#{frontController.gotoAction}" immediate="true" ajax="false" onstart="fdlg.show();" oncomplete="fdlg.hide();"
+					style="color:#{patom.done?'green':'orange'}"
+				>
+					<f:param name="toatom" value="#{patom.id}" />
+				</p:menuitem>
+			</c:forEach>
+		</p:contextMenu>
+	   <p:panel style="height:20px" styleClass="procedurestep"  id="previoussteplabelpanel" widgetVar="previoussteplabelpanel" >
+			<p:outputLabel value="#{frontController.previousStepLabel}" style="vertical-align:middle;text-align : left; color:#2E6E9E;position: absolute;top: 22%;" />
+		</p:panel>
+	   </td> 
+	   
+	</tr>
+	<tr >
+		<td><img src="img/prc-inprogress-red.png"/></td>
+	   <td style="width:200px;text-align : left;color:#2E6E9E;padding-top: 7px;">
+		<p:contextMenu for="currentsteplabelpanel" rendered="#{frontController.currentFound}">
+			<c:forEach items="#{frontController.currentAtoms}" var="catom">
+				<p:menuitem value="#{catom.title}" icon="#{catom.current?'ui-icon-circle-triangle-e':(catom.done?'ui-icon-check':(catom.mandatory?'ui-icon-alert':'ui-icon-gear'))}" action="#{frontController.gotoAction}" immediate="true" ajax="false" onstart="fdlg.show();" oncomplete="fdlg.hide();"
+					style="color:#{catom.current?'#2E6E9E':(catom.done?'green':(catom.mandatory?'red':'orange'))}"
+					>
+					<f:param name="toatom" value="#{catom.id}" />
+				</p:menuitem>
+			</c:forEach>
+		</p:contextMenu>
+		<p:panel style="height:20px" styleClass="procedurestep" id="currentsteplabelpanel" widgetVar="currentsteplabelpanel" >
+			<p:outputLabel id="currentsteplabel" value="#{frontController.currentStepLabel}" style="vertical-align:middle;text-align : left; color:#2E6E9E;padding-top: 0px;position: absolute;top: 50%;" />
+		</p:panel>
+	   </td>
+	   
+	   
+	</tr> 
+	<tr >
+	   <td><img src="img/prc-pending-red.png"/></td>
+	   <td style="width:200px;text-align : left;color:#2E6E9E;padding-top: 7px;">
+	   
+	   <p:contextMenu for="nextsteplabelpanel" rendered="#{frontController.nextFound}">
+			<c:forEach items="#{frontController.nextAtoms}" var="natom">
+				<p:menuitem value="#{natom.title}" icon="#{natom.mandatory?'ui-icon-alert':'ui-icon-gear'}" style="color:#{natom.mandatory?'red':'orange'}" action="#{frontController.gotoAction}" immediate="true" ajax="false" onstart="fdlg.show();" oncomplete="fdlg.hide();">
+					<f:param name="toatom" value="#{natom.id}" />
+				</p:menuitem>
+			</c:forEach>
+		</p:contextMenu>
+	   
+	   <p:panel style="height:20px" styleClass="procedurestep" id="nextsteplabelpanel" widgetVar="nextsteplabelpanel"  >
+			<p:outputLabel value="#{frontController.nextStepLabel}" style="vertical-align:middle;text-align : left; color:#2E6E9E;padding-top: 0px;position: absolute;top: 76%;"/>
+	   </p:panel>
+	   </td>
+	    
+	</tr>
+	<tr><td></td><td></td></tr>
+</table>
+ 
+ </div>               
+            
+            <ui:insert name="aide" />
+        <p:panel closable="true" rendered="#{frontController.inProcess}"  toggleable="true" collapsed="true" style="width:100%; margin-top:5px" >
+		
+		<f:facet name="header">Procédures</f:facet>
+		<p>
+			Navigation en mode procédure
+		</p>
+		<p>
+			Les procédures constituent un mode de navigation convivial et simple qui reproduit un processus métier.
+		</p>
+		<p>
+			Pendant le mode de navigation en procédure vous pouvez accéder aux différentes étapes et des actions constituant ces étapes.
+		</p>
+		<p>Afin de consulter les actions associées à une étape vous devez cliquer avec le bouton droit de la souris. Vous pouvez aussi naviguer directement vers une action en cliquant dessus.
+		Cependant vous ne pouvez pas quitter une action notée comme obligatoire sans la valider</p>
+		<p>Le mode de navigation nominal se fait par un bouton "Suivant" que vous trouverez sur chaque écran de la procédure</p>
+		<p>Le code de couleur des procédures est comme suit:</p>
+		<ul>
+			<li><label style="color:red">Rouge : </label>Action obligatoire</li>
+			<li><label style="color:orange">Jaune : </label>Action facultative</li>
+			<li><label style="color:green">Vert : </label>Action effectuée</li>
+			<li><label style="color:#2E6E9E">Bleu : </label>Action en cours</li>
+		</ul>
+		</p:panel>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" language="Javascript" src="./js/custom.js" />
+</h:form>
+</f:view>
+</h:body>
+</html>
